@@ -7,8 +7,8 @@ const praises = {
   ebd: [],
   sunday: ["Sobre as aguas", "Maranata", "Galileu", "3 Palavrinhas", "Como José", "Não há Deus maior", "Filho Prodigo", "Filho do Deus vivo", "Reis dos Reis", "Remove a pedra"],
   hcc: ['456', '001', '002', '001', '540'],
-  sundayprelude: ["Vem, esta é a hora", "Jesus em tua presença", "Jesus é o caminho","Jó"],
-  supper: ["Bendito Cordeiro","Bendito Cordeiro","Bendito Cordeiro","Bendito Cordeiro"] // Louvors de Ceia
+  sundayprelude: ["Vem, esta é a hora", "Jesus em tua presença", "Jesus é o caminho", "Jó"],
+  supper: ["Bendito Cordeiro", "Bendito Cordeiro", "Bendito Cordeiro", "Bendito Cordeiro"] // Louvors de Ceia
 }
 
 // Musicos
@@ -24,23 +24,21 @@ const musicians = {
 function SelectPraiseSunday(week) {
   switch (week) {
     case 1:
-      return [praises.sundayprelude[0],praises.sunday[0], praises.sunday[1]]
+      return [praises.sundayprelude[0], praises.sunday[0], praises.sunday[1]]
 
     case 2:
-      return [praises.sundayprelude[1],praises.sunday[2], praises.sunday[3]]
+      return [praises.sundayprelude[1], praises.sunday[2], praises.sunday[3]]
 
     case 3:
-      return [praises.sundayprelude[2],praises.sunday[1], praises.sunday[4]]
+      return [praises.sundayprelude[2], praises.sunday[1], praises.sunday[4]]
 
     case 4:
-      return [praises.sundayprelude[3],praises.sunday[3], praises.sunday[5]]
+      return [praises.sundayprelude[3], praises.sunday[3], praises.sunday[5]]
 
     default:
-      return [praises.sundayprelude[4],praises.sunday[4], praises.sunday[6]]
+      return [praises.sundayprelude[4], praises.sunday[4], praises.sunday[6]]
   }
 }
-
-
 
 const scales = [
   {
@@ -75,19 +73,13 @@ const otherscales = [
   },
 ]
 
-
-
-
-
 function proximoDomingo() {
   return moment().day(7);
 }
 
-
 function somarDias(data, dias) {
   return moment(data).add(dias, 'days');
 }
-
 
 function getWeekNumber() {
   var today = new Date();
@@ -113,19 +105,41 @@ function getSundaysInMonth() {
   return sundays;
 }
 
-
 const sortedScales = scales.concat(otherscales).sort((a, b) => {
   return moment(a.date) - moment(b.date);
 });
+
+function ListPraises() {
+  return (
+    <div>
+
+      <h3 style={{ paddingLeft: 30, fontWeight:500, fontSize:16 }}>Louvores do mês:</h3>
+      <div style={{ display: 'flex', overflow: 'auto', height: 80, gap: 6, padding: '0px 12px 12px 12px' }}>
+        {
+          praises.sunday.map((pray) => {
+            return (
+              <div style={{ minWidth: 100, maxWidth:120, borderRadius: 12, backgroundColor: '#558B2F', display: 'grid', alignItems: 'center', justifyContent: 'center', padding: 6, }}>
+                <strong style={{ textAlign: 'center', fontWeight: 300, fontSize: 15, color: '#fff' }}>{pray}</strong>
+                <strong style={{ textAlign: 'center', fontWeight: 300, fontSize: 13, color: '#fff' }}>Tom: C#</strong>
+              </div>
+            )
+          })
+        }
+      </div>
+    </div>
+  )
+}
 
 export default function App() {
   return (
     <div>
 
+      <div style={{ backgroundColor: '#fff', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span style={{ textAlign: 'center', fontSize: 28, fontWeight: 600 }}>Escala Louvor</span>
 
-      <h1 style={{ textAlign: 'center', fontSize: 28 }}>Escala Louvor</h1>
-      <h3 style={{ textAlign: 'center', fontWeight: 300, fontSize: 16, color: '#000', fontStyle: 'italic' }}>Próxima atualização: {moment().day(8).format('DD/MM')}</h3>
+      </div>
 
+      <ListPraises />
       {sortedScales.map((scale, index) => {
         return (
           <CalendarItem key={index} data={scale} />
