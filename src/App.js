@@ -125,11 +125,12 @@ function getTons(n) {
 
 
 
+
 function ListPraises() {
   return (
     <div>
-      <div style={{display:'flex', alignItems:'center'}}>
-        <h3 style={{ paddingLeft: 30, fontWeight: 400, fontSize: 18, marginRight:6 }}>Louvores do mês: </h3>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <h3 style={{ paddingLeft: 30, fontWeight: 400, fontSize: 18, marginRight: 6 }}>Louvores do mês: </h3>
         <h3>{uniqueItems.length}</h3>
       </div>
       <div style={{ display: 'flex', overflow: 'auto', height: 80, gap: 6, padding: '0px 12px 12px 12px' }}>
@@ -139,6 +140,7 @@ function ListPraises() {
               <div style={{ position: 'relative', minWidth: 95, height: 40, borderRadius: 10, backgroundColor: '#00796B', display: 'grid', alignItems: 'center', justifyContent: 'center', padding: 8, }}>
                 <strong style={{ textAlign: 'center', fontWeight: 400, fontSize: 14, color: '#fff' }}>{pray}</strong>
                 <strong style={{ boxShadow: '1px 1px 5px #00000040', fontWeight: 500, position: 'absolute', bottom: -10, left: 6, backgroundColor: '#fff', fontSize: 14, paddingLeft: 8, paddingRight: 8, paddingTop: 1, paddingBottom: 1, borderRadius: 12 }}>{getTons(pray)}</strong>
+
               </div>
             )
           })
