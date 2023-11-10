@@ -4,24 +4,25 @@ const tons = require('./utils/canticos.json')
 
 // Louvores
 const praises = {
-  friday: ["Tu és soberano", "Maranata", "Meu Barquinho", "Galileu", "Jerusalem"],
+  friday: ["Tu és soberano", "Maranata", "Meu Barquinho", "Galileu", "Jerusalem", "Outra"], // 5 LOUVORES
   ebd: [],
-  sundayprelude: ["Vem, esta é a hora", "Jesus em Tua presença", "Em Espírito em verdade", "Renova-me"],
-  sunday: ["Sobre as águas", "Maranata", "Galileu", "Tu és soberano", "Foi por amor", "Não há Deus maior", "Filho Prodigo", "Ao único",],
-  sundaycommunion: ["Filho do Deus vivo"],
+  sundayprelude: ["Vem, esta é a hora", "Jesus em Tua presença", "Em Espírito em verdade", "Renova-me"], // 4 LOUVORES
+  sunday: ["Sobre as águas", "Maranata", "Galileu", "Tu és soberano", "Tu és soberano"], // 5 LOUVORES , SENDO 3 DE SEXTA
+  sundaycommunion: ["Filho do Deus vivo", "Outra", "Mais uma", "Essa tambem", "Ultima"], // 5 LOUVORES
   hcc: ['456', '001', '002', '001', '540'],
   supper: ["Bendito Cordeiro"] // Louvors de Ceia
 }
 
 // Musicos
 const musicians = {
-  instrumentalists: [
-    
-  ],
+  instrumentalists: {
+    friday: ["Wesley", "Warley"],
+    ebd: ["Annes"],
+  },
   vocals: {
     friday: ["Lidiane", "Laís", "Edvan"],
     ebd: ["Wilson", "Paulinha"],
-    sunday: ["Paulinha", "Fernanda", "Laís", "Kelviane", "Lidiane", "Duda"]
+    sunday: ["Laís", "Kelviane", "Lidiane", "Duda"]
   }
 }
 
@@ -31,7 +32,8 @@ const scales = [
     date: somarDias(proximoDomingo(), -2),
     cult: 'Doutrina / Oração',
     praises: [praises?.friday[getWeekNumber() - 1], praises?.friday[getWeekNumber()]],
-    vocals: musicians.vocals.friday
+    vocals: musicians.vocals.friday,
+    instrumentalists: musicians.instrumentalists.friday
   },
   {
     date: proximoDomingo(),
@@ -44,8 +46,8 @@ const scales = [
     cult: 'Louvor e Pregação',
     praises: SelectPraiseSunday(getWeekNumber()),
     hcc: [praises?.hcc[getWeekNumber() - 1], praises?.hcc[getWeekNumber()]],
-    vocals: ["Edmilson", "Edvan", ...musicians.vocals.sunday], // LOGICA PRA SELECIONAR VOCAIS
-    instrumentalists: ["Wesley", "Annes", ...musicians.instrumentalists.sunday]
+    vocals: ["Edmilson", "Edvan", getWeekNumber() % 2 === 0 ? "Paulinha" : "Fernanda", musicians.vocals.sunday[getWeekNumber()]], // LOGICA PRA SELECIONAR VOCAIS
+    instrumentalists: ["Wesley", "Annes", getWeekNumber() % 2 === 0 ? "André" : "Thiago"]
   },
 ]
 
@@ -58,22 +60,23 @@ const otherscales = [
   },
 ]
 
+// 12 LOUVORS PARA DOMINGOS
 function SelectPraiseSunday(week) {
   switch (week) {
     case 1:
       return [praises.sundayprelude[0], praises.sunday[0], praises.sundaycommunion[0]]
 
     case 2:
-      return [praises.sundayprelude[1], praises.sunday[2], praises.sundaycommunion[1]]
+      return [praises.sundayprelude[1], praises.sunday[1], praises.sundaycommunion[1]]
 
     case 3:
-      return [praises.sundayprelude[2], praises.sunday[1], praises.sundaycommunion[2]]
+      return [praises.sundayprelude[2], praises.sunday[2], praises.sundaycommunion[2]]
 
     case 4:
-      return [praises.sundayprelude[3], praises.sunday[3], praises.sundaycommunion[3]]
+      return [praises.sundayprelude[3], praises.sunday[1], praises.sundaycommunion[3]]
 
     default:
-      return [praises.sundayprelude[4], praises.sunday[4], praises.sundaycommunion[4]]
+      return [praises.sundayprelude[4], praises.sunday[0], praises.sundaycommunion[4]]
   }
 }
 
@@ -109,7 +112,7 @@ function getSundaysInMonth() {
 const sortedScales = scales.concat(otherscales).sort((a, b) => {
   return moment(a.date) - moment(b.date);
 });
-const uniqueItems = praises.sunday?.concat(praises.friday, praises.sundayprelude, praises.supper).filter((item, index, array) => {
+const uniqueItems = praises.sunday?.concat(praises.friday, praises.sundayprelude, praises.supper, praises.sundaycommunion).filter((item, index, array) => {
   return array.indexOf(item) === index;
 });
 function getTons(n) {
@@ -125,7 +128,10 @@ function getTons(n) {
 function ListPraises() {
   return (
     <div>
-      <h3 style={{ paddingLeft: 30, fontWeight: 400, fontSize: 18 }}>Louvores do mês:</h3>
+      <div style={{display:'flex', alignItems:'center'}}>
+        <h3 style={{ paddingLeft: 30, fontWeight: 400, fontSize: 18, marginRight:6 }}>Louvores do mês: </h3>
+        <h3>{uniqueItems.length}</h3>
+      </div>
       <div style={{ display: 'flex', overflow: 'auto', height: 80, gap: 6, padding: '0px 12px 12px 12px' }}>
         {
           uniqueItems.map((pray) => {

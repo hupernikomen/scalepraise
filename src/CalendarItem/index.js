@@ -31,7 +31,7 @@ export default function CalendarItem({ data }) {
             </div>
             <div style={{ display: 'grid', marginBottom: 12, gap: 2 }}>
 
-                {data.praises?.map((pray, index) => {
+                {data.praises.map((pray, index) => {
                     return <label key={index} style={{ fontSize: 15, fontWeight: 300 }}>- {pray} {index === 0 && data.cult === 'Louvor e Pregação' ? ' [ Prelúdio ]' : ''}</label>
 
                 })}
@@ -42,8 +42,8 @@ export default function CalendarItem({ data }) {
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', borderWidth:.5, borderTop:'1px solid #aaa', paddingTop:12 }}>
 
-                {data.vocals.concat(data.instrumentalists).map((vocal, index) => {
-                    return <strong key={index} style={{ fontSize: 15, fontWeight: 300, paddingRight: 6 }}>{vocal}</strong>
+                {data.vocals?.concat(data?.instrumentalists).map((musician, index) => {
+                    return <strong key={index} style={{ fontSize: 15, fontWeight: 300, paddingRight: 6 }}>{musician}</strong>
 
                 })}
             </div>
