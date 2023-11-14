@@ -1,3 +1,4 @@
+import './estilo.css'
 import moment from 'moment';
 
 const praisesList = require('../utils/praisesList.json')
@@ -16,11 +17,11 @@ export default function CalendarItem({ data }) {
     }
 
     return (
-        <div onClick={() => { }} style={{ backgroundColor: '#fff', margin: 12, padding: '30px 18px 30px 18px', borderRadius: 6, boxShadow: '0px 0px 3px #00000015' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: -6, flexWrap: 'wrap' }}>
-                <h1 style={{ fontSize: 20, color: data.cult === "PSH" ? "#795548" : '#00796B' }}>{data.cult}</h1>
+        <div className='container'>
+            <div className='top'>
+                <h1 className='title' style={{ color: data.cult === "PSH" ? "#795548" : '#00796B' }}>{data.cult}</h1>
 
-                <div style={{ display: 'flex', gap: 6 }}>
+                <div className='date'>
                     <span style={{ fontSize: 16, color: data.cult === "PSH" ? "#795548" : '#00796B' }}>( {weekNumber[moment(data.date).day()]} </span>
                     <span style={{ fontSize: 11, color: data.cult === "PSH" ? "#795548" : '#00796B' }}>{moment(data.date).format('DD/MM')} )</span>
                 </div>

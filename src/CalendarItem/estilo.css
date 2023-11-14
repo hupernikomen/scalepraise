@@ -1,0 +1,23 @@
+.container {
+    background-color: #fff;
+    margin: 12px;
+    padding: 20px 18px 30px 18px;
+    border-radius: 18px;
+    box-shadow: 1px 1px 5px #00000040;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap
+}
+
+.title {
+    font-size: 20px
+}
+
+.date {
+    display: flex; 
+    gap: 6px
+}

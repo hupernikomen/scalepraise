@@ -2,6 +2,7 @@ import moment from 'moment';
 import CalendarItem from "./CalendarItem";
 const escala = require('./utils/praisesList.json')
 
+
 // Louvores
 const praises = {
   friday: ["louvorFriday1", "louvorFriday2", "louvorFriday3", "louvorFriday4", "louvorFriday5"], // 5 LOUVORES
@@ -13,9 +14,6 @@ const praises = {
   hcc: ['001', '002', '003', '004', '005'],
   supper: ["Bendito Cordeiro"] // Louvors de Ceia
 }
-
-
-
 
 
 // Musicos
@@ -137,28 +135,26 @@ function getTons(n) {
 
 
 const width = window.innerWidth;
-const widthInPx = parseInt(width / 4.5);
+const widthInPx = parseInt(width / 4);
 
 
 function ListPraises() {
   return (
-    <div style={{ margin: 12, marginBottom: 20, backgroundColor: '#fff', borderRadius: 6, padding: '15px 0px 15px 0px', }}>
+    <div style={{ marginBottom: 30, borderRadius: 6, padding: '6px 0px 0px 0px', boxShadow:'0px 0px 3px #00000050'}}>
 
-      <div style={{ display: 'flex', alignItems: 'center', paddingLeft: 18 }}>
-        <h3>{uniqueItems.length}</h3>
-        <h3 style={{ fontWeight: 400, fontSize: 18, marginLeft: 6 }}>Louvores do mês: </h3>
+      <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', padding: '0px 26px' }}>
+        <h3 style={{ fontWeight: 400, fontSize: 18 }}>{uniqueItems.length} louvores do mês: </h3>
+        <p style={{  marginRight: 6, fontWeight: 300, fontSize: 14, }}>Em Árvores Verdes e PSH, deverão ser trabalhados esses {uniqueItems.length} louvores nos proximos 30 dias.</p>
       </div>
 
-      <p style={{ marginLeft: 18, marginRight: 18, fontWeight: 300, fontSize: 14, marginBottom: 32 }}>Em Árvores Verdes e PSH, deverão ser trabalhadas esses {uniqueItems.length} louvores nos proximos 30 dias.</p>
 
-      <div style={{ display: 'flex', overflow: 'auto', height: 80, gap: 6, padding: '0px 12px 12px 12px' }}>
+      <div style={{ display: 'flex', overflow: 'auto', height: 80, gap: 6, padding: '0px 12px 6px 12px' }}>
         {
           uniqueItems.map((pray) => {
             return (
-              <div style={{ position: 'relative', minWidth: widthInPx, height: 40, borderRadius: 10, backgroundColor: '#795548', display: 'grid', alignItems: 'center', justifyContent: 'center', padding: 8, }}>
-                <strong style={{ textAlign: 'center', fontWeight: 400, fontSize: 14, color: '#fff' }}>{pray}</strong>
-                <strong style={{ boxShadow: '1px 1px 5px #00000040', fontWeight: 500, position: 'absolute', bottom: -10, left: 6, backgroundColor: '#fff', fontSize: 14, paddingLeft: 8, paddingRight: 8, paddingTop: 1, paddingBottom: 1, borderRadius: 12 }}>{getTons(pray)}</strong>
-
+              <div style={{ overflow:'hidden',boxShadow:'1px 1px 6px #00000050', position: 'relative', minWidth: widthInPx, height: 40, borderRadius: 10, backgroundColor: '#fff', display: 'grid', alignItems: 'center', justifyContent: 'center', padding: 6, }}>
+                <strong style={{ textAlign: 'center', fontWeight: 400, fontSize: 14, color: '#795548' }}>{pray}</strong>
+                <strong style={{ boxShadow: '1px 1px 5px #00000040', fontWeight: 500, position: 'absolute', bottom: -10, left: 6, backgroundColor: '#795548', fontSize: 14, paddingLeft: 8, paddingRight: 8, paddingTop: 1, paddingBottom: 1, borderRadius: 12 }}>{getTons(pray)}</strong>
               </div>
             )
           })
@@ -173,8 +169,7 @@ function ListPraises() {
 export default function App() {
   return (
     <div>
-      <h1 style={{ textAlign: 'center', fontSize: 24, fontWeight: 800, }}>LOUVOR ADONAI</h1>
-      <h1 style={{ textAlign: 'center', fontSize: 18, fontWeight: 500, color: '#000', marginBottom: 30 }}>Louvem com alegria ao SENHOR.</h1>
+      <h1 style={{ textAlign: 'center', fontSize: 24, fontWeight: 800, }}>ESCALA LOUVOR ADONAI</h1>
 
       <ListPraises />
 
