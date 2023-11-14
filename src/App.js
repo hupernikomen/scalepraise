@@ -6,10 +6,10 @@ const escala = require('./utils/praisesList.json')
 // Louvores
 const praises = {
   friday: ["louvor Friday1", "louvor Friday2", "louvor Friday3", "louvor Friday4", "louvor Friday5"], // 5 LOUVORES
-  psh: ["louvorPSH1", "louvorPSH2", "louvorPSH3", "louvorPSH4", "louvorPSH5", "louvorPSH6", "louvorPSH7"],
+  psh: ["louvor PSH1", "louvor PSH2", "louvor PSH3", "louvor PSH4", "louvor PSH5", "louvor PSH6", "louvor PSH7"],
   ebd: [],
-  sundayprelude: ["louvorPreludio1", "louvorPreludio2", "louvorPreludio3", "louvorPreludio4"], // 4 LOUVORES
-  sunday: ["louvorSunday1", "louvorSunday2", "louvorSunday3", "louvorSunday4", "louvorSunday5"], // 5 LOUVORES , SENDO 3 DE SEXTA
+  sundayprelude: ["louvor Preludio1", "louvor Preludio2", "louvor Preludio3", "louvor Preludio4"], // 4 LOUVORES
+  sunday: ["louvor Sunday1", "louvor Sunday2", "louvor Sunday3", "louvor Sunday4", "louvor Sunday5"], // 5 LOUVORES , SENDO 3 DE SEXTA
   sundaycommunion: ["louvor Communion1", "louvor Communion2", "louvor Communion3", "louvor Communion4", "louvor Communion5"], // 5 LOUVORES
   hcc: ['001', '002', '003', '004', '005'],
   supper: ["Bendito Cordeiro"] // Louvors de Ceia
@@ -31,7 +31,7 @@ const musicians = {
     ebd: ["Wilson", "Paulinha"],
     sunday: ["Laís", "Kelviane", "Lidiane", "Duda"]
   }
-  
+
 }
 
 
