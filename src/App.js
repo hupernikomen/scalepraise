@@ -5,12 +5,12 @@ const escala = require('./utils/praisesList.json')
 
 // Louvores
 const praises = {
-  friday: ["louvorFriday1", "louvorFriday2", "louvorFriday3", "louvorFriday4", "louvorFriday5"], // 5 LOUVORES
+  friday: ["louvor Friday1", "louvor Friday2", "louvor Friday3", "louvor Friday4", "louvor Friday5"], // 5 LOUVORES
   psh: ["louvorPSH1", "louvorPSH2", "louvorPSH3", "louvorPSH4", "louvorPSH5", "louvorPSH6", "louvorPSH7"],
   ebd: [],
   sundayprelude: ["louvorPreludio1", "louvorPreludio2", "louvorPreludio3", "louvorPreludio4"], // 4 LOUVORES
   sunday: ["louvorSunday1", "louvorSunday2", "louvorSunday3", "louvorSunday4", "louvorSunday5"], // 5 LOUVORES , SENDO 3 DE SEXTA
-  sundaycommunion: ["louvorCommunion1", "louvorCommunion2", "louvorCommunion3", "louvorCommunion4", "louvorCommunion5"], // 5 LOUVORES
+  sundaycommunion: ["louvor Communion1", "louvor Communion2", "louvor Communion3", "louvor Communion4", "louvor Communion5"], // 5 LOUVORES
   hcc: ['001', '002', '003', '004', '005'],
   supper: ["Bendito Cordeiro"] // Louvors de Ceia
 }
@@ -18,17 +18,20 @@ const praises = {
 
 // Musicos
 const musicians = {
+
   instrumentalists: {
     friday: ["Wesley", "Warley"],
     psh: ["Thiago", "Andre", "Warley", "Rhuan", "Rhuan"],
     ebd: ["Annes"],
   },
+
   vocals: {
     friday: ["Lidiane", "Laís", "Edvan"],
     psh: [["Wilson", "Paulinha"], ["Kelviane", "Fernanda"], ["Edmilson", "Fernanda"], ["Lidiane", "Duda", "Laís"]],
     ebd: ["Wilson", "Paulinha"],
     sunday: ["Laís", "Kelviane", "Lidiane", "Duda"]
   }
+  
 }
 
 
@@ -52,6 +55,7 @@ const scales = [
     cult: 'Louvor e Pregação',
     praises: SelectPraiseSunday(getWeekNumber()),
     hcc: [praises?.hcc[getWeekNumber() - 1], praises?.hcc[getWeekNumber()]],
+    vocals: ["Edmilson", "Edvan", getWeekNumber() % 2 === 0 ? "Fernanda" : "Paulinha", musicians.vocals.sunday[getWeekNumber() - 1]],
     instrumentalists: ["Wesley", "Annes", getWeekNumber() % 2 === 0 ? "André" : "Thiago"]
   },
 ]
@@ -64,11 +68,12 @@ const psh = [
     praises: [praises?.psh[getWeekNumber() - 1], praises?.psh[getWeekNumber()], praises?.psh[getWeekNumber() + 1]],
     vocals: musicians.vocals.psh[getWeekNumber() - 1],
     instrumentalists: musicians.instrumentalists.psh[getWeekNumber() - 1]
-  },
+  }
 ]
 
 
 const otherscales = [
+  //Escrever data no formato YYYY/MM/DD
   {
     date: moment("2023/11/13"),
     cult: 'Culto Especial',
@@ -135,26 +140,25 @@ function getTons(n) {
 
 
 const width = window.innerWidth;
-const widthInPx = parseInt(width / 4);
+const widthInPx = parseInt(width / 4.7);
 
 
 function ListPraises() {
   return (
-    <div style={{ marginBottom: 30, borderRadius: 6, padding: '6px 0px 0px 0px', boxShadow:'0px 0px 3px #00000050'}}>
+    <div style={{ marginBottom: 30, padding: 6 }}>
 
-      <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', padding: '0px 26px' }}>
-        <h3 style={{ fontWeight: 400, fontSize: 18 }}>{uniqueItems.length} louvores do mês: </h3>
-        <p style={{  marginRight: 6, fontWeight: 300, fontSize: 14, }}>Em Árvores Verdes e PSH, deverão ser trabalhados esses {uniqueItems.length} louvores nos proximos 30 dias.</p>
+      <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', padding: '0px 30px' }}>
+        <p style={{ marginRight: 6, fontWeight: 300, fontSize: 14, }}>Em Árvores Verdes e PSH, deverão ser trabalhados esses {uniqueItems.length} louvores nos proximos 30 dias.</p>
       </div>
 
 
-      <div style={{ display: 'flex', overflow: 'auto', height: 80, gap: 6, padding: '0px 12px 6px 12px' }}>
+      <div style={{ display: 'flex', overflow: 'scroll', height: 80, gap: 8, padding: '18px 6px' }}>
         {
           uniqueItems.map((pray) => {
             return (
-              <div style={{ overflow:'hidden',boxShadow:'1px 1px 6px #00000050', position: 'relative', minWidth: widthInPx, height: 40, borderRadius: 10, backgroundColor: '#fff', display: 'grid', alignItems: 'center', justifyContent: 'center', padding: 6, }}>
-                <strong style={{ textAlign: 'center', fontWeight: 400, fontSize: 14, color: '#795548' }}>{pray}</strong>
-                <strong style={{ boxShadow: '1px 1px 5px #00000040', fontWeight: 500, position: 'absolute', bottom: -10, left: 6, backgroundColor: '#795548', fontSize: 14, paddingLeft: 8, paddingRight: 8, paddingTop: 1, paddingBottom: 1, borderRadius: 12 }}>{getTons(pray)}</strong>
+              <div style={{ flexWrap:'wrap', padding:'0px 12px', boxShadow: '0px 1px 3px #00000030', position: 'relative', minWidth: widthInPx, borderRadius: '18px 0px 18px 0px', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <strong style={{ textAlign: 'center', fontWeight: 300, fontSize: 15, color: '#000' }}>{pray}</strong>
+                {getTons(pray) ? <strong style={{ boxShadow: '1px 1px 5px #00000040', fontWeight: 500, position: 'absolute', bottom: -12, left: 6, backgroundColor: '#222', fontSize: 14, padding:'2px 12px', borderRadius: 12, color:'#fff' }}>{getTons(pray)}</strong>: null}
               </div>
             )
           })
@@ -169,7 +173,7 @@ function ListPraises() {
 export default function App() {
   return (
     <div>
-      <h1 style={{ textAlign: 'center', fontSize: 24, fontWeight: 800, }}>ESCALA LOUVOR ADONAI</h1>
+      <h1 style={{ textAlign: 'center', fontSize: 24, fontWeight: 800, }}>ESCALA DE LOUVOR ADONAI</h1>
 
       <ListPraises />
 
@@ -179,7 +183,7 @@ export default function App() {
         )
       })}
 
-      <p style={{ textAlign: 'center', marginTop: 50 }}>Ministério de Louvor Adonai</p>
+      <p style={{ textAlign: 'center', marginTop: 50, fontWeight: 300 }}>Ministério de Louvor Adonai</p>
     </div>
   );
 }

@@ -22,8 +22,8 @@ export default function CalendarItem({ data }) {
                 <h1 className='title' style={{ color: data.cult === "PSH" ? "#795548" : '#00796B' }}>{data.cult}</h1>
 
                 <div className='date'>
-                    <span style={{ fontSize: 16, color: data.cult === "PSH" ? "#795548" : '#00796B' }}>( {weekNumber[moment(data.date).day()]} </span>
-                    <span style={{ fontSize: 11, color: data.cult === "PSH" ? "#795548" : '#00796B' }}>{moment(data.date).format('DD/MM')} )</span>
+                    <span style={{ fontSize: 16, fontWeight:600, color: data.cult === "PSH" ? "#795548" : '#00796B' }}>{weekNumber[moment(data.date).day()]}</span>
+                    <span  style={{ fontSize: 11 , fontWeight:400,marginTop:1,marginRight:2, color: "#00000070" }}>{moment(data.date).format('DD/MM')}</span>
                 </div>
 
             </div>
@@ -39,6 +39,7 @@ export default function CalendarItem({ data }) {
             <div style={{ display: 'flex', flexWrap: 'wrap', borderWidth: .5, borderTop: '1px solid #aaa', paddingTop: 12, gap:6 }}>
 
                 {data.vocals?.concat(data?.instrumentalists).map((musician, index) => {
+                    console.log(musician);
                     return <strong key={index} style={{ fontSize: 15, fontWeight: 300 }}>{musician}</strong>
                 })}
 
