@@ -16,6 +16,8 @@ const praises = {
 }
 
 
+
+
 // Musicos
 const musicians = {
 
@@ -156,9 +158,9 @@ function ListPraises() {
         {
           uniqueItems.map((pray) => {
             return (
-              <div style={{ flexWrap:'wrap', padding:'0px 12px', boxShadow: '0px 1px 3px #00000030', position: 'relative', minWidth: widthInPx, borderRadius: '18px 0px 18px 0px', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ flexWrap: 'wrap', padding: '0px 12px', boxShadow: '0px 1px 3px #00000030', position: 'relative', minWidth: widthInPx, borderRadius: '18px 0px 18px 0px', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <strong style={{ textAlign: 'center', fontWeight: 300, fontSize: 15, color: '#000' }}>{pray}</strong>
-                {getTons(pray) ? <strong style={{ boxShadow: '1px 1px 5px #00000040', fontWeight: 500, position: 'absolute', bottom: -12, left: 6, backgroundColor: '#222', fontSize: 14, padding:'2px 12px', borderRadius: 12, color:'#fff' }}>{getTons(pray)}</strong>: null}
+                {getTons(pray) ? <strong style={{ boxShadow: '1px 1px 5px #00000040', fontWeight: 500, position: 'absolute', bottom: -12, left: 6, backgroundColor: '#222', fontSize: 14, padding: '2px 12px', borderRadius: 12, color: '#fff' }}>{getTons(pray)}</strong> : null}
               </div>
             )
           })
