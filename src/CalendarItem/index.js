@@ -22,14 +22,17 @@ export default function CalendarItem({ data }) {
 
     if (moment(data.date).isBefore(moment(), 'day')) { return null }
 
-    function getName(n) {
+
+    // Busca hino do cantor cristao com base no numero
+    function getNameCC(num) {
         for (let i = 0; i < praisesList.length; i++) {
-            if (praisesList[i]?.n === n) return praisesList[i].name;
+            if (praisesList[i]?.num === num) return praisesList[i].name;
         }
         return null; // caso não encontre, retorna null
     }
 
 
+    // Busca o Tocador com base no tipo de louvor
     function filterPraises(guitar, type) {
         const filteredPraises = escala.filter(
             (praise) => praise.guitar?.includes(guitar) && praise.type === type
@@ -56,7 +59,7 @@ export default function CalendarItem({ data }) {
                 })}
 
                 {data.hcc?.map((hcc, index) => {
-                    return <label key={index} style={{ fontSize: 15, fontWeight: 300 }}>CC {hcc} - {getName(hcc)} </label>
+                    return <label key={index} style={{ fontSize: 15, fontWeight: 300 }}>CC {hcc} - {getNameCC(hcc)} </label>
                 })}
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', borderWidth: .5, borderTop: '1px solid #aaa', paddingTop: 12, gap: 6 }}>

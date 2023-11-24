@@ -39,6 +39,7 @@ const musicians = {
 
 const scales = [
   {
+    // Doutrina / Oração na segunda-feira, antes do culto do Sábado
     date: somarDias(proximoDomingo(), -2),
     cult: 'Doutrina / Oração',
     praises: [praises?.friday[getWeekNumber() - 1], praises?.friday[getWeekNumber()]],
@@ -46,6 +47,7 @@ const scales = [
     instrumentalists: musicians.instrumentalists.friday
   },
   {
+    // EBD na quarta-feira
     date: proximoDomingo(),
     cult: getSundaysInMonth() === getWeekNumber() ? 'EBD com Ceia' : 'EBD',
     praises: getSundaysInMonth() === getWeekNumber() ? praises.supper : praises.ebd,
@@ -53,6 +55,7 @@ const scales = [
     instrumentalists: musicians.instrumentalists.ebd
   },
   {
+    // Culto de Louvor e Pregação na sexta-feira
     date: proximoDomingo(),
     cult: 'Louvor e Pregação',
     praises: SelectPraiseSunday(getWeekNumber()),
@@ -99,47 +102,65 @@ function SelectPraiseSunday(week) {
 
 
 function proximoDomingo() {
-  return moment().day(7);
-}
-function somarDias(data, dias) {
+  var hoje = moment();
+   
+  // Verifica se hoje não é domingo
+  if (hoje.day() !== 7) {
+     // Retorna o próximo domingo com base na data atual
+     return hoje.day(7);
+  } else {
+     // Retorna null, pois hoje ainda é domingo
+     return null;
+  }
+ }
+
+ 
+ function somarDias(data, dias) {
+  // Adiciona dias à data fornecida e retorna a nova data
   return moment(data).add(dias, 'days');
-}
-function getWeekNumber() {
+ }
+ 
+ function getWeekNumber() {
+  // Retorna o número da semana com base na data atual
   var today = new Date();
   var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
   var pastDaysOfMonth = today.getDate() - 1;
   var weekNumber = Math.ceil((pastDaysOfMonth + firstDayOfMonth.getDay() + 1) / 7);
   return weekNumber;
-}
-function getSundaysInMonth() {
+ }
+ 
+ function getSundaysInMonth() {
+  // Retorna o número de domingos em um mês específico
   var today = new Date();
   var month = today.getMonth();
   var year = today.getFullYear();
   var sundays = 0;
-
+ 
   for (var day = 1; day <= 31; day++) {
-    var date = new Date(year, month, day);
-    if (date.getMonth() === month && date.getDay() === 0) {
-      sundays++;
-    }
+     var date = new Date(year, month, day);
+     if (date.getMonth() === month && date.getDay() === 0) {
+       sundays++;
+     }
   }
-
+ 
   return sundays;
-}
-const sortedScales = scales.concat(otherscales, psh).sort((a, b) => {
+ }
+ 
+ const sortedScales = scales.concat(otherscales, psh).sort((a, b) => {
   return moment(a.date) - moment(b.date);
-});
-const uniqueItems = praises.sunday?.concat(praises.friday, praises.sundayprelude, praises.supper, praises.sundaycommunion).filter((item, index, array) => {
+ });
+ 
+ const uniqueItems = praises.sunday?.concat(praises.friday, praises.sundayprelude, praises.supper, praises.sundaycommunion).filter((item, index, array) => {
   return array.indexOf(item) === index;
-});
-function getTons(n) {
+ });
+ 
+ function getTons(n) {
+  // Retorna o tom de uma escala com base no nome fornecido
   for (let i = 0; i < escala.length; i++) {
-    if (escala[i].name === n) return escala[i].tom;
-
+     if (escala[i].name === n) return escala[i].tom;
   }
   return null; // caso não encontre, retorna null
-}
-
+ }
 
 const width = window.innerWidth;
 const widthInPx = parseInt(width / 4.7);
