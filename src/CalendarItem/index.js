@@ -20,7 +20,8 @@ export default function CalendarItem({ data }) {
 
     const weekNumber = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB']
 
-    if (moment(data.date).isBefore(moment(), 'day')) { return null }
+    if (moment(data.date).isSameOrBefore(moment(), 'day')) { return null }
+    console.log(data.date, moment());
 
 
     // Busca hino do cantor cristao com base no numero
