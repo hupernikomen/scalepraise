@@ -5,10 +5,10 @@ const escala = require('./utils/praisesList.json')
 
 // Louvores
 const praises = {
-  friday: ["", "louvor Friday2", "louvor Friday3", "louvor Friday4", "louvor Friday5"], // 5 LOUVORES
+  friday: ["Maranata", "Quão grande é o meu Deus", "Pra sempre", "Ele não desiste de você", "Galileu"], // 5 LOUVORES
   psh: ["louvor PSH1", "louvor PSH2", "louvor PSH3", "louvor PSH4", "louvor PSH5", "louvor PSH6", "louvor PSH7"],
   ebd: [],
-  sundayprelude: ["louvor Preludio1", "louvor Preludio2", "louvor Preludio3", "louvor Preludio4"], // 4 LOUVORES
+  sundayprelude: ["Bom estarmos aqui", "Em Espírito em verdade", "Renova-me", "Jesus em Tua presença"], // 4 LOUVORES
   sunday: ["louvor Sunday1", "louvor Sunday2", "louvor Sunday3", "louvor Sunday4", "louvor Sunday5"], // 5 LOUVORES , SENDO 3 DE SEXTA
   sundaycommunion: ["louvor Communion1", "louvor Communion2", "louvor Communion3", "louvor Communion4", "louvor Communion5"], // 5 LOUVORES
   hcc: ['001', '002', '003', '004', '005'],
