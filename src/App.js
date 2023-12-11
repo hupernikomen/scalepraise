@@ -9,13 +9,11 @@ const praises = {
   psh: ["Faz Chover", "Eu te agradeço Deus", "Maranata", "Nosso General", "Pra sempre", "Vim para adorar-Te", "Não há Deus maior"],
   ebd: [],
   sundayprelude: ["Bom estarmos aqui", "Em Espírito em verdade", "Renova-me", "Jesus em Tua presença"], // 4 LOUVORES
-  sunday: ["louvor Sunday1", "louvor Sunday2", "louvor Sunday3", "louvor Sunday4", "louvor Sunday5"], // 5 LOUVORES , SENDO 3 DE SEXTA
-  sundaycommunion: ["louvor Communion1", "louvor Communion2", "louvor Communion3", "louvor Communion4", "louvor Communion5"], // 5 LOUVORES
+  sunday: ["Precioso", "Venha o teu Reino", "Jó", "Senhor Te Quero", "Poderoso Deus"], // 5 LOUVORES , SENDO 3 DE SEXTA
+  sundaycommunion: ["Celebrai a Cristo", "Quebrantado", "Galileu", "Quero que valorize", "Até que Ele venha"], // 5 LOUVORES
   hcc: ['001', '002', '003', '004', '005'],
-  supper: ["Bendito Cordeiro"] // Louvors de Ceia
+  supper: ["Bendito Cordeiro", "Alto Preço"] // Louvors de Ceia
 }
-
-
 
 
 // Musicos
