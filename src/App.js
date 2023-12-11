@@ -5,7 +5,7 @@ const escala = require('./utils/praisesList.json')
 
 // Louvores
 const praises = {
-  friday: ["louvor Friday1", "louvor Friday2", "louvor Friday3", "louvor Friday4", "louvor Friday5"], // 5 LOUVORES
+  friday: ["", "louvor Friday2", "louvor Friday3", "louvor Friday4", "louvor Friday5"], // 5 LOUVORES
   psh: ["louvor PSH1", "louvor PSH2", "louvor PSH3", "louvor PSH4", "louvor PSH5", "louvor PSH6", "louvor PSH7"],
   ebd: [],
   sundayprelude: ["louvor Preludio1", "louvor Preludio2", "louvor Preludio3", "louvor Preludio4"], // 4 LOUVORES
@@ -44,7 +44,7 @@ const scales = [
     cult: 'Doutrina / Oração',
     praises: [praises?.friday[getWeekNumber() - 1], praises?.friday[getWeekNumber()]],
     vocals: musicians.vocals.friday,
-    instrumentalists: musicians.instrumentalists.friday
+    instrumentalists: musicians.instrumentalists.friday,
   },
   {
     // EBD 
@@ -52,7 +52,7 @@ const scales = [
     cult: getSundaysInMonth() === getWeekNumber() ? 'EBD com Ceia' : 'EBD',
     praises: getSundaysInMonth() === getWeekNumber() ? praises.supper : praises.ebd,
     vocals: musicians.vocals.ebd,
-    instrumentalists: musicians.instrumentalists.ebd
+    instrumentalists: musicians.instrumentalists.ebd,
   },
   {
     // Culto de Louvor e Pregação 
@@ -61,26 +61,40 @@ const scales = [
     praises: SelectPraiseSunday(getWeekNumber()),
     hcc: [praises?.hcc[getWeekNumber() - 1], praises?.hcc[getWeekNumber()]],
     vocals: ["Edmilson", "Edvan", getWeekNumber() % 2 === 0 ? "Fernanda" : "Paulinha", musicians.vocals.sunday[getWeekNumber() - 1]],
-    instrumentalists: ["Wesley", "Annes", getWeekNumber() % 2 === 0 ? "André" : "Thiago"]
+    instrumentalists: ["Wesley", "Annes", getWeekNumber() % 2 === 0 ? "André" : "Thiago"],
   },
   {
     date: findNextSaturday(),
     cult: 'PSH',
     praises: [praises?.psh[getWeekNumber() - 1], praises?.psh[getWeekNumber()], praises?.psh[getWeekNumber() + 1]],
     vocals: musicians.vocals.psh[getWeekNumber() - 1],
-    instrumentalists: musicians.instrumentalists.psh[getWeekNumber() - 1]
-  }
-]
+    instrumentalists: musicians.instrumentalists.psh[getWeekNumber() - 1],
+  },
+  // ________________________________________
 
-
-const otherscales = [
+  {
+    date: parseDate('29/12/2023'),
+    cult: 'Culto Oração Especial',
+    praises: [""],
+    vocals: ["Edvan",  "Laís", "Lidiane"],
+    instrumentalists: ["Wesley", "Warley"]
+  },
   {
     date: parseDate('24/12/2023'),
-    cult: 'Culto Especial de Natal',
-    praises: [""],
-    vocals: ["Edmilson", "Edvan", "Fernanda", "Laís", "Paulinha"]
+    cult: 'Culto Especial Natal',
+    praises: ["Bom estarmos aqui", "Isaias 9", "Nada Além do Sangue", "Agnus Dei", "CC 30 - Noite de paz"],
+    vocals: ["Edmilson", "Edvan", "Fernanda", "Laís", "Paulinha"],
+    instrumentalists: ["Wesley", "Warley", "André", "Annes"]
+  },
+  {
+    date: parseDate('31/12/2023'),
+    cult: 'Culto Especial Ano Novo',
+    praises: ["Renova-me", "Nada Além do Sangue", "Agnus Dei", "CC 560 - Ano Novo", "CC 456 - O Estandarte"],
+    vocals: ["Wilson", "Kelviane", "Duda", "Lidiane", "Paulinha"],
+    instrumentalists: ["Wesley", "André", "Thiago", "Annes"]
   },
 ]
+
 
 
 // 12 LOUVORS PARA DOMINGOS
@@ -111,15 +125,15 @@ function parseDate(dateString) {
 
 function findNextSunday() {
   const now = new Date();
- 
+
   // Encontre o próximo dia que seja domingo
   let nextSunday = new Date(now.getTime());
   while (nextSunday.getDay() !== 0) {
-     nextSunday.setDate(nextSunday.getDate() + 1);
+    nextSunday.setDate(nextSunday.getDate() + 1);
   }
- 
+
   return nextSunday;
- }
+}
 
 
 
@@ -129,11 +143,11 @@ function findNextFriday() {
   // Encontre o próximo dia que seja sexta-feira
   let nextFriday = new Date(now.getTime());
   while (nextFriday.getDay() !== 5) {
-     nextFriday.setDate(nextFriday.getDate() + 1);
+    nextFriday.setDate(nextFriday.getDate() + 1);
   }
- 
+
   return nextFriday;
- }
+}
 
 
 
@@ -143,11 +157,11 @@ function findNextSaturday() {
   // Encontre o próximo dia que seja sexta-feira
   let nextFriday = new Date(now.getTime());
   while (nextFriday.getDay() !== 6) {
-     nextFriday.setDate(nextFriday.getDate() + 1);
+    nextFriday.setDate(nextFriday.getDate() + 1);
   }
- 
+
   return nextFriday;
- }
+}
 
 
 
@@ -177,7 +191,7 @@ function getSundaysInMonth() {
   return sundays;
 }
 
-const sortedScales = scales.concat(otherscales).sort((a, b) => {
+const sortedScales = scales.sort((a, b) => {
   return moment(a.date) - moment(b.date);
 });
 
