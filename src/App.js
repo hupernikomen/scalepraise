@@ -11,7 +11,7 @@ const praises = {
   sundayprelude: ["Bom estarmos aqui", "Em Espírito em verdade", "Renova-me", "Jesus em Tua presença"], // 4 LOUVORES
   sunday: ["Precioso", "Venha o teu Reino", "Jó", "Senhor Te Quero", "Poderoso Deus"], // 5 LOUVORES , SENDO 3 DE SEXTA
   sundaycommunion: ["Celebrai a Cristo", "Quebrantado", "Galileu", "Quero que valorize", "Até que Ele venha"], // 5 LOUVORES
-  hcc: ['001', '002', '003', '004', '005'],
+  hcc: ["", "", "", "", ""],
   supper: ["Bendito Cordeiro", "Alto Preço"] // Louvors de Ceia
 }
 
