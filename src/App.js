@@ -6,7 +6,7 @@ const escala = require('./utils/praisesList.json')
 // Louvores
 const praises = {
   friday: ["Maranata", "Quão grande é o meu Deus", "Pra sempre", "Ele não desiste de você", "Galileu"], // 5 LOUVORES
-  psh: ["louvor PSH1", "louvor PSH2", "louvor PSH3", "louvor PSH4", "louvor PSH5", "louvor PSH6", "louvor PSH7"],
+  psh: ["Faz Chover", "Eu te agradeço Deus", "Maranata", "Nosso General", "Pra sempre", "Vim para adorar-Te", "Não há Deus maior"],
   ebd: [],
   sundayprelude: ["Bom estarmos aqui", "Em Espírito em verdade", "Renova-me", "Jesus em Tua presença"], // 4 LOUVORES
   sunday: ["louvor Sunday1", "louvor Sunday2", "louvor Sunday3", "louvor Sunday4", "louvor Sunday5"], // 5 LOUVORES , SENDO 3 DE SEXTA
