@@ -7,6 +7,7 @@ const praisesList = require('../utils/praisesList.json')
 
 export default function CalendarItem({ data }) {
 
+
     const [clicked, setClicked] = useState(false)
 
     const guitarists = ["André", "Thiago", "Warley", "Rhuan"]
@@ -19,9 +20,7 @@ export default function CalendarItem({ data }) {
     }, [guitarist, typePraise])
 
     const weekNumber = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB']
-
-    if (moment(data.date).isSameOrBefore(moment(), 'day')) { return null }
-    console.log(data.date, moment());
+    if (moment(data.date).isBefore(moment(), 'day')) { return null }
 
 
     // Busca hino do cantor cristao com base no numero

@@ -391,7 +391,7 @@
     {"type": "hcc", "escala":"", "n":"346", "name": "Por amor de nós", "guitar": []},
     {"type": "hcc", "escala":"", "n":"347", "name": "Por que temer?", "guitar": []},
     {"type": "hcc", "escala":"", "n":"348", "name": "Por toda a vida", "guitar": []},
-    {"type": "hcc", "escala":"", "n":"349", "name": "Porque Ele vive", "guitar": []},
+    {"type": "hcc", "escala":"G", "n":"349", "name": "Porque Ele vive", "guitar": []},
     {"type": "hcc", "escala":"", "n":"350", "name": "Porta aberta", "guitar": []},
     {"type": "hcc", "escala":"", "n":"351", "name": "Posso, sim", "guitar": []},
     {"type": "hcc", "escala":"", "n":"352", "name": "Prazer real", "guitar": []},
