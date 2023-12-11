@@ -7,17 +7,17 @@ const praisesList = require('../utils/praisesList.json')
 
 export default function CalendarItem({ data }) {
 
-
-    const [clicked, setClicked] = useState(false)
-
     const guitarists = ["André", "Thiago", "Warley", "Rhuan"]
+    const [clicked, setClicked] = useState(false)
     const [guitarist, setGuitarist] = useState('')
     const [praisesGuitarist, setPraisesGuitarist] = useState([])
     const [typePraise, setTypePraise] = useState('')
 
+
     useEffect(() => {
         filterPraises(guitarist, typePraise)
     }, [guitarist, typePraise])
+
 
     const weekNumber = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB']
     if (moment(data.date).isBefore(moment(), 'day')) { return null }
