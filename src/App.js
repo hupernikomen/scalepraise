@@ -1,55 +1,18 @@
 import moment from 'moment';
 import CalendarItem from './CalendarItem';
-const escala = require('./utils/praisesList.json');
-const escala2 = require('./utils/praisesList2.json');
 
-// Louvores
-const praises = {
-  friday: [
-    'Maranata',
-    'Quão grande é o meu Deus',
-    'Pra sempre',
-    'Ele não desiste de você',
-    'Galileu'
-  ], // 5 LOUVORES
-  psh: [
-    'Faz Chover',
-    'Eu te agradeço Deus',
-    'Maranata',
-    'Nosso General',
-    'Pra sempre',
-    'Vim para adorar-Te',
-    'Não há Deus maior'
-  ],
-  ebd: [],
-  sundayprelude: [
-    'Bom estarmos aqui',
-    'Em Espírito em verdade',
-    'Renova-me',
-    'Jesus em Tua presença'
-  ], // 4 LOUVORES
-  sunday: ['Precioso', 'Venha o teu Reino', 'Jó', 'Senhor Te Quero', 'Poderoso Deus'], // 5 LOUVORES , SENDO 3 DE SEXTA
-  sundaycommunion: [
-    'Celebrai a Cristo',
-    'Quebrantado',
-    'Galileu',
-    'Quero que valorize',
-    'Até que Ele venha'
-  ], // 5 LOUVORES
-  hcc: ['', '', '', '', ''],
-  supper: ['Bendito Cordeiro', 'Alto Preço'] // Louvors de Ceia
-};
+const listaLouvores = require('./utils/praisesList2.json');
 
 // Musicos
-const musicians = {
-  instrumentalists: {
-    friday: ['Wesley', 'Warley'],
+const musicos = {
+  instrumentistas: {
+    sexta: ['Wesley', 'Warley'],
     psh: ['Thiago', 'Andre', 'Warley', 'Rhuan', 'Rhuan'],
     ebd: ['Annes']
   },
 
-  vocals: {
-    friday: ['Lidiane', 'Laís', 'Edvan'],
+  vocalistas: {
+    sexta: ['Lidiane', 'Laís', 'Edvan'],
     psh: [
       ['Wilson', 'Paulinha'],
       ['Kelviane', 'Fernanda'],
@@ -58,286 +21,191 @@ const musicians = {
       [('Fernanda', 'Paulinha')]
     ],
     ebd: ['Wilson', 'Paulinha'],
-    sunday: ['Laís', 'Kelviane', 'Lidiane', 'Duda']
+    domingonoite: ['Laís', 'Kelviane', 'Lidiane', 'Duda']
   }
 };
 
-const guitarWeek = musicians.instrumentalists.psh[getWeekNumber() - 1];
+// Revesamento do guitarrista com base no numero da semana
+// Revesamento de guitarrista para o domingo a noite
+const tocadorPSH = musicos.instrumentistas.psh[numeroDaSemana() - 1];
+const tocadorIbav = numeroDaSemana() % 2 === 0 ? 'André' : 'Thiago';
 
-const scales = [
+const escalas = [
+  // Doutrina / Oração
   {
-    // Doutrina / Oração
-    date: findNextFriday(),
-    cult: 'Doutrina / Oração',
-    praises: [
-      getPraises('firstmoment', 'Warley', escala2)[getWeekNumber() - 1]?.name ||
-        getPraises('firstmoment', 'Warley', escala2)[0]?.name,
-      getPraises('firstmoment', 'Warley', escala2)[getWeekNumber()]?.name ||
-        getPraises('firstmoment', 'Warley', escala2)[1]?.name
+    data: proximaSexta(),
+    culto: 'Doutrina / Oração',
+    louvores: [
+      buscaLouvores('firstmoment', 'Warley', listaLouvores)[numeroDaSemana() - 1]?.louvor ||
+        buscaLouvores('firstmoment', 'Warley', listaLouvores)[0]?.louvor,
+      buscaLouvores('firstmoment', 'Warley', listaLouvores)[numeroDaSemana()]?.louvor ||
+        buscaLouvores('firstmoment', 'Warley', listaLouvores)[1]?.louvor
     ],
-    vocals: musicians.vocals.friday,
-    instrumentalists: musicians.instrumentalists.friday
+    vocalistas: musicos.vocalistas.sexta,
+    instrumentistas: musicos.instrumentistas.sexta
   },
+
+  // EBD
   {
-    // EBD
-    date: findNextSunday(),
-    cult: getSundaysInMonth() === getWeekNumber() ? 'EBD com Ceia' : 'EBD',
-    praises: getSundaysInMonth() === getWeekNumber() ? praises.supper : praises.ebd,
-    vocals: musicians.vocals.ebd,
-    instrumentalists: musicians.instrumentalists.ebd
+    data: proximoDomingo(),
+    culto: numeroDeDomingosMes() === numeroDaSemana() ? 'EBD com Ceia' : 'EBD',
+    louvores: [],
+    vocalistas: musicos.vocalistas.ebd,
+    instrumentistas: musicos.instrumentistas.ebd
   },
+
+  // Culto de Louvor e Pregação
   {
-    // Culto de Louvor e Pregação
-    date: findNextSunday(),
-    cult: 'Louvor e Pregação',
-    praises: SelectPraiseSunday(getWeekNumber()),
-    hcc: [praises?.hcc[getWeekNumber() - 1], praises?.hcc[getWeekNumber()]],
-    vocals: [
+    data: proximoDomingo(),
+    culto: 'Louvor e Pregação',
+    louvores: [
+      buscaLouvores('prelude', tocadorIbav, listaLouvores)[numeroDaSemana()]?.louvor,
+      buscaLouvores('firstmoment', tocadorIbav, listaLouvores)[numeroDaSemana()]?.louvor,
+      buscaLouvores('communion', tocadorIbav, listaLouvores)[numeroDaSemana()]?.louvor
+    ],
+    hcc: [],
+    vocalistas: [
       'Edmilson',
       'Edvan',
-      getWeekNumber() % 2 === 0 ? 'Fernanda' : 'Paulinha',
-      musicians.vocals.sunday[getWeekNumber() - 1]
+      numeroDaSemana() % 2 === 0 ? 'Fernanda' : 'Paulinha',
+      musicos.vocalistas.domingonoite[numeroDaSemana() - 1]
     ],
-    instrumentalists: ['Wesley', 'Annes', getWeekNumber() % 2 === 0 ? 'André' : 'Thiago']
+    instrumentistas: ['Wesley', 'Annes', tocadorIbav]
   },
+
+  // Culto PSH
   {
-    // Culto PSH
-    date: findNextSaturday(),
-    cult: 'PSH',
-    praises: [
-      getPraises('prelude', guitarWeek, escala2)[getWeekNumber() - 1]?.name,
-      getPraises('firstmoment', guitarWeek, escala2)[getWeekNumber() - 1]?.name,
-      getPraises('communion', guitarWeek, escala2)[getWeekNumber() - 1]?.name
+    data: proximoSabado(),
+    culto: 'PSH',
+    louvores: [
+      buscaLouvores('prelude', tocadorPSH, listaLouvores)[numeroDaSemana() - 1]?.louvor,
+      buscaLouvores('firstmoment', tocadorPSH, listaLouvores)[numeroDaSemana() - 1]?.louvor,
+      buscaLouvores('communion', tocadorPSH, listaLouvores)[numeroDaSemana() - 1]?.louvor
     ],
-    vocals: musicians.vocals.psh[getWeekNumber() - 1],
-    instrumentalists: musicians.instrumentalists.psh[getWeekNumber() - 1]
+    vocalistas: musicos.vocalistas.psh[numeroDaSemana() - 1],
+    instrumentistas: musicos.instrumentistas.psh[numeroDaSemana() - 1]
   },
   // ________________________________________
 
   {
-    date: parseDate('29/12/2023'),
-    cult: 'Culto Oração Especial',
-    praises: [''],
-    vocals: ['Edvan', 'Laís', 'Lidiane'],
-    instrumentalists: ['Wesley', 'Warley']
+    data: converteData('29/12/2023'),
+    culto: 'Culto Oração Especial',
+    louvores: [''],
+    vocalistas: ['Edvan', 'Laís', 'Lidiane'],
+    instrumentistas: ['Wesley', 'Warley']
   },
   {
-    date: parseDate('24/12/2023'),
-    cult: 'Culto Especial Natal',
-    praises: [
+    data: converteData('24/12/2023'),
+    culto: 'Culto Especial Natal',
+    louvores: [
       'Bom estarmos aqui',
       'Isaias 9',
-      'Nada Além do Sangue',
+      'Nada além do sangue',
       'Agnus Dei',
       'CC 30 - Noite de paz'
     ],
-    vocals: ['Edmilson', 'Edvan', 'Fernanda', 'Laís', 'Paulinha'],
-    instrumentalists: ['Wesley', 'Warley', 'André', 'Annes']
+    vocalistas: ['Edmilson', 'Edvan', 'Fernanda', 'Laís', 'Paulinha'],
+    instrumentistas: ['Wesley', 'Warley', 'André', 'Annes']
   },
   {
-    date: parseDate('31/12/2023'),
-    cult: 'Culto Especial Ano Novo',
-    praises: [
+    data: converteData('31/12/2023'),
+    culto: 'Culto Especial Ano Novo',
+    louvores: [
       'Renova-me',
-      'Nada Além do Sangue',
+      'Nada além do sangue',
       'Agnus Dei',
       'CC 560 - Ano Novo',
       'CC 456 - O Estandarte'
     ],
-    vocals: ['Wilson', 'Kelviane', 'Duda', 'Lidiane', 'Paulinha'],
-    instrumentalists: ['Wesley', 'André', 'Thiago', 'Annes']
+    vocalistas: ['Wilson', 'Kelviane', 'Duda', 'Lidiane', 'Paulinha'],
+    instrumentistas: ['Wesley', 'André', 'Thiago', 'Annes']
   }
 ];
 
-function getPraises(type, guitar, list) {
-  let result = [];
+function buscaLouvores(tipo, tocador, lista) {
+  let resultado = [];
 
-  list.forEach((item) => {
-    if (item.guitar === guitar) {
-      item.praises.forEach((praise) => {
-        if (praise.type === type) {
-          result = result.concat(praise.praise);
-        }
-      });
+  lista.forEach((item) => {
+    if (item?.tocadores?.indexOf(tocador) && item?.tipo === tipo) {
+      resultado.push(item);
     }
   });
 
-  return result;
+  return resultado;
 }
 
-// 12 LOUVORS PARA DOMINGOS
-function SelectPraiseSunday(week) {
-  switch (week) {
-    case 1:
-      return [praises.sundayprelude[0], praises.sunday[0], praises.sundaycommunion[0]];
-    case 2:
-      return [praises.sundayprelude[1], praises.sunday[1], praises.sundaycommunion[1]];
-    case 3:
-      return [praises.sundayprelude[2], praises.sunday[2], praises.sundaycommunion[2]];
-    case 4:
-      return [praises.sundayprelude[3], praises.sunday[1], praises.sundaycommunion[3]];
-
-    default:
-      return [praises.sundayprelude[4], praises.sunday[0], praises.sundaycommunion[4]];
-  }
-}
-
-function parseDate(dateString) {
+//Converte data String em data Date
+function converteData(inData) {
   // Divide a string da data em dia, mês e ano
-  const [day, month, year] = dateString.split('/');
+  const [day, month, year] = inData.split('/');
 
   // Criar um objeto de data JavaScript com o dia, mês e ano
-  const date = new Date(year, month - 1, day);
-
-  return date;
+  const data = new Date(year, month - 1, day);
+  return data;
 }
 
-function findNextSunday() {
-  const now = new Date();
-
-  // Encontre o próximo dia que seja domingo
-  let nextSunday = new Date(now.getTime());
-  while (nextSunday.getDay() !== 0) {
-    nextSunday.setDate(nextSunday.getDate() + 1);
+// Encontre o próximo dia que seja sexta-feira
+function proximaSexta() {
+  let now = new Date();
+  let proximaSexta = new Date(now.getTime());
+  while (proximaSexta.getDay() !== 5) {
+    proximaSexta.setDate(proximaSexta.getDate() + 1);
   }
 
-  return nextSunday;
+  return proximaSexta;
 }
 
-function findNextFriday() {
-  const now = new Date();
-
-  // Encontre o próximo dia que seja sexta-feira
-  let nextFriday = new Date(now.getTime());
-  while (nextFriday.getDay() !== 5) {
-    nextFriday.setDate(nextFriday.getDate() + 1);
+// Encontre o próximo dia que seja sexta-feira
+function proximoSabado() {
+  let now = new Date();
+  let proximoSabado = new Date(now.getTime());
+  while (proximoSabado.getDay() !== 6) {
+    proximoSabado.setDate(proximoSabado.getDate() + 1);
   }
 
-  return nextFriday;
+  return proximoSabado;
 }
 
-function findNextSaturday() {
-  const now = new Date();
-
-  // Encontre o próximo dia que seja sexta-feira
-  let nextFriday = new Date(now.getTime());
-  while (nextFriday.getDay() !== 6) {
-    nextFriday.setDate(nextFriday.getDate() + 1);
+// Encontre o próximo dia que seja domingo
+function proximoDomingo() {
+  let now = new Date();
+  let proximoDomingo = new Date(now.getTime());
+  while (proximoDomingo.getDay() !== 0) {
+    proximoDomingo.setDate(proximoDomingo.getDate() + 1);
   }
-
-  return nextFriday;
+  return proximoDomingo;
 }
 
-function getWeekNumber() {
+function numeroDaSemana() {
   // Retorna o número da semana com base na data atual
-  var today = new Date();
-  var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-  var pastDaysOfMonth = today.getDate() - 1;
-  var weekNumber = Math.ceil((pastDaysOfMonth + firstDayOfMonth.getDay() + 1) / 7);
-  return weekNumber;
+  let today = new Date();
+  let primeiroDiaDoMes = new Date(today.getFullYear(), today.getMonth(), 1);
+  let diasPassadosDoMes = today.getDate() - 1;
+  let numeroDaSemana = Math.ceil((diasPassadosDoMes + primeiroDiaDoMes.getDay() + 1) / 7);
+  return numeroDaSemana;
 }
 
-function getSundaysInMonth() {
+function numeroDeDomingosMes() {
   // Retorna o número de domingos em um mês específico
-  var today = new Date();
-  var month = today.getMonth();
-  var year = today.getFullYear();
-  var sundays = 0;
+  let today = new Date();
+  let month = today.getMonth();
+  let year = today.getFullYear();
+  let domingos = 0;
 
-  for (var day = 1; day <= 31; day++) {
-    var date = new Date(year, month, day);
-    if (date.getMonth() === month && date.getDay() === 0) {
-      sundays++;
+  for (let day = 1; day <= 31; day++) {
+    let data = new Date(year, month, day);
+    if (data.getMonth() === month && data.getDay() === 0) {
+      domingos++;
     }
   }
 
-  return sundays;
+  return domingos;
 }
 
 // Coloca as datas em ordem cronologica
-const sortedScales = scales.sort((a, b) => {
-  return moment(a.date) - moment(b.date);
+const ordenaEscala = escalas.sort((a, b) => {
+  return moment(a.data) - moment(b.data);
 });
-
-const uniqueItems = praises.sunday
-  ?.concat(praises.friday, praises.sundayprelude, praises.supper, praises.sundaycommunion)
-  .filter((item, index, array) => {
-    return array.indexOf(item) === index;
-  });
-
-function getTons(n) {
-  // Retorna o tom de uma escala com base no nome fornecido
-  for (let i = 0; i < escala.length; i++) {
-    if (escala[i].name === n) return escala[i].tom;
-  }
-  return null; // caso não encontre, retorna null
-}
-
-const width = window.innerWidth;
-const widthInPx = parseInt(width / 4.7);
-
-function ListPraises() {
-  return (
-    <div style={{ marginBottom: 30, padding: 6 }}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'flex-start',
-          flexDirection: 'column',
-          padding: '0px 30px'
-        }}
-      >
-        <p style={{ marginRight: 6, fontWeight: 300, fontSize: 14 }}>
-          Em Árvores Verdes e PSH, deverão ser trabalhados esses {uniqueItems.length} louvores nos
-          proximos 30 dias.
-        </p>
-      </div>
-
-      <div style={{ display: 'flex', overflow: 'scroll', height: 80, gap: 8, padding: '18px 6px' }}>
-        {uniqueItems.map((pray) => {
-          return (
-            <div
-              style={{
-                flexWrap: 'wrap',
-                padding: '0px 12px',
-                boxShadow: '0px 1px 3px #00000030',
-                position: 'relative',
-                minWidth: widthInPx,
-                borderRadius: '18px 0px 18px 0px',
-                backgroundColor: '#fff',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <strong style={{ textAlign: 'center', fontWeight: 300, fontSize: 15, color: '#000' }}>
-                {pray}
-              </strong>
-              {getTons(pray) ? (
-                <strong
-                  style={{
-                    boxShadow: '1px 1px 5px #00000040',
-                    fontWeight: 500,
-                    position: 'absolute',
-                    bottom: -12,
-                    left: 6,
-                    backgroundColor: '#222',
-                    fontSize: 14,
-                    padding: '2px 12px',
-                    borderRadius: 12,
-                    color: '#fff'
-                  }}
-                >
-                  {getTons(pray)}
-                </strong>
-              ) : null}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
 
 export default function App() {
   return (
@@ -346,9 +214,7 @@ export default function App() {
         ESCALA DE LOUVOR ADONAI
       </h1>
 
-      <ListPraises />
-
-      {sortedScales.map((scale, index) => {
+      {ordenaEscala.map((scale, index) => {
         return <CalendarItem key={index} data={scale} />;
       })}
 
