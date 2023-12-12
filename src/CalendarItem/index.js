@@ -73,12 +73,29 @@ export default function CalendarItem({ data }) {
           const tom = escala.find((item) => item.louvor === louvor);
 
           return (
-            <label key={index} style={{ fontSize: 15, fontWeight: 300, alignItems: 'center' }}>
+            <label
+              key={index}
+              style={{
+                fontSize: 15,
+                fontWeight: 300,
+                alignItems: 'center',
+                display: 'flex',
+                flexDirection: 'row'
+              }}
+            >
               - {louvor} {index === 0 && data.culto === 'Louvor e Pregação' ? ' [ Prelúdio ]' : ''}
               {tom?.tom ? (
-                <strong style={{ marginLeft: 12 }}>
-                  <label style={{ color: '#aaa', fontSize: 12 }}>♫</label> {tom?.tom}
-                </strong>
+                <div
+                  style={{
+                    marginLeft: 12,
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    display: 'flex'
+                  }}
+                >
+                  <label style={{ color: '#aaa', fontSize: 12, marginRight: 6 }}>♪</label>
+                  <strong>{tom?.tom}</strong>
+                </div>
               ) : null}
             </label>
           );
