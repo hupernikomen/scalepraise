@@ -93,7 +93,7 @@ export default function CalendarItem({ data }) {
                     display: 'flex'
                   }}
                 >
-                  <label style={{ color: '#aaa', fontSize: 12, marginRight: 6 }}>♪</label>
+                  <label style={{ color: '#aaa', marginRight: 6 }}>♪</label>
                   <strong>{tom?.tom}</strong>
                 </div>
               ) : null}
