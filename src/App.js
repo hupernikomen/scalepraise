@@ -1,7 +1,7 @@
 import moment from 'moment';
 import CalendarItem from './CalendarItem';
 
-const listaLouvores = require('./utils/praisesList2.json');
+const listaLouvores = require('./utils/louvores.json');
 
 // Musicos
 const musicos = {
@@ -147,33 +147,32 @@ function converteData(inData) {
 // Encontre o próximo dia que seja sexta-feira
 function proximaSexta() {
   let now = new Date();
-  let proximaSexta = new Date(now.getTime());
-  while (proximaSexta.getDay() !== 5) {
-    proximaSexta.setDate(proximaSexta.getDate() + 1);
+  let nextFriday = new Date(now.getTime());
+  while (nextFriday.getDay() !== 5) {
+    nextFriday.setDate(nextFriday.getDate() + 1);
   }
-
-  return proximaSexta;
+  return nextFriday;
 }
 
 // Encontre o próximo dia que seja sexta-feira
 function proximoSabado() {
   let now = new Date();
-  let proximoSabado = new Date(now.getTime());
-  while (proximoSabado.getDay() !== 6) {
-    proximoSabado.setDate(proximoSabado.getDate() + 1);
+  let nextFriday = new Date(now.getTime());
+  while (nextFriday.getDay() !== 6) {
+    nextFriday.setDate(nextFriday.getDate() + 1);
   }
 
-  return proximoSabado;
+  return nextFriday;
 }
 
 // Encontre o próximo dia que seja domingo
 function proximoDomingo() {
   let now = new Date();
-  let proximoDomingo = new Date(now.getTime());
-  while (proximoDomingo.getDay() !== 0) {
-    proximoDomingo.setDate(proximoDomingo.getDate() + 1);
+  let nextSunday = new Date(now.getTime());
+  while (nextSunday.getDay() !== 0) {
+    nextSunday.setDate(nextSunday.getDate() + 1);
   }
-  return proximoDomingo;
+  return nextSunday;
 }
 
 function numeroDaSemana() {

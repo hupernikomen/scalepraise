@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import './estilo.css';
 import moment from 'moment';
-const escala = require('../utils/praisesList2.json');
-
-const listaLouvores = require('../utils/praisesList2.json');
+const escala = require('../utils/louvores.json');
 
 export default function CalendarItem({ data }) {
   const tocadores = ['André', 'Thiago', 'Warley', 'Rhuan'];
@@ -23,8 +21,8 @@ export default function CalendarItem({ data }) {
 
   // Busca hino do cantor cristao com base no numero
   function cantorCristao(num) {
-    for (let i = 0; i < listaLouvores.length; i++) {
-      if (listaLouvores[i]?.num === num) return listaLouvores[i].louvor;
+    for (let i = 0; i < escala.length; i++) {
+      if (escala[i]?.num === num) return escala[i].louvor;
     }
     return null; // caso não encontre, retorna null
   }
@@ -40,7 +38,7 @@ export default function CalendarItem({ data }) {
   return (
     <div className="container">
       <div className="top">
-        <h1 className="title" style={{ color: data.cult === 'PSH' ? '#795548' : '#00796B' }}>
+        <h1 className="title" style={{ color: data.culto === 'PSH' ? '#795548' : '#00796B' }}>
           {data.culto}
         </h1>
 
@@ -49,10 +47,10 @@ export default function CalendarItem({ data }) {
             style={{
               fontSize: 16,
               fontWeight: 600,
-              color: data.cult === 'PSH' ? '#795548' : '#00796B'
+              color: data.culto === 'PSH' ? '#795548' : '#00796B'
             }}
           >
-            {semana[moment(data.date).day()]}
+            {semana[moment(data.data).day()]}
           </span>
           <span
             style={{
@@ -63,7 +61,7 @@ export default function CalendarItem({ data }) {
               color: '#00000070'
             }}
           >
-            {moment(data.date).format('DD/MM')}
+            {moment(data.data).format('DD/MM')}
           </span>
         </div>
       </div>
