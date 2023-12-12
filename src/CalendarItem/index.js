@@ -75,7 +75,11 @@ export default function CalendarItem({ data }) {
           return (
             <label key={index} style={{ fontSize: 15, fontWeight: 300, alignItems: 'center' }}>
               - {louvor} {index === 0 && data.culto === 'Louvor e Pregação' ? ' [ Prelúdio ]' : ''}
-              <strong style={{ marginLeft: 6 }}>{tom?.tom}</strong>
+              {tom?.tom ? (
+                <strong style={{ marginLeft: 12 }}>
+                  <label style={{ color: '#aaa', fontSize: 12 }}>♫</label> {tom?.tom}
+                </strong>
+              ) : null}
             </label>
           );
         })}
