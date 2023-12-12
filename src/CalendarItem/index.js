@@ -67,7 +67,7 @@ export default function CalendarItem({ data }) {
       </div>
       <div
         onClick={() => setClicado(!clicado)}
-        style={{ display: 'grid', marginBottom: 12, gap: 2 }}
+        style={{ display: 'grid', marginBottom: 18, gap: 2 }}
       >
         {data?.louvores?.map((louvor, index) => {
           const tom = escala.find((item) => item.louvor === louvor);
