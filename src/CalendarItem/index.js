@@ -87,13 +87,13 @@ export default function CalendarItem({ data }) {
               {tom?.tom ? (
                 <div
                   style={{
-                    marginLeft: 12,
+                    marginLeft: 16,
                     alignItems: 'center',
                     flexDirection: 'row',
                     display: 'flex'
                   }}
                 >
-                  <label style={{ color: '#aaa', marginRight: 6 }}>♪</label>
+                  <label style={{ color: '#aaa', marginRight: 4 }}>♪</label>
                   <strong>{tom?.tom}</strong>
                 </div>
               ) : null}
