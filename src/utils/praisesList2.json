@@ -1,0 +1,94 @@
+[
+  {
+    "guitar": "André",
+    "praises": [
+      {
+        "type": "prelude",
+        "praise": [
+          { "tom": "D", "name": "Bom estarmos aqui" },
+          { "tom": "F#m", "name": "Em Espírito em verdade" },
+          { "tom": "C", "name": "Renova-me" },
+          { "tom": "E", "name": "Jesus em Tua presença" },
+          { "tom": "C", "name": "Cria em Mim" },
+          { "tom": "D", "name": "Vem, esta é a hora" },
+          { "tom": "", "name": "Vim para adorar-Te" }
+        ]
+      },
+      {
+        "type": "firstmoment",
+        "praise": [
+          { "tom": "Bm", "name": "Maranata" },
+          { "tom": "Am", "name": "Ao único" },
+          { "tom": "", "name": "Isaias 9" },
+          { "tom": "", "name": "Poderoso Deus" },
+          { "tom": "", "name": "Poder Pra Salvar" },
+          { "tom": "", "name": "Jó" },
+          { "tom": "", "name": "Meu Mestre" },
+          { "tom": "", "name": "Venha o teu Reino" },
+          { "tom": "", "name": "Precioso" },
+          { "tom": "", "name": "Todavia me alegrarei" }
+        ]
+      },
+      {
+        "type": "communion",
+        "praise": [
+          { "tom": "", "name": "Galileu" },
+          { "tom": "Ab", "name": "Foi por amor" },
+          { "tom": "", "name": "Filho do Deus vivo" },
+          { "tom": "", "name": "Meu Alvo" },
+          { "tom": "", "name": "Até que Ele venha" },
+          { "tom": "", "name": "Ainda que a figueira" },
+          { "tom": "", "name": "Quero que valorize" }
+        ]
+      },
+      {
+        "type": "supper",
+        "praise": [{ "type": "supper", "tom": "", "name": "Alto Preço" }]
+      }
+    ]
+  },
+  {
+    "guitar": "Thiago",
+    "praises": [{}]
+  },
+  {
+    "guitar": "Rhuan",
+    "praises": [
+      {
+        "type": "firstmoment",
+        "praise": [
+          { "tom": "Bm", "name": "Maranata" },
+          { "tom": "", "name": "Eu te agradeço Deus" },
+          { "tom": "", "name": "Faz Chover" }
+        ]
+      },
+      {
+        "type": "communion",
+        "praise": [{ "tom": "", "name": "Nosso General" }]
+      }
+    ]
+  },
+  {
+    "guitar": "Warley",
+    "praises": [
+      {
+        "type": "prelude",
+        "praise": [{ "tom": "C", "name": "Cria em Mim" }]
+      },
+      {
+        "type": "firstmoment",
+        "praise": [
+          { "tom": "Bm", "name": "Maranata" },
+          { "tom": "", "name": "Ele não desiste de você" },
+          { "tom": "", "name": "Quão grande é o meu Deus" },
+          { "tom": "", "name": "Meu Barquinho" },
+          { "tom": "", "name": "Pra sempre" }
+        ]
+      },
+      {
+        "type": "communion",
+        "praise": [{ "tom": "", "name": "Galileu" }]
+      }
+    ]
+  }
+]
