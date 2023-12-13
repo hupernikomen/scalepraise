@@ -9,16 +9,26 @@ export default function App() {
   const [tipoLouvor, setTipoLouvor] = useState('');
   const tocadores = ['Andre', 'Thiago', 'Warley', 'Rhuan'];
   const [tocador, setTocador] = useState('');
+  const [balao, setBalao] = useState();
 
   useEffect(() => {
     buscaTocador(tocador, tipoLouvor);
   }, [tocador, tipoLouvor]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setBalao({
+        mensagem: 'Próximo domingo teremos um ensaio seguido de uma breve reunião para tratarmos dos planos de 2024',
+        botao: 'Ok, combinado'
+      });
+    }, 3500);
+  }, []);
+
   // Musicos
   const musicos = {
     instrumentistas: {
       sexta: ['Wesley', 'Warley'],
-      psh: ['Thiago', 'Andre', 'Warley', 'Rhuan', '[ Escolher ]'],
+      psh: ['Thiago', 'Andre', 'Warley', 'Rhuan'],
       ebd: ['Annes']
     },
 
@@ -26,24 +36,28 @@ export default function App() {
       sexta: ['Lidiane', 'Laís', 'Edvan'],
       psh: [['Wilson', 'Paulinha'], ['Kelviane', 'Fernanda'], ['Edmilson', 'Fernanda'], ['Lidiane', 'Duda', 'Laís'], [('Fernanda', 'Paulinha')]],
       ebd: ['Wilson', 'Paulinha'],
-      domingonoite: ['Laís', 'Kelviane', 'Lidiane', 'Duda', '[ Escolher ]']
+      domingonoite: ['Laís', 'Kelviane', 'Lidiane', 'Duda']
     }
   };
 
   // Revesamento do guitarrista com base no numero da semana
   // Revesamento de guitarrista para o domingo a noite
   const tocadorPSH = musicos.instrumentistas.psh[numeroDaSemana() - 1];
-  const tocadorIbav = numeroDaSemana() % 2 === 0 ? 'André' : 'Thiago';
+  const tocadorIbav = tocadores[numeroDaSemana()];
+
+  const buscaLouvores = (tipo, tocador, index) => {
+    const lista = listaLouvores.filter((item) => item.tipo === tipo);
+    const listaTocador = lista?.filter((item) => item.tocadores?.indexOf(tocador) > -1);
+    const newList = listaTocador[index - 1] || null;
+    return newList;
+  };
 
   const escalas = [
     // Doutrina / Oração
     {
       data: proximaSexta(),
       culto: 'Doutrina / Oração',
-      louvores: [
-        buscaLouvores('firstmoment', 'Warley', listaLouvores)[numeroDaSemana() - 1]?.louvor || buscaLouvores('firstmoment', 'Warley', listaLouvores)[0]?.louvor,
-        buscaLouvores('firstmoment', 'Warley', listaLouvores)[numeroDaSemana()]?.louvor || buscaLouvores('firstmoment', 'Warley', listaLouvores)[1]?.louvor
-      ],
+      louvores: [buscaLouvores('primeiromomento', 'Warley', 1), buscaLouvores('primeiromomento', 'Warley', 2)],
       vocalistas: musicos.vocalistas.sexta,
       instrumentistas: musicos.instrumentistas.sexta
     },
@@ -61,11 +75,7 @@ export default function App() {
     {
       data: proximoDomingo(),
       culto: 'Louvor e Pregação',
-      louvores: [
-        buscaLouvores('prelude', tocadorIbav, listaLouvores)[numeroDaSemana()]?.louvor,
-        buscaLouvores('firstmoment', tocadorIbav, listaLouvores)[numeroDaSemana()]?.louvor,
-        buscaLouvores('communion', tocadorIbav, listaLouvores)[numeroDaSemana()]?.louvor
-      ],
+      louvores: [buscaLouvores('preludio', tocadorIbav, 1), buscaLouvores('primeiromomento', tocadorIbav, 1), buscaLouvores('comunhao', tocadorIbav, 1)],
       hcc: [],
       vocalistas: ['Edmilson', 'Edvan', numeroDaSemana() % 2 === 0 ? 'Fernanda' : 'Paulinha', musicos.vocalistas.domingonoite[numeroDaSemana() - 1]],
       instrumentistas: ['Wesley', 'Annes', tocadorIbav]
@@ -75,11 +85,7 @@ export default function App() {
     {
       data: proximoSabado(),
       culto: 'PSH',
-      louvores: [
-        buscaLouvores('prelude', tocadorPSH, listaLouvores)[numeroDaSemana() - 1]?.louvor,
-        buscaLouvores('firstmoment', tocadorPSH, listaLouvores)[numeroDaSemana() - 1]?.louvor,
-        buscaLouvores('communion', tocadorPSH, listaLouvores)[numeroDaSemana() - 1]?.louvor
-      ],
+      louvores: [buscaLouvores('preludio', tocadorPSH, 1), buscaLouvores('primeiromomento', tocadorPSH, 1), buscaLouvores('comunhao', tocadorPSH, 1)],
       vocalistas: musicos.vocalistas.psh[numeroDaSemana() - 1],
       instrumentistas: musicos.instrumentistas.psh[numeroDaSemana() - 1]
     },
@@ -107,18 +113,6 @@ export default function App() {
       instrumentistas: ['Wesley', 'André', 'Thiago', 'Annes']
     }
   ];
-
-  function buscaLouvores(tipo, tocador, lista) {
-    let resultado = [];
-
-    lista.forEach((item) => {
-      if (item?.tocadores?.indexOf(tocador) && item?.tipo === tipo) {
-        resultado.push(item);
-      }
-    });
-
-    return resultado;
-  }
 
   //Converte data String em data Date
   function converteData(inData) {
@@ -199,39 +193,67 @@ export default function App() {
   }
 
   return (
-    <div style={{ padding: 12 }}>
-      <h1 style={{ margin: '30px 10px', fontSize: 24, fontWeight: 800 }}>ESCALA DE LOUVOR</h1>
+    <div>
+      {balao ? (
+        <button
+          onClick={() => setBalao('')}
+          style={{ position: 'fixed', zIndex: 999, width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#00000090' }}
+        >
+          <div
+            style={{
+              boxShadow: '1px 1px 10px #33333399',
+              padding: 18,
+              flexDirection: 'column',
+              background: '#fff',
+              width: '70vw',
+              minHeight: 100,
+              alignItems: 'center',
+              display: 'flex',
+              justifyContent: 'center',
+              borderRadius: 12
+            }}
+          >
+            <strong style={{ fontSize: 18 }}>Informativo</strong>
+            <label style={{ marginTop: 18, textAlign: 'center', fontSize: 16, fontWeight: 300, color: '#000' }}>{balao.mensagem}</label>
+            <div style={{ padding: 12, background: '#795548', color: '#fff', borderRadius: 6, marginTop: 26 }}>{balao.botao}</div>
+          </div>
+        </button>
+      ) : null}
 
-      <div>
-        <label style={{ margin: '10px' }}>Encontre Louvores</label>
-        <div style={{ display: 'flex', margin: '6px 0', gap: 6 }}>
-          <select style={{ height: 28, padding: '6px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTocador(e.target.value)}>
-            <option>Tocador</option>
-            {tocadores.map((tocador) => (
-              <option>{tocador}</option>
+      <div style={{ padding: 12 }}>
+        <h1 style={{ margin: '30px 10px', fontSize: 24, fontWeight: 800 }}>ESCALA DE LOUVOR</h1>
+
+        <div>
+          <label style={{ margin: '10px' }}>Encontre Louvores</label>
+          <div style={{ display: 'flex', margin: '6px 0', gap: 6 }}>
+            <select style={{ height: 28, padding: '6px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTocador(e.target.value)}>
+              <option>Tocador</option>
+              {tocadores.map((tocador) => (
+                <option>{tocador}</option>
+              ))}
+            </select>
+
+            <select style={{ height: 28, padding: '6px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTipoLouvor(e.target.value)}>
+              <option>Tipo</option>
+              <option value={'preludio'}>Prelúdio</option>
+              <option value={'primeiromomento'}>Primeiro Momento</option>
+              <option value={'comunhao'}>Comunhão</option>
+            </select>
+          </div>
+
+          <div style={{ margin: '18px 0' }}>
+            {louvoresTocador.map((louvor) => (
+              <div style={{ borderLeft: '4px solid #795548', fontSize: 15, fontWeight: 300, paddingLeft: '12px', margin: '2px 12px', backgroundColor: '#fff' }}>{louvor}</div>
             ))}
-          </select>
-
-          <select style={{ height: 28, padding: '6px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTipoLouvor(e.target.value)}>
-            <option>Tipo</option>
-            <option value={'prelude'}>Prelúdio</option>
-            <option value={'firstmoment'}>Primeiro Momento</option>
-            <option value={'communion'}>Comunhão</option>
-          </select>
+          </div>
         </div>
 
-        <div style={{ margin: '18px 0' }}>
-          {louvoresTocador.map((louvor) => (
-            <div style={{ borderLeft: '4px solid #795548', fontSize: 15, fontWeight: 300, paddingLeft: '12px', margin: '2px 12px', backgroundColor: '#fff' }}>{louvor}</div>
-          ))}
-        </div>
+        {ordenaEscala.map((scale, index) => (
+          <CalendarItem key={index} data={scale} />
+        ))}
+
+        <p style={{ textAlign: 'center', marginTop: 50, fontWeight: 300 }}>Ministério de Louvor Adonai</p>
       </div>
-
-      {ordenaEscala.map((scale, index) => (
-        <CalendarItem key={index} data={scale} />
-      ))}
-
-      <p style={{ textAlign: 'center', marginTop: 50, fontWeight: 300 }}>Ministério de Louvor Adonai</p>
     </div>
   );
 }

@@ -61,7 +61,7 @@ export default function CalendarItem({ data }) {
                 flexDirection: 'row'
               }}
             >
-              - {louvor} {index === 0 && data.culto === 'Louvor e Pregação' ? ' [ Prelúdio ]' : ''}
+              - {louvor?.louvor || louvor} {index === 0 && data.culto === 'Louvor e Pregação' ? ' [ Prelúdio ]' : ''}
               {tom?.tom ? (
                 <div
                   style={{
