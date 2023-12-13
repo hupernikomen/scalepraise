@@ -200,11 +200,11 @@ export default function App() {
 
   return (
     <div style={{ padding: 12 }}>
-      <h1 style={{ marginLeft: 18, fontSize: 24, fontWeight: 800 }}>ESCALA DE LOUVOR ADONAI</h1>
+      <h1 style={{ margin: '30px 10px', fontSize: 24, fontWeight: 800 }}>ESCALA DE LOUVOR</h1>
 
       <div>
-        <label style={{ margin: '18px' }}>Encontre Louvores</label>
-        <div style={{ display: 'flex', margin: '6px' }}>
+        <label style={{ margin: '10px' }}>Encontre Louvores</label>
+        <div style={{ display: 'flex', margin: '6px 0', gap: 6 }}>
           <select style={{ height: 28, padding: '6px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTocador(e.target.value)}>
             <option>Tocador</option>
             {tocadores.map((tocador) => (
