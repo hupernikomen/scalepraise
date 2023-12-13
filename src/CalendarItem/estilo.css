@@ -1,25 +1,25 @@
 .container {
-    background-color: #fff;
-    margin: 12px;
-    padding: 12px 18px 25px 18px;
-    border-radius:  24px 0 24px 0;
-    box-shadow: 1px 1px 3px  #00000030;
+  background-color: #fff;
+  border: 0.5px solid #222;
+  padding: 22px 18px 38px 18px;
+  border-radius: 18px 0 18px 0;
+  margin-bottom: 12px;
 }
 
 .top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
 }
 
 .title {
-    font-size: 20px
+  font-size: 18px;
 }
 
 .date {
-    display: flex; 
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
