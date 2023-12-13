@@ -7,7 +7,7 @@ const listaLouvores = require('./utils/louvores.json');
 const musicos = {
   instrumentistas: {
     sexta: ['Wesley', 'Warley'],
-    psh: ['Thiago', 'Andre', 'Warley', 'Rhuan', 'Rhuan'],
+    psh: ['Thiago', 'Andre', 'Warley', 'Rhuan', '[ Escolher ]'],
     ebd: ['Annes']
   },
 
@@ -21,7 +21,7 @@ const musicos = {
       [('Fernanda', 'Paulinha')]
     ],
     ebd: ['Wilson', 'Paulinha'],
-    domingonoite: ['Laís', 'Kelviane', 'Lidiane', 'Duda']
+    domingonoite: ['Laís', 'Kelviane', 'Lidiane', 'Duda', '[ Escolher ]']
   }
 };
 
