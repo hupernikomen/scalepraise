@@ -2,6 +2,10 @@ import './estilo.css';
 import moment from 'moment';
 
 export default function CalendarItem({ data }) {
+  if (data?.status === false) {
+    return;
+  }
+
   const escala = require('../utils/louvores.json');
   const semana = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
 
@@ -48,7 +52,7 @@ export default function CalendarItem({ data }) {
       </div>
       <div style={{ display: 'grid', marginBottom: 18, gap: 2 }}>
         {data?.louvores?.map((louvor, index) => {
-          const tom = escala.find((item) => item.louvor === louvor);
+          const tonsescalasextras = escala.find((item) => item.louvor === louvor);
 
           return (
             <label
@@ -62,7 +66,7 @@ export default function CalendarItem({ data }) {
               }}
             >
               - {louvor?.louvor || louvor} {index === 0 && data.culto === 'Louvor e Pregação' ? ' [ Prelúdio ]' : ''}
-              {tom?.tom ? (
+              {louvor?.tom || tonsescalasextras?.tom ? (
                 <div
                   style={{
                     marginLeft: 16,
@@ -72,7 +76,7 @@ export default function CalendarItem({ data }) {
                   }}
                 >
                   <label style={{ color: '#aaa', marginRight: 4 }}>♪</label>
-                  <div style={{ fontWeight: 500, color: '#795548' }}>{tom?.tom}</div>
+                  <label style={{ fontWeight: 500, color: '#795548' }}>{louvor?.tom || tonsescalasextras?.tom}</label>
                 </div>
               ) : null}
             </label>
