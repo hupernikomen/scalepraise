@@ -194,7 +194,7 @@ export default function App() {
 
   return (
     <div style={{ padding: 12 }}>
-      <h1 style={{ margin: '30px 10px', fontSize: 24, fontWeight: 800 }}>ESCALA DE LOUVOR</h1>
+      <h1 style={{ margin: '10px', fontSize: 24, fontWeight: 800 }}>ESCALA DE LOUVOR</h1>
 
       <div>
         <label style={{ margin: '10px' }}>Encontre Louvores</label>
