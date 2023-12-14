@@ -114,18 +114,6 @@ export default function App() {
     }
   ];
 
-  // function buscaLouvores(tipo, tocador, lista) {
-  //   let resultado = [];
-
-  //   lista.forEach((item) => {
-  //     if (item?.tocadores?.indexOf(tocador) && item?.tipo === tipo) {
-  //       resultado.push(item);
-  //     }
-  //   });
-
-  //   return resultado;
-  // }
-
   //Converte data String em data Date
   function converteData(inData) {
     // Divide a string da data em dia, mês e ano
@@ -201,7 +189,7 @@ export default function App() {
   // Busca o Tocador com base no tipo de louvor
   function buscaTocador(tocador, tipo) {
     const louvorEncontrado = listaLouvores.filter((louvor) => louvor.tocadores?.includes(tocador) && louvor.tipo === tipo);
-    setLouvoresTocador(louvorEncontrado.map((louvor) => louvor.louvor));
+    setLouvoresTocador(louvorEncontrado);
   }
 
   return (
@@ -227,9 +215,14 @@ export default function App() {
         </div>
 
         <div style={{ margin: '18px 0' }}>
-          {louvoresTocador.map((louvor) => (
-            <div style={{ borderLeft: '4px solid #795548', fontSize: 15, fontWeight: 300, paddingLeft: '12px', margin: '2px 12px', backgroundColor: '#fff' }}>{louvor}</div>
-          ))}
+          {louvoresTocador.map((louvor) => {
+            return (
+              <div style={{ borderLeft: '4px solid #795548', fontSize: 15, fontWeight: 300, paddingLeft: '12px', margin: '2px 12px', backgroundColor: '#fff' }}>
+                {louvor?.louvor}
+                {louvor?.tom ? <span style={{ fontWeight: 600 }}> - ♪ {louvor?.tom}</span> : null}
+              </div>
+            );
+          })}
         </div>
       </div>
 
