@@ -214,6 +214,7 @@ export default function App() {
             <option value={'preludio'}>Prelúdio</option>
             <option value={'primeiromomento'}>Primeiro Momento</option>
             <option value={'comunhao'}>Comunhão</option>
+            <option value={'ceia'}>Ceia</option>
           </select>
         </div>
 
