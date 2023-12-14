@@ -37,7 +37,7 @@
   { "tipo": "primeiromomento", "tom": "", "louvor": "Até que ele venha", "tocadores": ["Thiago", "André"] },
   { "tipo": "primeiromomento", "tom": "", "louvor": "Deus Proverá", "tocadores": [""] },
 
-  { "tipo": "comunhao", "tom": "", "louvor": "Galileu", "tocadores": ["Andre"] },
+  { "tipo": "comunhao", "tom": "", "louvor": "Galileu", "tocadores": ["Andre", "Warley"] },
   { "tipo": "comunhao", "tom": "", "louvor": "Filho do Deus vivo", "tocadores": ["Andre"] },
   { "tipo": "comunhao", "tom": "D", "louvor": "Celebrai a Cristo", "tocadores": ["Andre"] },
   { "tipo": "comunhao", "tom": "Ab", "louvor": "Foi por amor", "tocadores": ["Andre"] },
@@ -48,9 +48,8 @@
   { "tipo": "comunhao", "tom": "", "louvor": "Ainda que a figueira", "tocadores": ["Andre"] },
   { "tipo": "comunhao", "tom": "", "louvor": "Reina em mim", "tocadores": [""] },
   { "tipo": "comunhao", "tom": "", "louvor": "Quero que valorize", "tocadores": ["Andre"] },
-  { "tipo": "comunhao", "tom": "", "louvor": "Galileu", "tocadores": ["Warley"] },
-  { "tipo": "comunhao", "tom": "", "louvor": "Nosso General", "guitar": ["Rhuan", "Thiago"] },
-  { "tipo": "comunhao", "tom": "", "louvor": "Deus é o meu refúgio", "guitar": [""] },
+  { "tipo": "comunhao", "tom": "", "louvor": "Nosso General", "tocadores": ["Rhuan", "Thiago"] },
+  { "tipo": "comunhao", "tom": "", "louvor": "Deus é o meu refúgio", "tocadores": [""] },
 
   { "tipo": "ceia", "tom": "", "louvor": "Alto Preço", "tocadores": ["Andre"] },
   { "tipo": "ceia", "tom": "", "louvor": "Corpo e família", "tocadores": [""] },

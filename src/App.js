@@ -45,6 +45,7 @@ export default function App() {
     const listatocador = listaTipo.filter((item) => item.tocadores?.indexOf(tocador) > -1);
 
     const posicao = index - Math.floor(index / listatocador.length) * listatocador.length;
+    console.log(posicao);
     return listatocador[posicao];
   };
 
@@ -54,7 +55,7 @@ export default function App() {
       status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
       data: proximaSexta(),
       culto: 'Doutrina / Oração',
-      louvores: [buscaLouvores('primeiromomento', 'Warley', posicaoLouvor), buscaLouvores('primeiromomento', 'Warley', posicaoLouvor + 1)],
+      louvores: [buscaLouvores('preludio', 'Warley', posicaoLouvor), buscaLouvores('primeiromomento', 'Warley', posicaoLouvor)],
       vocalistas: musicos.vocalistas.sexta,
       instrumentistas: musicos.instrumentistas.sexta
     },
@@ -74,7 +75,7 @@ export default function App() {
       status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
       data: proximoDomingo(),
       culto: 'Louvor e Pregação',
-      louvores: [buscaLouvores('preludio', tocadorIbav, posicaoLouvor), buscaLouvores('primeiromomento', tocadorIbav, posicaoLouvor + 1), buscaLouvores('comunhao', tocadorIbav, posicaoLouvor + 2)],
+      louvores: [buscaLouvores('preludio', tocadorIbav, posicaoLouvor), buscaLouvores('primeiromomento', tocadorIbav, posicaoLouvor), buscaLouvores('comunhao', tocadorIbav, posicaoLouvor)],
       hcc: [],
       vocalistas: ['Edmilson', 'Edvan', numeroDaSemana() % 2 === 0 ? 'Fernanda' : 'Paulinha', musicos.vocalistas.domingonoite[numeroDaSemana() - 1]],
       instrumentistas: ['Wesley', 'Annes', tocadorIbav]
@@ -194,15 +195,15 @@ export default function App() {
 
   return (
     <div style={{ padding: 12 }}>
-      <h1 style={{ margin: '10px', marginBottom: '20px', fontSize: 24, fontWeight: 800 }}>ESCALA DE LOUVOR</h1>
+      <h1 style={{ margin: '10px', marginBottom: '30px', fontSize: 24, fontWeight: 800 }}>ESCALA DE LOUVOR</h1>
 
       <div>
         <label style={{ margin: '10px' }}>Encontre Louvores</label>
         <div style={{ display: 'flex', margin: '6px 0', gap: 6 }}>
           <select style={{ height: 28, padding: '6px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTocador(e.target.value)}>
             <option>Tocador</option>
-            {tocadores.map((tocador) => (
-              <option>{tocador}</option>
+            {tocadores.map((tocador, index) => (
+              <option key={index}>{tocador}</option>
             ))}
           </select>
 
@@ -215,9 +216,9 @@ export default function App() {
         </div>
 
         <div style={{ margin: '18px 0' }}>
-          {louvoresTocador.map((louvor) => {
+          {louvoresTocador.map((louvor, index) => {
             return (
-              <div style={{ borderLeft: '4px solid #795548', fontSize: 15, fontWeight: 300, paddingLeft: '12px', margin: '2px 12px', backgroundColor: '#fff', color: '#000' }}>
+              <div key={index} style={{ borderLeft: '4px solid #795548', fontSize: 15, fontWeight: 300, paddingLeft: '12px', margin: '2px 12px', backgroundColor: '#fff', color: '#000' }}>
                 {louvor?.louvor}
                 {louvor?.tom ? <span style={{ fontWeight: 600 }}> - ♪ {louvor?.tom}</span> : null}
               </div>
