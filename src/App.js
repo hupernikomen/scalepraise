@@ -45,7 +45,6 @@ export default function App() {
     const listatocador = listaTipo.filter((item) => item.tocadores?.indexOf(tocador) > -1);
 
     const posicao = index - Math.floor(index / listatocador.length) * listatocador.length;
-    console.log(posicao);
     return listatocador[posicao];
   };
 
@@ -195,19 +194,22 @@ export default function App() {
 
   return (
     <div style={{ padding: 12 }}>
-      <h1 style={{ margin: '10px', marginBottom: '30px', fontSize: 24, fontWeight: 800 }}>ESCALA DE LOUVOR</h1>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px' }}>
+        <h1 style={{ fontSize: 24, fontWeight: 800 }}>ESCALA DE LOUVOR</h1>
+        <span style={{ fontSize: 24, color: '#ddd' }}>#S-{posicaoLouvor}</span>
+      </div>
 
-      <div>
+      <div style={{ marginBottom: 50 }}>
         <label style={{ margin: '10px' }}>Encontre Louvores</label>
         <div style={{ display: 'flex', margin: '6px 0', gap: 6 }}>
-          <select style={{ height: 28, padding: '6px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTocador(e.target.value)}>
+          <select style={{ height: 38, padding: '0 18px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTocador(e.target.value)}>
             <option>Tocador</option>
             {tocadores.map((tocador, index) => (
               <option key={index}>{tocador}</option>
             ))}
           </select>
 
-          <select style={{ height: 28, padding: '6px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTipoLouvor(e.target.value)}>
+          <select style={{ height: 38, padding: '0 18px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTipoLouvor(e.target.value)}>
             <option>Tipo</option>
             <option value={'preludio'}>Prelúdio</option>
             <option value={'primeiromomento'}>Primeiro Momento</option>
