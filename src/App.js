@@ -217,7 +217,7 @@ export default function App() {
         <div style={{ margin: '18px 0' }}>
           {louvoresTocador.map((louvor) => {
             return (
-              <div style={{ borderLeft: '4px solid #795548', fontSize: 15, fontWeight: 300, paddingLeft: '12px', margin: '2px 12px', backgroundColor: '#fff' }}>
+              <div style={{ borderLeft: '4px solid #795548', fontSize: 15, fontWeight: 300, paddingLeft: '12px', margin: '2px 12px', backgroundColor: '#fff', color: '#000' }}>
                 {louvor?.louvor}
                 {louvor?.tom ? <span style={{ fontWeight: 600 }}> - ♪ {louvor?.tom}</span> : null}
               </div>
