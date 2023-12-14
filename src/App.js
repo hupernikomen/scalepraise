@@ -223,7 +223,7 @@ export default function App() {
             return (
               <div key={index} style={{ borderLeft: '4px solid #795548', fontSize: 15, fontWeight: 300, paddingLeft: '12px', margin: '2px 12px', backgroundColor: '#fff', color: '#000' }}>
                 {louvor?.louvor}
-                {louvor?.tom ? <span style={{ fontWeight: 600 }}> - ♪ {louvor?.tom}</span> : null}
+                {louvor?.tom ? <span style={{ fontWeight: 600, marginLeft: 12 }}> ♪ {louvor?.tom}</span> : null}
               </div>
             );
           })}

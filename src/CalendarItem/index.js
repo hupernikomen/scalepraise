@@ -75,7 +75,7 @@ export default function CalendarItem({ data }) {
                     display: 'flex'
                   }}
                 >
-                  <label style={{ color: '#aaa', marginRight: 4 }}>♪</label>
+                  <label style={{ color: '#000', marginRight: 4 }}>♪</label>
                   <label style={{ fontWeight: 500, color: '#795548' }}>{louvor?.tom || tonsescalasextras?.tom}</label>
                 </div>
               ) : null}
