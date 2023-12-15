@@ -295,7 +295,7 @@
   { "tipo": "hcc", "tom": "", "n": "236", "louvor": "Mais de Cristo", "tocadores": [] },
   { "tipo": "hcc", "tom": "", "n": "237", "louvor": "Oração de consagração", "tocadores": [] },
   { "tipo": "hcc", "tom": "", "n": "238", "louvor": "A água da vida", "tocadores": [] },
-  { "tipo": "hcc", "tom": "", "n": "239", "louvor": "O culto findou", "tocadores": [] },
+  { "tipo": "hcc", "tom": "", "n": "239", "louvor": "A luz do céu", "tocadores": [] },
   { "tipo": "hcc", "tom": "", "n": "240", "louvor": "Fim do culto", "tocadores": [] },
   { "tipo": "hcc", "tom": "", "n": "241", "louvor": "O dia glorioso", "tocadores": [] },
   { "tipo": "hcc", "tom": "", "n": "242", "louvor": "A vinda do Senhor", "tocadores": [] },
@@ -441,11 +441,12 @@
   { "tipo": "hcc", "tom": "", "n": "382", "louvor": "O melhor amigo", "tocadores": [] },
   { "tipo": "hcc", "tom": "", "n": "383", "louvor": "O nome de Jesus", "tocadores": [] },
   { "tipo": "hcc", "tom": "", "n": "384", "louvor": "Ovelha perdida", "tocadores": [] },
-  { "tipo": "hcc", "tom": "", "n": "385", "louvor": "Pai nosso", "tocadores": [] },
+  { "tipo": "hcc", "tom": "", "n": "385", "louvor": "Louvor", "tocadores": [] },
   { "tipo": "hcc", "tom": "", "n": "386", "louvor": "Perdão", "tocadores": [] },
   { "tipo": "hcc", "tom": "", "n": "387", "louvor": "Santo Espírito", "tocadores": [] },
   { "tipo": "hcc", "tom": "", "n": "388", "louvor": "Saudai Emanuel", "tocadores": [] },
   { "tipo": "hcc", "tom": "", "n": "389", "louvor": "Vivificação", "tocadores": [] },
   { "tipo": "hcc", "tom": "", "n": "390", "louvor": "Vivifica-nos, Senhor", "tocadores": [] },
-  { "tipo": "hcc", "tom": "", "n": "391", "louvor": "Vivificou-me" }
+  { "tipo": "hcc", "tom": "", "n": "396", "louvor": "Cegueira e vista", "tocadores": [] },
+  { "tipo": "hcc", "tom": "", "n": "456", "louvor": "O Estandarte", "tocadores": [] }
 ]

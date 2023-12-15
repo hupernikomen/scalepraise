@@ -2,6 +2,7 @@ import './estilo.css';
 import moment from 'moment';
 
 export default function CalendarItem({ data }) {
+  // console.log(data?.hcc[0]?.n, data?.hcc[0]?.louvor, 'datat');
   if (data?.status === false) {
     return;
   }
@@ -15,16 +16,14 @@ export default function CalendarItem({ data }) {
 
   // Busca hino do cantor cristao com base no numero
   function cantorCristao(num) {
-    for (let i = 0; i < escala.length; i++) {
-      if (escala[i]?.num === num) return escala[i].louvor;
-    }
-    return null; // caso não encontre, retorna null
+    const response = escala.filter((item) => item.n === num);
+    return response[0]?.louvor;
   }
 
   return (
     <div className="container">
       <div className="top">
-        <h1 className="title" style={{ color: data.culto === 'PSH' ? '#795548' : '#00796B' }}>
+        <h1 className="title" style={{ color: data.culto === 'PSH' ? '#795548' : '#58731e' }}>
           {data.culto}
         </h1>
 
@@ -32,7 +31,7 @@ export default function CalendarItem({ data }) {
           <span
             style={{
               fontWeight: 600,
-              color: data.culto === 'PSH' ? '#795548' : '#00796B'
+              color: data.culto === 'PSH' ? '#795548' : '#58731e'
             }}
           >
             {semana[moment(data.data).day()]}
@@ -85,7 +84,7 @@ export default function CalendarItem({ data }) {
         {data.hcc?.map((hcc, index) => {
           return (
             <label key={index} style={{ fontSize: 15, fontWeight: 300 }}>
-              CC {hcc} - {cantorCristao(hcc)}{' '}
+              CC {hcc} - {cantorCristao(hcc)}
             </label>
           );
         })}

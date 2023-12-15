@@ -13,6 +13,24 @@ export default function App() {
     buscaTocador(tocador, tipoLouvor);
   }, [tocador, tipoLouvor]);
 
+  const hinos = [
+    ['154', '456'],
+    ['101', '009'],
+    ['101', '385'],
+    ['101', '073'],
+
+    ['099', '089'],
+    ['099', '089'],
+    ['099', '108'],
+    ['099', '114'],
+
+    ['014', '160'],
+    ['014', '239'],
+    ['014', '239'],
+    ['396', '456'],
+    ['099', '101']
+  ];
+
   // Musicos
   const musicos = {
     instrumentistas: {
@@ -75,7 +93,7 @@ export default function App() {
       data: proximoDomingo(),
       culto: 'Louvor e Pregação',
       louvores: [buscaLouvores('preludio', tocadorIbav, posicaoLouvor), buscaLouvores('primeiromomento', tocadorIbav, posicaoLouvor), buscaLouvores('comunhao', tocadorIbav, posicaoLouvor)],
-      hcc: [],
+      hcc: hinos[posicaoLouvor],
       vocalistas: ['Edmilson', 'Edvan', numeroDaSemana() % 2 === 0 ? 'Fernanda' : 'Paulinha', musicos.vocalistas.domingonoite[numeroDaSemana() - 1]],
       instrumentistas: ['Wesley', 'Annes', tocadorIbav]
     },
@@ -193,48 +211,49 @@ export default function App() {
   }
 
   return (
-    <div style={{ padding: 12 }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px' }}>
-        <h1 style={{ fontSize: 24, fontWeight: 800 }}>ESCALA DE LOUVOR</h1>
-        <span style={{ fontSize: 24, color: '#ddd' }}>#S-{posicaoLouvor}</span>
+    <div>
+      <div style={{ backgroundColor: '#58731e', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 18px' }}>
+        <h1 style={{ fontSize: 20, fontWeight: 600, color: '#fff' }}>ESCALA DE LOUVOR</h1>
+        <span style={{ fontSize: 24, color: '#6d8e25' }}>#S-{posicaoLouvor}</span>
       </div>
+      <div style={{ padding: 12 }}>
+        <div style={{ marginBottom: 50 }}>
+          <label style={{ margin: '10px' }}>Encontre Louvores</label>
+          <div style={{ display: 'flex', margin: '6px 0', gap: 6 }}>
+            <select style={{ height: 38, padding: '0 18px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTocador(e.target.value)}>
+              <option>Tocador</option>
+              {tocadores.map((tocador, index) => (
+                <option key={index}>{tocador}</option>
+              ))}
+            </select>
 
-      <div style={{ marginBottom: 50 }}>
-        <label style={{ margin: '10px' }}>Encontre Louvores</label>
-        <div style={{ display: 'flex', margin: '6px 0', gap: 6 }}>
-          <select style={{ height: 38, padding: '0 18px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTocador(e.target.value)}>
-            <option>Tocador</option>
-            {tocadores.map((tocador, index) => (
-              <option key={index}>{tocador}</option>
-            ))}
-          </select>
+            <select style={{ height: 38, padding: '0 18px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTipoLouvor(e.target.value)}>
+              <option>Tipo</option>
+              <option value={'preludio'}>Prelúdio</option>
+              <option value={'primeiromomento'}>Primeiro Momento</option>
+              <option value={'comunhao'}>Comunhão</option>
+              <option value={'ceia'}>Ceia</option>
+            </select>
+          </div>
 
-          <select style={{ height: 38, padding: '0 18px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTipoLouvor(e.target.value)}>
-            <option>Tipo</option>
-            <option value={'preludio'}>Prelúdio</option>
-            <option value={'primeiromomento'}>Primeiro Momento</option>
-            <option value={'comunhao'}>Comunhão</option>
-            <option value={'ceia'}>Ceia</option>
-          </select>
+          <div style={{ margin: '18px 0' }}>
+            {louvoresTocador.map((louvor, index) => {
+              return (
+                <div key={index} style={{ borderLeft: '4px solid #795548', fontSize: 15, fontWeight: 300, paddingLeft: '12px', margin: '2px 12px', backgroundColor: '#fff', color: '#000' }}>
+                  {louvor?.louvor}
+                  {louvor?.tom ? <span style={{ fontWeight: 600, marginLeft: 12 }}> ♪ {louvor?.tom}</span> : null}
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        <div style={{ margin: '18px 0' }}>
-          {louvoresTocador.map((louvor, index) => {
-            return (
-              <div key={index} style={{ borderLeft: '4px solid #795548', fontSize: 15, fontWeight: 300, paddingLeft: '12px', margin: '2px 12px', backgroundColor: '#fff', color: '#000' }}>
-                {louvor?.louvor}
-                {louvor?.tom ? <span style={{ fontWeight: 600, marginLeft: 12 }}> ♪ {louvor?.tom}</span> : null}
-              </div>
-            );
-          })}
-        </div>
+        {ordenaEscala.map((scale, index) => (
+          <CalendarItem key={index} data={scale} />
+        ))}
+
+        <p style={{ textAlign: 'center', marginTop: 50, fontWeight: 300 }}>Ministério de Louvor Adonai</p>
       </div>
-
-      {ordenaEscala.map((scale, index) => (
-        <CalendarItem key={index} data={scale} />
-      ))}
-
-      <p style={{ textAlign: 'center', marginTop: 50, fontWeight: 300 }}>Ministério de Louvor Adonai</p>
     </div>
   );
 }
