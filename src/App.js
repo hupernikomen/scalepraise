@@ -212,9 +212,9 @@ export default function App() {
 
   return (
     <div>
-      <div style={{ backgroundColor: '#58731e', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 18px' }}>
-        <h1 style={{ fontSize: 20, fontWeight: 600, color: '#fff' }}>ESCALA DE LOUVOR</h1>
-        <span style={{ fontSize: 24, color: '#6d8e25' }}>#S-{posicaoLouvor}</span>
+      <div style={{ backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 22px' }}>
+        <h1 style={{ fontSize: 24, fontWeight: 800, color: '#000' }}>ESCALA DE LOUVOR</h1>
+        <span style={{ fontSize: 20, color: '#aaa' }}>#S-{posicaoLouvor}</span>
       </div>
       <div style={{ padding: 12 }}>
         <div style={{ marginBottom: 50 }}>
