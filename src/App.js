@@ -8,16 +8,22 @@ export default function App() {
   const [tipoLouvor, setTipoLouvor] = useState('');
   const tocadores = ['Andre', 'Thiago', 'Warley', 'Rhuan'];
   const [tocador, setTocador] = useState('');
-  const [obs, setObs] = useState({
-    titulo: 'Reunião',
-    mensagem: 'No domingo do dia 07/01, após o culto, teremos uma reunião para tratarmos do ano de 2024 ',
-    botao: 'Ok, combinado'
-  });
+  const [obs, setObs] = useState({});
   const [modal, setModal] = useState(true);
 
   useEffect(() => {
     buscaTocador(tocador, tipoLouvor);
   }, [tocador, tipoLouvor]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setObs({
+        titulo: 'Reunião',
+        mensagem: 'No domingo do dia 07/01, após o culto, teremos uma reunião para tratarmos do ano de 2024 ',
+        botao: 'Ok, combinado'
+      });
+    }, 3000);
+  }, []);
 
   const hinos = [
     ['154', '456'],
@@ -218,9 +224,9 @@ export default function App() {
 
   return (
     <div style={{ flex: 1 }}>
-      {modal ? (
+      {obs?.titulo ? (
         <div style={{ position: 'fixed', background: '#00000099', height: '100vh', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-          <div onClick={() => setModal(false)} style={{ boxShadow: '1px 1px 10px #00000070', width: '70%', background: '#fff', borderRadius: 12, marginTop: -100, padding: '20px 12px' }}>
+          <div onClick={() => setObs({})} style={{ boxShadow: '1px 1px 10px #00000070', width: '70%', background: '#fff', borderRadius: 12, marginTop: -100, padding: '20px 12px' }}>
             <div style={{ textAlign: 'center', fontWeight: 600, fontSize: 22 }}>{obs.titulo}</div>
             <div style={{ fontWeight: 300, textAlign: 'center', marginTop: 20, fontSize: 17 }}>{obs.mensagem}</div>
             <div style={{ boxShadow: '1px 1px 10px #00000070', padding: 12, marginTop: 40, borderRadius: 6, textAlign: 'center', background: '#795548', color: '#fff' }}>{obs.botao}</div>
