@@ -8,8 +8,27 @@ export default function App() {
   const [tipoLouvor, setTipoLouvor] = useState('');
   const tocadores = ['Andre', 'Thiago', 'Warley', 'Rhuan'];
   const [tocador, setTocador] = useState('');
-  const [obs, setObs] = useState({});
+  const [obs, setObs] = useState([]);
   const [modal, setModal] = useState(true);
+
+  const versiculos = [
+    {
+      texto: 'Batam palmas, vocês, todos os povos, aclamem a Deus com cantos de alegria.',
+      ref: 'Salmos 47:1'
+    },
+    {
+      texto: 'Alegrem-se sempre no Senhor. Novamente direi: Alegrem-se!',
+      ref: 'Filipenses 4:4'
+    },
+    {
+      texto: 'Meu coração exulta de alegria, e com o meu cântico lhe darei graças',
+      ref: 'Salmos 47:1b'
+    },
+    {
+      texto: 'Gritem bem alto e cantem de alegria, habitantes de Sião, pois grande é o Santo de Israel no meio de vocês',
+      ref: 'Isaias 12:6'
+    }
+  ];
 
   useEffect(() => {
     buscaTocador(tocador, tipoLouvor);
@@ -17,12 +36,13 @@ export default function App() {
 
   useEffect(() => {
     setTimeout(() => {
-      setObs({
-        titulo: 'Reunião',
-        mensagem: 'No domingo do dia 07/01, após o culto, teremos uma reunião para tratarmos do ano de 2024 ',
-        botao: 'Ok, combinado'
-      });
-    }, 3000);
+      setObs([
+        {
+          titulo: 'Reunião',
+          mensagem: 'No domingo do dia 07/01, após o culto, teremos uma reunião para tratarmos do ano de 2024 '
+        }
+      ]);
+    }, 7000);
   }, []);
 
   const hinos = [
@@ -62,7 +82,7 @@ export default function App() {
   // Revesamento do guitarrista com base no numero da semana
   // Revesamento de guitarrista para o domingo a noite
   const tocadorPSH = musicos.instrumentistas.psh[numeroDaSemana() - 1];
-  const tocadorIbav = numeroDaSemana() % 2 === 0 ? 'André' : 'Thiago';
+  const tocadorIbav = numeroDaSemana() % 2 === 0 ? 'Andre' : 'Thiago';
 
   var moment = require('moment');
   var data_hora_atual = new Date();
@@ -75,7 +95,7 @@ export default function App() {
     const listatocador = listaTipo.filter((item) => item.tocadores?.indexOf(tocador) > -1);
 
     const posicao = index - Math.floor(index / listatocador.length) * listatocador.length;
-    return listatocador[posicao];
+    return listatocador[posicao] || '[ Livre Escolha ]';
   };
 
   const escalas = [
@@ -91,7 +111,7 @@ export default function App() {
 
     // EBD
     {
-      status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
+      status: false, // Defina false para ocultar caso tenha outro culto substituindo esse
       data: proximoDomingo(),
       culto: numeroDeDomingosMes() === numeroDaSemana() ? 'EBD com Ceia' : 'EBD',
       louvores: [],
@@ -133,14 +153,14 @@ export default function App() {
       culto: 'Culto Especial Natal',
       louvores: ['Bom estarmos aqui', 'Isaias 9', 'Nada além do sangue', 'Agnus Dei', 'CC 30 - Noite de paz'],
       vocalistas: ['Edmilson', 'Edvan', 'Fernanda', 'Laís', 'Paulinha'],
-      instrumentistas: ['Wesley', 'Warley', 'André', 'Annes']
+      instrumentistas: ['Wesley', 'Warley', 'Andre', 'Annes']
     },
     {
       data: converteData('31/12/2023'),
       culto: 'Culto Especial Ano Novo',
       louvores: ['Renova-me', 'Nada além do sangue', 'Agnus Dei', 'CC 560 - Ano Novo', 'CC 456 - O Estandarte'],
       vocalistas: ['Wilson', 'Kelviane', 'Duda', 'Lidiane', 'Paulinha'],
-      instrumentistas: ['Wesley', 'André', 'Thiago', 'Annes']
+      instrumentistas: ['Wesley', 'Andre', 'Thiago', 'Annes']
     }
   ];
 
@@ -222,23 +242,59 @@ export default function App() {
     setLouvoresTocador(louvorEncontrado);
   }
 
+  function SorteiaVersiculo() {
+    const index = Math.floor(Math.random() * versiculos.length);
+
+    return (
+      <div style={{ padding: 12, background: '#f9f9f9' }}>
+        <label style={{ fontStyle: 'italic', fontWeight: 300, color: '#000' }}>{versiculos[index].texto}</label>
+        <label style={{ fontStyle: 'italic', fontWeight: 300, color: '#000', marginLeft: 12 }}>{versiculos[index].ref}</label>
+      </div>
+    );
+  }
+
   return (
     <div style={{ flex: 1 }}>
-      {obs?.titulo ? (
+      {obs.length > 0 ? (
         <div style={{ position: 'fixed', background: '#00000099', height: '100vh', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-          <div onClick={() => setObs({})} style={{ boxShadow: '1px 1px 10px #00000070', width: '70%', background: '#fff', borderRadius: 12, marginTop: -100, padding: '20px 12px' }}>
-            <div style={{ textAlign: 'center', fontWeight: 600, fontSize: 22 }}>{obs.titulo}</div>
-            <div style={{ fontWeight: 300, textAlign: 'center', marginTop: 20, fontSize: 17 }}>{obs.mensagem}</div>
-            <div style={{ boxShadow: '1px 1px 10px #00000070', padding: 12, marginTop: 40, borderRadius: 6, textAlign: 'center', background: '#795548', color: '#fff' }}>{obs.botao}</div>
+          <div style={{ width: '75%', background: '#fff', borderRadius: 6, padding: '10px 10px 50px 10px' }}>
+            {obs.map((item) => {
+              return (
+                <div style={{ margin: '18px 0' }}>
+                  <div style={{ textAlign: 'center', fontWeight: 400, fontSize: 20 }}>{item.titulo}</div>
+                  <div style={{ fontWeight: 300, textAlign: 'center', margin: 10, fontSize: 16 }}>{item.mensagem}</div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div
+            onClick={() => setObs([])}
+            style={{
+              borderRadius: 99,
+              background: '#58731e',
+              padding: '15px',
+              marginTop: -25,
+              fontSize: 16,
+              display: 'flex',
+              alignItems: 'center',
+              color: '#fff',
+              fontFamily: 'monospace'
+            }}
+          >
+            FECHAR
           </div>
         </div>
       ) : null}
 
-      <div style={{ backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 22px' }}>
+      <div style={{ backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0px 22px' }}>
         <h1 style={{ fontSize: 24, fontWeight: 800, color: '#000' }}>ESCALA DE LOUVOR</h1>
-        <span style={{ fontSize: 20, color: '#aaa' }}>#S-{posicaoLouvor}</span>
+        <span style={{ fontSize: 24, color: '#ddd', fontWeight: 800 }}>#S{posicaoLouvor}</span>
       </div>
-      <div style={{ padding: 12 }}>
+
+      <div style={{ padding: '0 18px' }}>{SorteiaVersiculo()}</div>
+
+      <div style={{ padding: 12, marginTop: 20 }}>
         <div style={{ marginBottom: 50 }}>
           <label style={{ margin: '10px' }}>Encontre Louvores</label>
           <div style={{ display: 'flex', margin: '6px 0', gap: 6 }}>
@@ -250,7 +306,7 @@ export default function App() {
             </select>
 
             <select style={{ height: 38, padding: '0 18px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTipoLouvor(e.target.value)}>
-              <option>Tipo</option>
+              <option>Momento</option>
               <option value={'preludio'}>Prelúdio</option>
               <option value={'primeiromomento'}>Primeiro Momento</option>
               <option value={'comunhao'}>Comunhão</option>
@@ -261,9 +317,9 @@ export default function App() {
           <div style={{ margin: '18px 0' }}>
             {louvoresTocador.map((louvor, index) => {
               return (
-                <div key={index} style={{ borderLeft: '4px solid #795548', fontSize: 15, fontWeight: 300, paddingLeft: '12px', margin: '2px 12px', backgroundColor: '#fff', color: '#000' }}>
-                  {louvor?.louvor}
-                  {louvor?.tom ? <span style={{ fontWeight: 600, marginLeft: 12 }}> ♪ {louvor?.tom}</span> : null}
+                <div key={index} style={{ fontSize: 15, fontWeight: 300, alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+                  - {louvor?.louvor}
+                  {louvor?.tom ? <span style={{ fontWeight: 600, marginLeft: 20, color: '#795548' }}> ♪ {louvor?.tom}</span> : null}
                 </div>
               );
             })}

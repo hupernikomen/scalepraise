@@ -68,7 +68,7 @@ export default function CalendarItem({ data }) {
               {louvor?.tom || tonsescalasextras?.tom ? (
                 <div
                   style={{
-                    marginLeft: 16,
+                    marginLeft: 20,
                     alignItems: 'center',
                     flexDirection: 'row',
                     display: 'flex'
