@@ -1,9 +1,8 @@
 .container {
-  background-color: #fff;
-  border: 0.4px solid #222;
+  border: 0.4px solid #aaa;
   padding: 22px 18px 38px 18px;
   border-radius: 18px 0 18px 0;
-  margin-bottom: 12px;
+  margin-bottom: 18px;
 }
 
 .top {

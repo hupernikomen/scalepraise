@@ -1,7 +1,11 @@
 import CalendarItem from './CalendarItem';
 import { useEffect, useState } from 'react';
 
+import { FiBookOpen } from 'react-icons/fi';
+
 const listaLouvores = require('./utils/louvores.json');
+const versiculos = require('./utils/versiculos.json');
+const hinos = require('./utils/selecaohinos.json');
 
 export default function App() {
   const [louvoresTocador, setLouvoresTocador] = useState([]);
@@ -9,26 +13,6 @@ export default function App() {
   const tocadores = ['Andre', 'Thiago', 'Warley', 'Rhuan'];
   const [tocador, setTocador] = useState('');
   const [obs, setObs] = useState([]);
-  const [modal, setModal] = useState(true);
-
-  const versiculos = [
-    {
-      texto: 'Batam palmas, vocês, todos os povos, aclamem a Deus com cantos de alegria.',
-      ref: 'Salmos 47:1'
-    },
-    {
-      texto: 'Alegrem-se sempre no Senhor. Novamente direi: Alegrem-se!',
-      ref: 'Filipenses 4:4'
-    },
-    {
-      texto: 'Meu coração exulta de alegria, e com o meu cântico lhe darei graças',
-      ref: 'Salmos 47:1b'
-    },
-    {
-      texto: 'Gritem bem alto e cantem de alegria, habitantes de Sião, pois grande é o Santo de Israel no meio de vocês',
-      ref: 'Isaias 12:6'
-    }
-  ];
 
   useEffect(() => {
     buscaTocador(tocador, tipoLouvor);
@@ -45,35 +29,25 @@ export default function App() {
     }, 7000);
   }, []);
 
-  const hinos = [
-    ['154', '456'],
-    ['101', '009'],
-    ['101', '385'],
-    ['101', '073'],
-
-    ['099', '089'],
-    ['099', '089'],
-    ['099', '108'],
-    ['099', '114'],
-
-    ['014', '160'],
-    ['014', '239'],
-    ['014', '239'],
-    ['396', '456'],
-    ['099', '101']
-  ];
-
   // Musicos
   const musicos = {
     instrumentistas: {
       sexta: ['Wesley', 'Warley'],
-      psh: ['Thiago', 'Andre', 'Warley', 'Rhuan', '[ Escolher ]'],
+      psh: ['Thiago', 'Rhuan', 'Thiago', 'Rhuan'], // COM SHUVA, // COM SHUVA
+      // psh: ['Thiago', 'Andre', 'Warley', 'Rhuan', '[ Escolher ]'], // SEM SHUVA
       ebd: ['Annes']
     },
 
     vocalistas: {
       sexta: ['Lidiane', 'Laís', 'Edvan'],
-      psh: [['Wilson', 'Paulinha'], ['Kelviane', 'Fernanda'], ['Edmilson', 'Fernanda'], ['Lidiane', 'Duda', 'Laís'], [('Fernanda', 'Paulinha')]],
+      psh: [
+        ['Fernanda', 'Thabata'],
+        ['Fernanda', 'Thabata'],
+        ['Fernanda', 'Thabata'],
+        ['Fernanda', 'Thabata'],
+        ['Fernanda', 'Thabata']
+      ], // COM CHUVA
+      // psh: [['Wilson', 'Paulinha'], ['Kelviane', 'Fernanda'], ['Edmilson', 'Fernanda'], ['Lidiane', 'Duda', 'Laís'], [('Fernanda', 'Paulinha')]], // SEM CHUVA
       ebd: ['Wilson', 'Paulinha'],
       domingonoite: ['Laís', 'Kelviane', 'Lidiane', 'Duda', '[ Escolher ]']
     }
@@ -246,7 +220,10 @@ export default function App() {
     const index = Math.floor(Math.random() * versiculos.length);
 
     return (
-      <div style={{ padding: 12, background: '#f9f9f9' }}>
+      <div style={{ padding: 18, background: '#f5f5f5', borderRadius: 12 }}>
+        <div style={{ margin: 6 }}>
+          <FiBookOpen color="#58731e" />
+        </div>
         <label style={{ fontStyle: 'italic', fontWeight: 300, color: '#000' }}>{versiculos[index].texto}</label>
         <label style={{ fontStyle: 'italic', fontWeight: 300, color: '#000', marginLeft: 12 }}>{versiculos[index].ref}</label>
       </div>
@@ -257,10 +234,10 @@ export default function App() {
     <div style={{ flex: 1 }}>
       {obs.length > 0 ? (
         <div style={{ position: 'fixed', background: '#00000099', height: '100vh', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-          <div style={{ width: '75%', background: '#fff', borderRadius: 6, padding: '10px 10px 50px 10px' }}>
-            {obs.map((item) => {
+          <div style={{ width: '75%', background: '#fff', borderRadius: 6, padding: '18px 18px 50px 18px' }}>
+            {obs.map((item, index) => {
               return (
-                <div style={{ margin: '18px 0' }}>
+                <div key={index} style={{ margin: '18px 0' }}>
                   <div style={{ textAlign: 'center', fontWeight: 400, fontSize: 20 }}>{item.titulo}</div>
                   <div style={{ fontWeight: 300, textAlign: 'center', margin: 10, fontSize: 16 }}>{item.mensagem}</div>
                 </div>
@@ -287,25 +264,25 @@ export default function App() {
         </div>
       ) : null}
 
-      <div style={{ backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0px 22px' }}>
+      <div style={{ backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 22 }}>
         <h1 style={{ fontSize: 24, fontWeight: 800, color: '#000' }}>ESCALA DE LOUVOR</h1>
-        <span style={{ fontSize: 24, color: '#ddd', fontWeight: 800 }}>#S{posicaoLouvor}</span>
+        <span style={{ fontSize: 24, color: '#f1f1f1', fontWeight: 800 }}>#S{posicaoLouvor}</span>
       </div>
 
       <div style={{ padding: '0 18px' }}>{SorteiaVersiculo()}</div>
 
-      <div style={{ padding: 12, marginTop: 20 }}>
+      <div style={{ padding: 18, marginTop: 20 }}>
         <div style={{ marginBottom: 50 }}>
           <label style={{ margin: '10px' }}>Encontre Louvores</label>
           <div style={{ display: 'flex', margin: '6px 0', gap: 6 }}>
-            <select style={{ height: 38, padding: '0 18px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTocador(e.target.value)}>
+            <select style={{ background: '#fff', height: 38, padding: '0 18px', borderRadius: 6, outline: 'none' }} onChange={(e) => setTocador(e.target.value)}>
               <option>Tocador</option>
               {tocadores.map((tocador, index) => (
                 <option key={index}>{tocador}</option>
               ))}
             </select>
 
-            <select style={{ height: 38, padding: '0 18px', borderRadius: 6, border: 0, outline: 'none' }} onChange={(e) => setTipoLouvor(e.target.value)}>
+            <select style={{ background: '#fff', padding: '0 18px', height: 38, borderRadius: 6, outline: 'none' }} onChange={(e) => setTipoLouvor(e.target.value)}>
               <option>Momento</option>
               <option value={'preludio'}>Prelúdio</option>
               <option value={'primeiromomento'}>Primeiro Momento</option>
