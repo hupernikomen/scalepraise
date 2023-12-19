@@ -30,13 +30,12 @@ export default function CalendarItem({ data }) {
         <div className="date">
           <span
             style={{
-              fontWeight: 400,
               color: data.culto === 'PSH' ? '#795548' : '#58731e'
             }}
           >
             <span
               style={{
-                fontSize: 13,
+                fontSize: 14,
                 fontWeight: 300,
                 color: '#000'
               }}
@@ -92,7 +91,7 @@ export default function CalendarItem({ data }) {
           display: 'flex',
           flexWrap: 'wrap',
           borderWidth: 0.5,
-          borderTop: '1px solid #aaa',
+          borderTop: '.5px solid #ccc',
           paddingTop: 12,
           gap: 6
         }}

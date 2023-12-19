@@ -287,7 +287,7 @@ export default function App() {
 
       <div style={{ marginBottom: 20, backgroundColor: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 22 }}>
         <h1 style={{ fontSize: 24, fontWeight: 800, color: '#000', margin: 0 }}>
-          ESCALA DE LOUVOR<span style={{ fontSize: 24, color: '#ddd', fontWeight: 800 }}> #S{numDaSemanaNoAno}</span>
+          ESCALA DE LOUVOR<span style={{ fontSize: 24, color: '#ddd', fontWeight: 900 }}> #{numDaSemanaNoAno}</span>
         </h1>
         <span style={{ fontWeight: 300, fontSize: 12 }}>IGREJA BATISTA ÁRVORE DA VIDA</span>
       </div>
@@ -295,14 +295,13 @@ export default function App() {
       <div style={{ padding: '0 18px' }}>{SorteiaVersiculo()}</div>
 
       <div style={{ padding: 18, marginTop: 20 }}>
-        <div style={{ marginBottom: 50 }}>
-          <label style={{ margin: '10px', fontWeight: 300 }}>Encontre Louvores</label>
-          <div style={{ display: 'flex', margin: '6px 0', gap: 6 }}>
+        <div style={{ marginBottom: 30 }}>
+          <div style={{ display: 'flex', gap: 6 }}>
             <select
-              style={{ fontWeight: 300, fontSize: 15, width: '50%', background: '#fff', height: 40, padding: '0 18px', borderRadius: 6, outline: 'none' }}
+              style={{ fontWeight: 300, fontSize: 15, width: '50%', background: '#fff', height: 40, padding: '0 12px', borderRadius: 6, outline: 'none' }}
               onChange={(e) => setTocador(e.target.value)}
             >
-              <option>Tocador</option>
+              <option>Busque Louvores</option>
               {tocadores.map((tocador, index) => (
                 <option key={index}>{tocador}</option>
               ))}
@@ -310,7 +309,7 @@ export default function App() {
 
             {tocador ? (
               <select
-                style={{ fontWeight: 300, fontSize: 15, width: '50%', background: '#fff', padding: '0 18px', height: 40, borderRadius: 6, outline: 'none' }}
+                style={{ fontWeight: 300, fontSize: 15, width: '50%', background: '#fff', padding: '0 12px', height: 40, borderRadius: 6, outline: 'none' }}
                 onChange={(e) => setTipoLouvor(e.target.value)}
               >
                 <option>Momento</option>
@@ -325,9 +324,9 @@ export default function App() {
           <div style={{ margin: 18 }}>
             {louvoresTocador.map((louvor, index) => {
               return (
-                <div key={index} style={{ fontSize: 15, fontWeight: 300, alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+                <div key={index} style={{ fontWeight: 300, alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
                   - {louvor?.louvor}
-                  {louvor?.tom ? <span style={{ fontWeight: 600, marginLeft: 20, color: '#795548' }}> ♪ {louvor?.tom}</span> : null}
+                  {louvor?.tom ? <span style={{ fontWeight: 300, marginLeft: 20, color: '#795548' }}> ♪ {louvor?.tom}</span> : null}
                 </div>
               );
             })}
