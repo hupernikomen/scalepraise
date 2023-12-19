@@ -296,9 +296,12 @@ export default function App() {
 
       <div style={{ padding: 18, marginTop: 20 }}>
         <div style={{ marginBottom: 50 }}>
-          <label style={{ margin: '10px' }}>Encontre Louvores</label>
+          <label style={{ margin: '10px', fontWeight: 300 }}>Encontre Louvores</label>
           <div style={{ display: 'flex', margin: '6px 0', gap: 6 }}>
-            <select style={{ fontSize: 15, width: '50%', background: '#fff', height: 40, padding: '0 18px', borderRadius: 6, outline: 'none' }} onChange={(e) => setTocador(e.target.value)}>
+            <select
+              style={{ fontWeight: 300, fontSize: 15, width: '50%', background: '#fff', height: 40, padding: '0 18px', borderRadius: 6, outline: 'none' }}
+              onChange={(e) => setTocador(e.target.value)}
+            >
               <option>Tocador</option>
               {tocadores.map((tocador, index) => (
                 <option key={index}>{tocador}</option>
@@ -306,7 +309,10 @@ export default function App() {
             </select>
 
             {tocador ? (
-              <select style={{ fontSize: 15, width: '50%', background: '#fff', padding: '0 18px', height: 40, borderRadius: 6, outline: 'none' }} onChange={(e) => setTipoLouvor(e.target.value)}>
+              <select
+                style={{ fontWeight: 300, fontSize: 15, width: '50%', background: '#fff', padding: '0 18px', height: 40, borderRadius: 6, outline: 'none' }}
+                onChange={(e) => setTipoLouvor(e.target.value)}
+              >
                 <option>Momento</option>
                 <option value={'preludio'}>Prelúdio</option>
                 <option value={'primeiromomento'}>Primeiro Momento</option>

@@ -30,22 +30,20 @@ export default function CalendarItem({ data }) {
         <div className="date">
           <span
             style={{
-              fontWeight: 500,
+              fontWeight: 400,
               color: data.culto === 'PSH' ? '#795548' : '#58731e'
             }}
           >
-            {semana[moment(data.data).day()]}
-          </span>
-          <span
-            style={{
-              fontSize: 11,
-              fontWeight: 300,
-              marginTop: 1,
-              marginRight: 2,
-              color: '#000'
-            }}
-          >
-            {moment(data.data).format('DD/MM')}
+            <span
+              style={{
+                fontSize: 13,
+                fontWeight: 300,
+                color: '#000'
+              }}
+            >
+              {' '}
+              {moment(data.data).format('DD')} | {semana[moment(data.data).day()]}
+            </span>{' '}
           </span>
         </div>
       </div>
