@@ -144,19 +144,19 @@ export default function App() {
 
   // Seleção de vozes femininas para louvor e pregação
   function VozesFemininas() {
-    const vozes = ['Fernanda', 'Paulinha', 'Lais', 'Kelviane', 'Lidiane', 'Thabata'];
-    const sequencia = [
-      [0, 2],
-      [1, 4],
-      [2, 1],
-      [3, 5],
-      [4, 0],
-      [5, 3]
-    ];
+    const voz1 = ['Paulinha', 'Lais', 'Kelviane', 'Fernanda', 'Lidiane', 'Thabata'];
+    const voz2 = ['Lais', 'Kelviane', 'Lidiane', 'Thabata'];
 
-    const posicao = (numDaSemanaNoAno - 1) % sequencia.length;
-    const selecao = sequencia[posicao].map((index) => vozes[index]);
-    return selecao;
+    let i1 = (numDaSemanaNoAno - 1) % voz1.length;
+
+    let novalista2 = voz2.filter((voz) => voz1[i1] !== voz);
+    let i2 = (numDaSemanaNoAno - 1) % novalista2.length;
+
+    if (voz1[i1] !== 'Paulinha' && novalista2[i2] !== 'Paulinha') {
+      return [voz1[i1], novalista2[i2], 'Paulinha'];
+    } else {
+      return [voz1[i1], novalista2[i2]];
+    }
   }
 
   //Converte data String em data Date
