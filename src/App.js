@@ -241,12 +241,12 @@ export default function App() {
     const index = Math.floor(Math.random() * versiculos.length);
 
     return (
-      <div style={{ padding: 18, background: '#f9f9f9', borderRadius: 12 }}>
-        <div style={{ marginBottom: 6, display: 'flex', alignItems: 'center' }}>
-          <FiBookOpen size={24} />
-          <label style={{ fontStyle: 'italic', fontWeight: 300, color: '#000', marginLeft: 12 }}>{versiculos[index].ref}</label>
+      <div style={{ padding: 18 }}>
+        <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center' }}>
+          <FiBookOpen size={16} />
+          <label style={{ fontSize: 26, fontWeight: 600, color: '#000', marginLeft: 12 }}>{versiculos[index].ref}</label>
         </div>
-        <label style={{ fontStyle: 'italic', fontWeight: 300, color: '#000' }}>{versiculos[index].texto}</label>
+        <label style={{ fontSize: 16, fontStyle: 'italic', fontWeight: 300, color: '#000' }}>{versiculos[index].texto}</label>
       </div>
     );
   }
@@ -254,7 +254,7 @@ export default function App() {
   return (
     <div style={{ flex: 1 }}>
       {obs.length > 0 ? (
-        <div style={{ position: 'fixed', background: '#00000099', height: '100vh', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <div style={{ position: 'fixed', height: '100vh', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
           <div style={{ width: '75%', background: '#fff', borderRadius: 6, padding: '18px 18px 50px 18px' }}>
             {obs.map((item, index) => {
               return (
@@ -287,12 +287,12 @@ export default function App() {
 
       <div style={{ marginBottom: 20, backgroundColor: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 22 }}>
         <h1 style={{ fontSize: 24, fontWeight: 800, color: '#000', margin: 0 }}>
-          ESCALA DE LOUVOR<span style={{ fontSize: 24, color: '#ddd', fontWeight: 900 }}> #{numDaSemanaNoAno}</span>
+          LOUVORES<span style={{ fontSize: 24, color: '#00000020', fontWeight: 900 }}>#{numDaSemanaNoAno}</span>
         </h1>
-        <span style={{ fontWeight: 300, fontSize: 12 }}>IGREJA BATISTA ÁRVORE DA VIDA</span>
+        <span style={{ fontWeight: 300, fontSize: 12, marginTop: 6 }}>IGREJA BATISTA ÁRVORE DA VIDA</span>
       </div>
 
-      <div style={{ padding: '0 18px' }}>{SorteiaVersiculo()}</div>
+      <div style={{ padding: '0 12px' }}>{SorteiaVersiculo()}</div>
 
       <div style={{ padding: 18, marginTop: 20 }}>
         <div style={{ marginBottom: 30 }}>
