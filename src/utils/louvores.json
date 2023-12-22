@@ -39,6 +39,7 @@
   { "tipo": "primeiromomento", "tom": "", "louvor": "Quebra de orgulho", "tocadores": [""] },
   { "tipo": "primeiromomento", "tom": "", "louvor": "Canção do Apocalipse", "tocadores": [""] },
   { "tipo": "primeiromomento", "tom": "", "louvor": "Autoridade e Poder", "tocadores": [""] },
+  { "tipo": "primeiromomento", "tom": "A", "louvor": "Agnus Dei", "tocadores": ["Andre"] },
 
   { "tipo": "comunhao", "tom": "", "louvor": "Galileu", "tocadores": ["Andre", "Warley"] },
   { "tipo": "comunhao", "tom": "", "louvor": "Filho do Deus vivo", "tocadores": ["Andre", "Rhuan"] },
