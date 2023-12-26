@@ -14,32 +14,37 @@ export default function App() {
   const [tocador, setTocador] = useState('');
   const [obs, setObs] = useState([]);
 
+  var moment = require('moment');
+  var data_hora_atual = new Date();
+
+  const numDaSemanaNoAno = moment(data_hora_atual).startOf('isoWeek').format('ww');
+
   useEffect(() => {
     buscaTocador(tocador, tipoLouvor);
   }, [tocador, tipoLouvor]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setObs([
-        {
-          titulo: 'Reunião',
-          mensagem: 'No domingo do dia 07/01, após o culto, teremos uma reunião para tratarmos do ano de 2024 '
-        }
-      ]);
-    }, 7000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setObs([
+  //       {
+  //         titulo: 'Reunião',
+  //         mensagem: 'No domingo do dia 07/01, após o culto, teremos uma reunião para tratarmos do ano de 2024 '
+  //       }
+  //     ]);
+  //   }, 7000);
+  // }, []);
 
   // Musicos
   const musicos = {
     instrumentistas: {
       sexta: ['Wesley', 'Warley'],
-      psh: ['Thiago', 'Rhuan', 'Thiago', 'Rhuan'], // COM SHUVA, // COM SHUVA
-      // psh: ['Thiago', 'Andre', 'Warley', 'Rhuan', '[ Escolher ]'], // SEM SHUVA
+      psh: ['Thiago', 'Rhuan', 'Thiago', 'Rhuan', 'Thiago'], // COM CHUVA,
+      // psh: ['Thiago', 'Andre', 'Warley', 'Rhuan', '[ Escolher ]'], // SEM CHUVA
       ebd: ['Annes']
     },
 
     vocalistas: {
-      sexta: ['Lidiane', 'Laís', 'Edvan'],
+      oracaoedoutrina: ['Lidiane', 'Laís', 'Edvan'],
       psh: [
         ['Fernanda', 'Thabata'],
         ['Fernanda', 'Thabata'],
@@ -48,8 +53,7 @@ export default function App() {
         ['Fernanda', 'Thabata']
       ], // COM CHUVA
       // psh: [['Wilson', 'Paulinha'], ['Kelviane', 'Fernanda'], ['Edmilson', 'Fernanda'], ['Lidiane', 'Duda', 'Laís'], [('Fernanda', 'Paulinha')]], // SEM CHUVA
-      ebd: ['Wilson', 'Paulinha'],
-      domingonoite: ['Laís', 'Kelviane', 'Lidiane', 'Duda', '[ Escolher ]']
+      ebd: ['Wilson', 'Paulinha']
     }
   };
 
@@ -58,17 +62,13 @@ export default function App() {
   const tocadorPSH = musicos.instrumentistas.psh[numeroDaSemana() - 1];
   const tocadorIbav = numeroDaSemana() % 2 === 0 ? 'Andre' : 'Thiago';
 
-  var moment = require('moment');
-  var data_hora_atual = new Date();
-
-  const posicaoLouvor = moment(data_hora_atual).startOf('isoWeek').format('ww');
-
-  const buscaLouvores = (tipo, tocador, i) => {
-    const index = i - 1;
+  const buscaLouvores = (tipo, tocador, numDaSemanaNoAno) => {
+    const index = numDaSemanaNoAno - 1;
     const listaTipo = listaLouvores.filter((item) => item.tipo === tipo);
     const listatocador = listaTipo.filter((item) => item.tocadores?.indexOf(tocador) > -1);
 
-    const posicao = index - Math.floor(index / listatocador.length) * listatocador.length;
+    // const posicao = index - Math.floor(index / listatocador.length) * listatocador.length;
+    const posicao = (numDaSemanaNoAno - 1) % listatocador.length;
     return listatocador[posicao] || '[ Livre Escolha ]';
   };
 
@@ -78,8 +78,8 @@ export default function App() {
       status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
       data: proximaSexta(),
       culto: 'Doutrina / Oração',
-      louvores: [buscaLouvores('preludio', 'Warley', posicaoLouvor), buscaLouvores('primeiromomento', 'Warley', posicaoLouvor)],
-      vocalistas: musicos.vocalistas.sexta,
+      louvores: [buscaLouvores('preludio', 'Warley', numDaSemanaNoAno), buscaLouvores('primeiromomento', 'Warley', numDaSemanaNoAno)],
+      vocalistas: musicos.vocalistas.oracaoedoutrina,
       instrumentistas: musicos.instrumentistas.sexta
     },
 
@@ -98,9 +98,9 @@ export default function App() {
       status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
       data: proximoDomingo(),
       culto: 'Louvor e Pregação',
-      louvores: [buscaLouvores('preludio', tocadorIbav, posicaoLouvor), buscaLouvores('primeiromomento', tocadorIbav, posicaoLouvor), buscaLouvores('comunhao', tocadorIbav, posicaoLouvor)],
-      hcc: hinos[posicaoLouvor],
-      vocalistas: ['Edmilson', 'Edvan', numeroDaSemana() % 2 === 0 ? 'Fernanda' : 'Paulinha', musicos.vocalistas.domingonoite[numeroDaSemana() - 1]],
+      louvores: [buscaLouvores('preludio', tocadorIbav, numDaSemanaNoAno), buscaLouvores('primeiromomento', tocadorIbav, numDaSemanaNoAno), buscaLouvores('comunhao', tocadorIbav, numDaSemanaNoAno)],
+      hcc: hinos[numDaSemanaNoAno],
+      vocalistas: ['Edmilson', 'Edvan', ...VozesFemininas()],
       instrumentistas: ['Wesley', 'Annes', tocadorIbav]
     },
 
@@ -109,7 +109,11 @@ export default function App() {
       status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
       data: proximoSabado(),
       culto: 'PSH',
-      louvores: [buscaLouvores('preludio', tocadorPSH, posicaoLouvor), buscaLouvores('primeiromomento', tocadorPSH, posicaoLouvor + 1), buscaLouvores('comunhao', tocadorPSH, posicaoLouvor + 2)],
+      louvores: [
+        buscaLouvores('preludio', tocadorPSH, numDaSemanaNoAno),
+        buscaLouvores('primeiromomento', tocadorPSH, numDaSemanaNoAno + 1),
+        buscaLouvores('comunhao', tocadorPSH, numDaSemanaNoAno + 2)
+      ],
       vocalistas: musicos.vocalistas.psh[numeroDaSemana() - 1],
       instrumentistas: musicos.instrumentistas.psh[numeroDaSemana() - 1]
     },
@@ -137,6 +141,23 @@ export default function App() {
       instrumentistas: ['Wesley', 'Andre', 'Thiago', 'Annes']
     }
   ];
+
+  // Seleção de vozes femininas para louvor e pregação
+  function VozesFemininas() {
+    const vozes = ['Fernanda', 'Paulinha', 'Lais', 'Kelviane', 'Lidiane', 'Thabata'];
+    const sequencia = [
+      [0, 2],
+      [1, 4],
+      [2, 1],
+      [3, 5],
+      [4, 0],
+      [5, 3]
+    ];
+
+    const posicao = (numDaSemanaNoAno - 1) % sequencia.length;
+    const selecao = sequencia[posicao].map((index) => vozes[index]);
+    return selecao;
+  }
 
   //Converte data String em data Date
   function converteData(inData) {
@@ -220,12 +241,12 @@ export default function App() {
     const index = Math.floor(Math.random() * versiculos.length);
 
     return (
-      <div style={{ padding: 18, background: '#f5f5f5', borderRadius: 12 }}>
-        <div style={{ margin: 6 }}>
-          <FiBookOpen color="#58731e" />
+      <div style={{ padding: 18, background: '#f9f9f9', borderRadius: 12 }}>
+        <div style={{ marginBottom: 6, display: 'flex', alignItems: 'center' }}>
+          <FiBookOpen size={24} />
+          <label style={{ fontStyle: 'italic', fontWeight: 300, color: '#000', marginLeft: 12 }}>{versiculos[index].ref}</label>
         </div>
         <label style={{ fontStyle: 'italic', fontWeight: 300, color: '#000' }}>{versiculos[index].texto}</label>
-        <label style={{ fontStyle: 'italic', fontWeight: 300, color: '#000', marginLeft: 12 }}>{versiculos[index].ref}</label>
       </div>
     );
   }
@@ -264,9 +285,11 @@ export default function App() {
         </div>
       ) : null}
 
-      <div style={{ backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 22 }}>
-        <h1 style={{ fontSize: 24, fontWeight: 800, color: '#000' }}>ESCALA DE LOUVOR</h1>
-        <span style={{ fontSize: 24, color: '#f1f1f1', fontWeight: 800 }}>#S{posicaoLouvor}</span>
+      <div style={{ marginBottom: 20, backgroundColor: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 22 }}>
+        <h1 style={{ fontSize: 24, fontWeight: 800, color: '#000', margin: 0 }}>
+          ESCALA DE LOUVOR<span style={{ fontSize: 24, color: '#ddd', fontWeight: 800 }}> #S{numDaSemanaNoAno}</span>
+        </h1>
+        <span style={{ fontWeight: 300, fontSize: 12 }}>IGREJA BATISTA ÁRVORE DA VIDA</span>
       </div>
 
       <div style={{ padding: '0 18px' }}>{SorteiaVersiculo()}</div>
@@ -275,23 +298,25 @@ export default function App() {
         <div style={{ marginBottom: 50 }}>
           <label style={{ margin: '10px' }}>Encontre Louvores</label>
           <div style={{ display: 'flex', margin: '6px 0', gap: 6 }}>
-            <select style={{ background: '#fff', height: 38, padding: '0 18px', borderRadius: 6, outline: 'none' }} onChange={(e) => setTocador(e.target.value)}>
+            <select style={{ fontSize: 15, width: '50%', background: '#fff', height: 40, padding: '0 18px', borderRadius: 6, outline: 'none' }} onChange={(e) => setTocador(e.target.value)}>
               <option>Tocador</option>
               {tocadores.map((tocador, index) => (
                 <option key={index}>{tocador}</option>
               ))}
             </select>
 
-            <select style={{ background: '#fff', padding: '0 18px', height: 38, borderRadius: 6, outline: 'none' }} onChange={(e) => setTipoLouvor(e.target.value)}>
-              <option>Momento</option>
-              <option value={'preludio'}>Prelúdio</option>
-              <option value={'primeiromomento'}>Primeiro Momento</option>
-              <option value={'comunhao'}>Comunhão</option>
-              <option value={'ceia'}>Ceia</option>
-            </select>
+            {tocador ? (
+              <select style={{ fontSize: 15, width: '50%', background: '#fff', padding: '0 18px', height: 40, borderRadius: 6, outline: 'none' }} onChange={(e) => setTipoLouvor(e.target.value)}>
+                <option>Momento</option>
+                <option value={'preludio'}>Prelúdio</option>
+                <option value={'primeiromomento'}>Primeiro Momento</option>
+                <option value={'comunhao'}>Comunhão</option>
+                <option value={'ceia'}>Ceia</option>
+              </select>
+            ) : null}
           </div>
 
-          <div style={{ margin: '18px 0' }}>
+          <div style={{ margin: 18 }}>
             {louvoresTocador.map((louvor, index) => {
               return (
                 <div key={index} style={{ fontSize: 15, fontWeight: 300, alignItems: 'center', display: 'flex', flexDirection: 'row' }}>

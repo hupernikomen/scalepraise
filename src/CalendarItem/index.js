@@ -23,11 +23,19 @@ export default function CalendarItem({ data }) {
   return (
     <div className="container">
       <div className="top">
-        <h1 className="title" style={{ color: data.culto === 'PSH' ? '#795548' : '#58731e' }}>
+        <h1 className="title" style={{ color: data.culto === 'PSH' ? '#795548' : '#58731e', fontWeight: 500 }}>
           {data.culto}
         </h1>
 
         <div className="date">
+          <span
+            style={{
+              fontWeight: 500,
+              color: data.culto === 'PSH' ? '#795548' : '#58731e'
+            }}
+          >
+            {semana[moment(data.data).day()]}
+          </span>
           <span
             style={{
               fontSize: 11,
@@ -38,14 +46,6 @@ export default function CalendarItem({ data }) {
             }}
           >
             {moment(data.data).format('DD/MM')}
-          </span>
-          <span
-            style={{
-              fontWeight: 600,
-              color: data.culto === 'PSH' ? '#795548' : '#58731e'
-            }}
-          >
-            {semana[moment(data.data).day()]}
           </span>
         </div>
       </div>
@@ -75,7 +75,7 @@ export default function CalendarItem({ data }) {
                   }}
                 >
                   <label style={{ color: '#000', marginRight: 4 }}>♪</label>
-                  <label style={{ fontWeight: 500, color: '#795548' }}>{louvor?.tom || tonsescalasextras?.tom}</label>
+                  <label style={{ color: '#795548' }}>{louvor?.tom || tonsescalasextras?.tom}</label>
                 </div>
               ) : null}
             </label>
