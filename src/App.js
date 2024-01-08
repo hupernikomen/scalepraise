@@ -1,7 +1,7 @@
 import CalendarItem from './CalendarItem';
 import { useEffect, useState } from 'react';
-
 import { FiBookOpen } from 'react-icons/fi';
+import { proximo, numeroDaSemana, numeroDeDomingosMes, converteData } from './functions';
 
 const listaLouvores = require('./utils/louvores.json');
 const versiculos = require('./utils/versiculos.json');
@@ -23,6 +23,8 @@ export default function App() {
     buscaTocador(tocador, tipoLouvor);
   }, [tocador, tipoLouvor]);
 
+  const [sortVerso, setSortVerso] = useState(Math.floor(Math.random() * versiculos.length));
+
   useEffect(() => {
     // setTimeout(() => {
     //   setObs([
@@ -33,6 +35,11 @@ export default function App() {
     //     }
     //   ]);
     // }, 7000);
+
+    setInterval(() => {
+      const index = Math.floor(Math.random() * versiculos.length);
+      setSortVerso(index);
+    }, 8000);
   }, []);
 
   // Musicos
@@ -59,7 +66,6 @@ export default function App() {
   // Revesamento do guitarrista com base no numero da semana
   // Revesamento de guitarrista para o domingo a noite
   let tocadorIbav = null;
-  console.log(numeroDaSemana(), numeroDeDomingosMes());
   if (numeroDaSemana() === numeroDeDomingosMes()) {
     tocadorIbav = 'Warley';
   } else if (numeroDaSemana() % 2) {
@@ -82,7 +88,7 @@ export default function App() {
     // Doutrina / Oração
     {
       status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
-      data: proximaSexta(),
+      data: proximo(5),
       culto: 'Doutrina / Oração',
       louvores: [buscaLouvores('sexta', 'Warley', numDaSemanaNoAno - 1), buscaLouvores('sexta', 'Warley', numDaSemanaNoAno)],
       vocalistas: musicos.vocalistas.oracaoedoutrina,
@@ -92,7 +98,7 @@ export default function App() {
     // EBD
     {
       status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
-      data: proximoDomingo(),
+      data: proximo(0),
       culto: numeroDeDomingosMes() === numeroDaSemana() ? 'EBD com Ceia' : 'EBD',
       louvores: [],
       vocalistas: musicos.vocalistas.ebd,
@@ -102,7 +108,7 @@ export default function App() {
     // Culto de Louvor e Pregação
     {
       status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
-      data: proximoDomingo(),
+      data: proximo(0),
       culto: 'Louvor e Pregação',
       louvores: [buscaLouvores('preludio', tocadorIbav, numDaSemanaNoAno), buscaLouvores('primeiromomento', tocadorIbav, numDaSemanaNoAno), buscaLouvores('comunhao', tocadorIbav, numDaSemanaNoAno)],
       hcc: hinos[parseInt(numDaSemanaNoAno)],
@@ -113,7 +119,7 @@ export default function App() {
     // Culto PSH
     {
       status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
-      data: proximoSabado(),
+      data: proximo(6),
       culto: 'PSH',
       louvores: [
         buscaLouvores('preludio', musicos.instrumentistas.psh[0], numDaSemanaNoAno),
@@ -135,6 +141,17 @@ export default function App() {
     }
   ];
 
+  // Busca o Tocador com base no tipo de louvor
+  function buscaTocador(tocador, tipo) {
+    const louvorEncontrado = listaLouvores.filter((louvor) => louvor.tocadores?.includes(tocador) && louvor.tipo === tipo);
+    setLouvoresTocador(louvorEncontrado);
+  }
+
+  // Coloca as datas em ordem cronologica
+  const ordenaEscala = escalas.sort((a, b) => {
+    return moment(a.data) - moment(b.data);
+  });
+
   // Seleção de vozes femininas para louvor e pregação
   function VozesFemininas() {
     const voz1 = ['Paulinha', 'Lais', 'Kelviane', 'Fernanda', 'Lidiane'];
@@ -152,94 +169,14 @@ export default function App() {
     }
   }
 
-  //Converte data String em data Date
-  function converteData(inData) {
-    // Divide a string da data em dia, mês e ano
-    const [day, month, year] = inData.split('/');
-
-    // Criar um objeto de data JavaScript com o dia, mês e ano
-    const data = new Date(year, month - 1, day);
-    return data;
-  }
-
-  // Encontre o próximo dia que seja sexta-feira
-  function proximaSexta() {
-    let now = new Date();
-    let nextFriday = new Date(now.getTime());
-    while (nextFriday.getDay() !== 5) {
-      nextFriday.setDate(nextFriday.getDate() + 1);
-    }
-    return nextFriday;
-  }
-
-  // Encontre o próximo dia que seja sexta-feira
-  function proximoSabado() {
-    let now = new Date();
-    let nextFriday = new Date(now.getTime());
-    while (nextFriday.getDay() !== 6) {
-      nextFriday.setDate(nextFriday.getDate() + 1);
-    }
-
-    return nextFriday;
-  }
-
-  // Encontre o próximo dia que seja domingo
-  function proximoDomingo() {
-    let now = new Date();
-    let nextSunday = new Date(now.getTime());
-    while (nextSunday.getDay() !== 0) {
-      nextSunday.setDate(nextSunday.getDate() + 1);
-    }
-    return nextSunday;
-  }
-
-  function numeroDaSemana() {
-    // Retorna o número da semana com base na data atual
-    let today = new Date();
-    let primeiroDiaDoMes = new Date(today.getFullYear(), today.getMonth(), 1);
-    let diasPassadosDoMes = today.getDate() - 1;
-    let numeroDaSemana = Math.ceil((diasPassadosDoMes + primeiroDiaDoMes.getDay() + 1) / 7);
-    return numeroDaSemana;
-  }
-
-  function numeroDeDomingosMes() {
-    // Retorna o número de domingos em um mês específico
-    let today = new Date();
-    let month = today.getMonth();
-    let year = today.getFullYear();
-    let domingos = 0;
-
-    for (let day = 1; day <= 31; day++) {
-      let data = new Date(year, month, day);
-      if (data.getMonth() === month && data.getDay() === 0) {
-        domingos++;
-      }
-    }
-
-    return domingos;
-  }
-
-  // Coloca as datas em ordem cronologica
-  const ordenaEscala = escalas.sort((a, b) => {
-    return moment(a.data) - moment(b.data);
-  });
-
-  // Busca o Tocador com base no tipo de louvor
-  function buscaTocador(tocador, tipo) {
-    const louvorEncontrado = listaLouvores.filter((louvor) => louvor.tocadores?.includes(tocador) && louvor.tipo === tipo);
-    setLouvoresTocador(louvorEncontrado);
-  }
-
   function SorteiaVersiculo() {
-    const index = Math.floor(Math.random() * versiculos.length);
-
     return (
       <div style={{ padding: 18, background: '#58731e' }}>
         <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center' }}>
           <FiBookOpen size={16} color="#FFF" />
-          <label style={{ fontSize: 26, fontWeight: 600, color: '#FFF', marginLeft: 12 }}>{versiculos[index].ref}</label>
+          <label style={{ fontSize: 26, fontWeight: 600, color: '#FFF', marginLeft: 12 }}>{versiculos[sortVerso].ref}</label>
         </div>
-        <label style={{ fontSize: 16, fontStyle: 'italic', fontWeight: 300, color: '#FFF' }}>{versiculos[index].texto}</label>
+        <label style={{ fontSize: 16, fontStyle: 'italic', fontWeight: 300, color: '#FFF' }}>{versiculos[sortVerso].texto}</label>
       </div>
     );
   }
@@ -278,10 +215,20 @@ export default function App() {
         </div>
       ) : null}
 
-      <div style={{ backgroundColor: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 22 }}>
-        <h1 style={{ fontSize: 22, fontWeight: 900, color: '#000', margin: 0 }}>
-          ESCALA DE LOUVOR<span style={{ fontSize: 22, color: '#00000020', fontWeight: 800 }}>#{numDaSemanaNoAno}</span>
-        </h1>
+      <div
+        style={{
+          position: 'sticky',
+          top: 0,
+          boxShadow: '1px 0px 5px #00000070',
+          backgroundColor: '#fff',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 22
+        }}
+      >
+        <h1 style={{ fontSize: 22, fontWeight: 900, color: '#000', margin: 0 }}>ESCALA DE LOUVOR #{numDaSemanaNoAno}</h1>
         <span style={{ fontWeight: 300, fontSize: 12, marginTop: 3 }}>IGREJA BATISTA ÁRVORE DA VIDA</span>
       </div>
 
