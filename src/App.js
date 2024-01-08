@@ -222,10 +222,10 @@ export default function App() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: 80
+          height: 75
         }}
       >
-        <div style={{ width: '100vw', height: 80, background: '#fff', opacity: 0.7 }} />
+        <div style={{ width: '100vw', height: 75, background: '#fff', opacity: 0.7 }} />
         <div style={{ position: 'absolute' }}>
           <h1 style={{ fontSize: 22, fontWeight: 900, color: '#000', margin: 0 }}>ESCALA DE LOUVOR #{numDaSemanaNoAno}</h1>
           <span style={{ fontWeight: 300, fontSize: 12, marginTop: 3 }}>IGREJA BATISTA ÁRVORE DA VIDA</span>
