@@ -235,13 +235,14 @@ export default function App() {
       <div>{SorteiaVersiculo()}</div>
 
       <div style={{ padding: 18, marginTop: 20 }}>
+        <div style={{ fontWeight: 300, fontSize: 15, marginBottom: 6, marginLeft: 12 }}>Busque Louvores:</div>
         <div style={{ marginBottom: 30, background: '#f1f1f1', padding: 12 }}>
           <div style={{ display: 'flex', gap: 6 }}>
             <select
-              style={{ fontWeight: 300, fontSize: 15, width: '50%', background: '#fff', height: 40, padding: '0 12px', borderRadius: 6, outline: 'none' }}
+              style={{ fontWeight: 300, fontSize: 15, width: '45%', background: '#fff', height: 40, padding: '0 12px', borderRadius: 6, outline: 'none' }}
               onChange={(e) => setTocador(e.target.value)}
             >
-              <option>Busque Louvores</option>
+              <option>Quem tocará?</option>
               {tocadores.map((tocador, index) => (
                 <option key={index}>{tocador}</option>
               ))}
@@ -249,10 +250,10 @@ export default function App() {
 
             {tocador ? (
               <select
-                style={{ fontWeight: 300, fontSize: 15, width: '50%', background: '#fff', padding: '0 12px', height: 40, borderRadius: 6, outline: 'none' }}
+                style={{ fontWeight: 300, fontSize: 15, width: '55%', background: '#fff', padding: '0 12px', height: 40, borderRadius: 6, outline: 'none' }}
                 onChange={(e) => setTipoLouvor(e.target.value)}
               >
-                <option>Momento</option>
+                <option>Qual momento?</option>
                 <option value={'preludio'}>Prelúdio</option>
                 <option value={'primeiromomento'}>Primeiro Momento</option>
                 <option value={'comunhao'}>Comunhão</option>
