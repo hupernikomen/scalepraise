@@ -23,16 +23,17 @@ export default function App() {
     buscaTocador(tocador, tipoLouvor);
   }, [tocador, tipoLouvor]);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setObs([
-  //       {
-  //         titulo: 'Reunião',
-  //         mensagem: 'No domingo do dia 07/01, após o culto, teremos uma reunião para tratarmos do ano de 2024 '
-  //       }
-  //     ]);
-  //   }, 7000);
-  // }, []);
+  useEffect(() => {
+    // setTimeout(() => {
+    //   setObs([
+    //     {
+    //       data: new Date(2024, 1, 7),
+    //       titulo: 'Reunião',
+    //       mensagem: 'No domingo do dia 07/01, após o culto, teremos uma reunião para tratarmos do ano de 2024 '
+    //     }
+    //   ]);
+    // }, 7000);
+  }, []);
 
   // Musicos
   const musicos = {
