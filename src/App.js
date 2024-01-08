@@ -36,10 +36,13 @@ export default function App() {
     //   ]);
     // }, 7000);
 
-    setInterval(() => {
+    const interval = setInterval(() => {
       const index = Math.floor(Math.random() * versiculos.length);
       setSortVerso(index);
     }, 8000);
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   // Musicos
@@ -214,16 +217,19 @@ export default function App() {
           position: 'sticky',
           top: 0,
           boxShadow: '1px 0px 5px #00000070',
-          backgroundColor: '#fff',
+          backgroundColor: '#ffffff99',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: 22
+          height: 80
         }}
       >
-        <h1 style={{ fontSize: 22, fontWeight: 900, color: '#000', margin: 0 }}>ESCALA DE LOUVOR #{numDaSemanaNoAno}</h1>
-        <span style={{ fontWeight: 300, fontSize: 12, marginTop: 3 }}>IGREJA BATISTA ÁRVORE DA VIDA</span>
+        <div style={{ width: '100vw', height: 80, background: '#fff', opacity: 0.7 }} />
+        <div style={{ position: 'absolute' }}>
+          <h1 style={{ fontSize: 22, fontWeight: 900, color: '#000', margin: 0 }}>ESCALA DE LOUVOR #{numDaSemanaNoAno}</h1>
+          <span style={{ fontWeight: 300, fontSize: 12, marginTop: 3 }}>IGREJA BATISTA ÁRVORE DA VIDA</span>
+        </div>
       </div>
 
       <div>{SorteiaVersiculo()}</div>
