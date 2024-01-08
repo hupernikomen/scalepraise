@@ -171,7 +171,7 @@ export default function App() {
       <div style={{ padding: 18, background: '#58731e' }}>
         <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center' }}>
           <FiBookOpen size={16} color="#FFF" />
-          <label style={{ fontSize: 26, fontWeight: 600, color: '#FFF', marginLeft: 12 }}>{versiculos[sortVerso].ref}</label>
+          <label style={{ fontSize: 20, fontWeight: 600, color: '#FFF', marginLeft: 12 }}>{versiculos[sortVerso].ref}</label>
         </div>
         <label style={{ fontSize: 16, fontStyle: 'italic', fontWeight: 300, color: '#FFF' }}>{versiculos[sortVerso].texto}</label>
       </div>
@@ -227,7 +227,7 @@ export default function App() {
       >
         <div style={{ width: '100vw', height: 75, background: '#fff', opacity: 0.7 }} />
         <div style={{ position: 'absolute' }}>
-          <h1 style={{ fontSize: 22, fontWeight: 900, color: '#000', margin: 0 }}>ESCALA DE LOUVOR #{numDaSemanaNoAno}</h1>
+          <h1 style={{ fontSize: 20, fontWeight: 900, color: '#000', margin: 0 }}>ESCALA DE LOUVOR #{numDaSemanaNoAno}</h1>
           <span style={{ fontWeight: 300, fontSize: 12, marginTop: 3 }}>IGREJA BATISTA ÁRVORE DA VIDA</span>
         </div>
       </div>
