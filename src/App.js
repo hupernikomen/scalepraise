@@ -38,18 +38,18 @@ export default function App() {
   const musicos = {
     instrumentistas: {
       sexta: ['Wesley', 'Warley'],
-      psh: ['Andre', 'Rhuan', 'Warley', 'Thiago', 'Thiago'],
+      psh: ['Thiago', 'Andre', 'Warley', 'Rhuan', 'Thiago'],
       ebd: ['Annes']
     },
 
     vocalistas: {
       oracaoedoutrina: ['Lidiane', 'Laís', 'Edvan'],
       psh: [
-        ['Kelviane', 'Paulinha'],
-        ['Lidiane', 'Laís', 'Edvan'],
+        ['Wilson', 'Paulinha'],
+        ['Kelviane', 'Fernanda'],
         ['Edmilson', 'Fernanda'],
-        ['Fernanda', 'Paulinha'],
-        ['Convite', 'Paulinha']
+        ['Lidiane', 'Laís', 'Edvan'],
+        ['Convite', 'Convite']
       ], // COM CHUVA
       ebd: ['Wilson', 'Paulinha']
     }
