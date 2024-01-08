@@ -38,32 +38,37 @@ export default function App() {
   const musicos = {
     instrumentistas: {
       sexta: ['Wesley', 'Warley'],
-      psh: ['Thiago', 'Rhuan', 'Thiago', 'Rhuan', 'Thiago'], // COM CHUVA,
-      // psh: ['Thiago', 'Andre', 'Warley', 'Rhuan', '[ Escolher ]'], // SEM CHUVA
+      psh: ['Andre', 'Rhuan', 'Warley', 'Thiago', 'Thiago'],
       ebd: ['Annes']
     },
 
     vocalistas: {
       oracaoedoutrina: ['Lidiane', 'Laís', 'Edvan'],
       psh: [
-        ['Fernanda', 'Thabata'],
-        ['Fernanda', 'Thabata'],
-        ['Fernanda', 'Thabata'],
-        ['Fernanda', 'Thabata'],
-        ['Fernanda', 'Thabata']
+        ['Kelviane', 'Paulinha'],
+        ['Lidiane', 'Laís', 'Edvan'],
+        ['Edmilson', 'Fernanda'],
+        ['Fernanda', 'Paulinha'],
+        ['Convite', 'Paulinha']
       ], // COM CHUVA
-      // psh: [['Wilson', 'Paulinha'], ['Kelviane', 'Fernanda'], ['Edmilson', 'Fernanda'], ['Lidiane', 'Duda', 'Laís'], [('Fernanda', 'Paulinha')]], // SEM CHUVA
       ebd: ['Wilson', 'Paulinha']
     }
   };
 
   // Revesamento do guitarrista com base no numero da semana
   // Revesamento de guitarrista para o domingo a noite
-  const tocadorPSH = musicos.instrumentistas.psh[numeroDaSemana() - 1];
-  const tocadorIbav = numeroDaSemana() % 2 === 0 ? 'Andre' : 'Thiago';
+  let tocadorIbav = null;
+  console.log(numeroDaSemana(), numeroDeDomingosMes());
+  if (numeroDaSemana() === numeroDeDomingosMes()) {
+    tocadorIbav = 'Warley';
+  } else if (numeroDaSemana() % 2) {
+    tocadorIbav = 'Andre';
+  } else {
+    tocadorIbav = 'Thiago';
+  }
+  // const tocadorIbav = numeroDaSemana() - 1 === numeroDeDomingosMes() ? 'Warley' : numeroDaSemana() % 2 === 0 ? 'Andre' : 'Thiago';
 
   const buscaLouvores = (tipo, tocador, numDaSemanaNoAno) => {
-    const index = numDaSemanaNoAno - 1;
     const listaTipo = listaLouvores.filter((item) => item.tipo === tipo);
     const listatocador = listaTipo.filter((item) => item.tocadores?.indexOf(tocador) > -1);
 
@@ -78,14 +83,14 @@ export default function App() {
       status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
       data: proximaSexta(),
       culto: 'Doutrina / Oração',
-      louvores: [buscaLouvores('preludio', 'Warley', numDaSemanaNoAno), buscaLouvores('primeiromomento', 'Warley', numDaSemanaNoAno)],
+      louvores: [buscaLouvores('sexta', 'Warley', numDaSemanaNoAno - 1), buscaLouvores('sexta', 'Warley', numDaSemanaNoAno)],
       vocalistas: musicos.vocalistas.oracaoedoutrina,
       instrumentistas: musicos.instrumentistas.sexta
     },
 
     // EBD
     {
-      status: false, // Defina false para ocultar caso tenha outro culto substituindo esse
+      status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
       data: proximoDomingo(),
       culto: numeroDeDomingosMes() === numeroDaSemana() ? 'EBD com Ceia' : 'EBD',
       louvores: [],
@@ -99,7 +104,7 @@ export default function App() {
       data: proximoDomingo(),
       culto: 'Louvor e Pregação',
       louvores: [buscaLouvores('preludio', tocadorIbav, numDaSemanaNoAno), buscaLouvores('primeiromomento', tocadorIbav, numDaSemanaNoAno), buscaLouvores('comunhao', tocadorIbav, numDaSemanaNoAno)],
-      hcc: hinos[numDaSemanaNoAno],
+      hcc: hinos[parseInt(numDaSemanaNoAno)],
       vocalistas: ['Edmilson', 'Edvan', ...VozesFemininas()],
       instrumentistas: ['Wesley', 'Annes', tocadorIbav]
     },
@@ -110,12 +115,13 @@ export default function App() {
       data: proximoSabado(),
       culto: 'PSH',
       louvores: [
-        buscaLouvores('preludio', tocadorPSH, numDaSemanaNoAno),
-        buscaLouvores('primeiromomento', tocadorPSH, numDaSemanaNoAno + 1),
-        buscaLouvores('comunhao', tocadorPSH, numDaSemanaNoAno + 2)
+        buscaLouvores('preludio', musicos.instrumentistas.psh[0], numDaSemanaNoAno),
+        buscaLouvores('primeiromomento', musicos.instrumentistas.psh[0], numDaSemanaNoAno + 1),
+        buscaLouvores('primeiromomento', musicos.instrumentistas.psh[0], numDaSemanaNoAno + 2),
+        buscaLouvores('comunhao', musicos.instrumentistas.psh[0], numDaSemanaNoAno + 2)
       ],
       vocalistas: musicos.vocalistas.psh[numeroDaSemana() - 1],
-      instrumentistas: musicos.instrumentistas.psh[numeroDaSemana() - 1]
+      instrumentistas: [musicos.instrumentistas.psh[numeroDaSemana() - 1], 'Annes']
     },
     // ________________________________________
 
@@ -125,27 +131,13 @@ export default function App() {
       louvores: [''],
       vocalistas: ['Edvan', 'Laís', 'Lidiane'],
       instrumentistas: ['Wesley', 'Warley']
-    },
-    {
-      data: converteData('24/12/2023'),
-      culto: 'Culto Especial Natal',
-      louvores: ['Bom estarmos aqui', 'Isaias 9', 'Nada além do sangue', 'Agnus Dei', 'CC 30 - Noite de paz'],
-      vocalistas: ['Edmilson', 'Edvan', 'Fernanda', 'Laís', 'Paulinha'],
-      instrumentistas: ['Wesley', 'Warley', 'Andre', 'Annes']
-    },
-    {
-      data: converteData('31/12/2023'),
-      culto: 'Culto Especial Ano Novo',
-      louvores: ['Renova-me', 'Nada além do sangue', 'Agnus Dei', 'CC 560 - Ano Novo', 'CC 456 - O Estandarte'],
-      vocalistas: ['Wilson', 'Kelviane', 'Duda', 'Lidiane', 'Paulinha'],
-      instrumentistas: ['Wesley', 'Andre', 'Thiago', 'Annes']
     }
   ];
 
   // Seleção de vozes femininas para louvor e pregação
   function VozesFemininas() {
-    const voz1 = ['Paulinha', 'Lais', 'Kelviane', 'Fernanda', 'Lidiane', 'Thabata'];
-    const voz2 = ['Lais', 'Kelviane', 'Lidiane', 'Thabata'];
+    const voz1 = ['Paulinha', 'Lais', 'Kelviane', 'Fernanda', 'Lidiane'];
+    const voz2 = ['Lais', 'Kelviane', 'Lidiane'];
 
     let i1 = (numDaSemanaNoAno - 1) % voz1.length;
 
@@ -241,12 +233,12 @@ export default function App() {
     const index = Math.floor(Math.random() * versiculos.length);
 
     return (
-      <div style={{ padding: 18 }}>
+      <div style={{ padding: 18, background: '#58731e' }}>
         <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center' }}>
-          <FiBookOpen size={16} />
-          <label style={{ fontSize: 26, fontWeight: 600, color: '#000', marginLeft: 12 }}>{versiculos[index].ref}</label>
+          <FiBookOpen size={16} color="#FFF" />
+          <label style={{ fontSize: 26, fontWeight: 600, color: '#FFF', marginLeft: 12 }}>{versiculos[index].ref}</label>
         </div>
-        <label style={{ fontSize: 16, fontStyle: 'italic', fontWeight: 300, color: '#000' }}>{versiculos[index].texto}</label>
+        <label style={{ fontSize: 16, fontStyle: 'italic', fontWeight: 300, color: '#FFF' }}>{versiculos[index].texto}</label>
       </div>
     );
   }
@@ -285,17 +277,17 @@ export default function App() {
         </div>
       ) : null}
 
-      <div style={{ marginBottom: 20, backgroundColor: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 22 }}>
-        <h1 style={{ fontSize: 24, fontWeight: 800, color: '#000', margin: 0 }}>
-          LOUVORES<span style={{ fontSize: 24, color: '#00000020', fontWeight: 900 }}>#{numDaSemanaNoAno}</span>
+      <div style={{ backgroundColor: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 22 }}>
+        <h1 style={{ fontSize: 22, fontWeight: 900, color: '#000', margin: 0 }}>
+          ESCALA DE LOUVOR<span style={{ fontSize: 22, color: '#00000020', fontWeight: 800 }}>#{numDaSemanaNoAno}</span>
         </h1>
-        <span style={{ fontWeight: 300, fontSize: 12, marginTop: 6 }}>IGREJA BATISTA ÁRVORE DA VIDA</span>
+        <span style={{ fontWeight: 300, fontSize: 12, marginTop: 3 }}>IGREJA BATISTA ÁRVORE DA VIDA</span>
       </div>
 
-      <div style={{ padding: '0 12px' }}>{SorteiaVersiculo()}</div>
+      <div>{SorteiaVersiculo()}</div>
 
       <div style={{ padding: 18, marginTop: 20 }}>
-        <div style={{ marginBottom: 30 }}>
+        <div style={{ marginBottom: 30, background: '#f1f1f1', padding: 12 }}>
           <div style={{ display: 'flex', gap: 6 }}>
             <select
               style={{ fontWeight: 300, fontSize: 15, width: '50%', background: '#fff', height: 40, padding: '0 12px', borderRadius: 6, outline: 'none' }}

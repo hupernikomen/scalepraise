@@ -2,7 +2,6 @@ import './estilo.css';
 import moment from 'moment';
 
 export default function CalendarItem({ data }) {
-  // console.log(data?.hcc[0]?.n, data?.hcc[0]?.louvor, 'datat');
   if (data?.status === false) {
     return;
   }
@@ -81,7 +80,7 @@ export default function CalendarItem({ data }) {
         {data.hcc?.map((hcc, index) => {
           return (
             <label key={index} style={{ fontSize: 15, fontWeight: 300 }}>
-              CC {hcc} - {cantorCristao(hcc)}
+              - CC {hcc} - {cantorCristao(hcc)}
             </label>
           );
         })}
