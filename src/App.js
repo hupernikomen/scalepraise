@@ -8,22 +8,23 @@ const versiculos = require('./utils/versiculos.json');
 const hinos = require('./utils/selecaohinos.json');
 
 export default function App() {
-  const [louvoresTocador, setLouvoresTocador] = useState([]);
-  const [tipoLouvor, setTipoLouvor] = useState('');
+  const [louvoresPorTocador, setLouvoresPorTocador] = useState([]);
+  const [selecaoTipo, setSelecaoTipo] = useState('');
+  const [selecaoTocador, setSelecaoTocador] = useState('');
+  const [sorteioVersiculo, setSorteioVersiculo] = useState(Math.floor(Math.random() * versiculos.length));
+
   const tocadores = ['Andre', 'Thiago', 'Warley', 'Rhuan'];
-  const [tocador, setTocador] = useState('');
   const [obs, setObs] = useState([]);
 
-  var moment = require('moment');
-  var data_hora_atual = new Date();
+  const moment = require('moment');
+  const hoje = new Date();
 
-  const numDaSemanaNoAno = moment(data_hora_atual).startOf('isoWeek').format('ww');
+  const contSemana = moment(hoje).startOf('isoWeek').format('ww');
+  let tocadorIbav = null;
 
   useEffect(() => {
-    buscaTocador(tocador, tipoLouvor);
-  }, [tocador, tipoLouvor]);
-
-  const [sortVerso, setSortVerso] = useState(Math.floor(Math.random() * versiculos.length));
+    buscaTocador(selecaoTocador, selecaoTipo);
+  }, [selecaoTocador, selecaoTipo]);
 
   useEffect(() => {
     // setTimeout(() => {
@@ -38,7 +39,7 @@ export default function App() {
 
     const interval = setInterval(() => {
       const index = Math.floor(Math.random() * versiculos.length);
-      setSortVerso(index);
+      setSorteioVersiculo(index);
     }, 8000);
 
     // Clean up the interval on component unmount
@@ -52,7 +53,6 @@ export default function App() {
       psh: ['Thiago', 'Andre', 'Warley', 'Rhuan', 'Thiago'],
       ebd: ['Annes']
     },
-
     vocalistas: {
       oracaoedoutrina: ['Lidiane', 'Laís', 'Edvan'],
       psh: [
@@ -61,12 +61,11 @@ export default function App() {
         ['Edmilson', 'Fernanda'],
         ['Lidiane', 'Laís', 'Edvan'],
         ['Convite', 'Convite']
-      ], // COM CHUVA
+      ],
       ebd: ['Wilson', 'Paulinha']
     }
   };
 
-  let tocadorIbav = null;
   if (numeroDaSemana() === numeroDeDomingosMes()) {
     tocadorIbav = 'Warley';
   } else if (numeroDaSemana() % 2) {
@@ -78,9 +77,8 @@ export default function App() {
   const buscaLouvores = (tipo, tocador, numDaSemanaNoAno) => {
     const listaTipo = listaLouvores.filter((item) => item.tipo === tipo);
     const listatocador = listaTipo.filter((item) => item.tocadores?.indexOf(tocador) > -1);
-
-    // const posicao = index - Math.floor(index / listatocador.length) * listatocador.length;
     const posicao = (numDaSemanaNoAno - 1) % listatocador.length;
+
     return listatocador[posicao] || '[ Livre Escolha ]';
   };
 
@@ -88,7 +86,7 @@ export default function App() {
     {
       culto: 'Doutrina / Oração',
       data: proximo(5),
-      louvores: [buscaLouvores('sexta', 'Warley', numDaSemanaNoAno - 1), buscaLouvores('sexta', 'Warley', numDaSemanaNoAno)],
+      louvores: [buscaLouvores('sexta', 'Warley', contSemana - 1), buscaLouvores('sexta', 'Warley', contSemana)],
       vocalistas: musicos.vocalistas.oracaoedoutrina,
       instrumentistas: musicos.instrumentistas.sexta,
       status: true
@@ -104,8 +102,8 @@ export default function App() {
     {
       culto: 'Louvor e Pregação',
       data: proximo(0),
-      louvores: [buscaLouvores('preludio', tocadorIbav, numDaSemanaNoAno), buscaLouvores('primeiromomento', tocadorIbav, numDaSemanaNoAno), buscaLouvores('comunhao', tocadorIbav, numDaSemanaNoAno)],
-      hcc: hinos[parseInt(numDaSemanaNoAno)],
+      louvores: [buscaLouvores('preludio', tocadorIbav, contSemana), buscaLouvores('primeiromomento', tocadorIbav, contSemana), buscaLouvores('comunhao', tocadorIbav, contSemana)],
+      hcc: hinos[parseInt(contSemana)],
       vocalistas: ['Edmilson', 'Edvan', ...VozesFemininas()],
       instrumentistas: ['Wesley', 'Annes', tocadorIbav],
       status: true
@@ -114,10 +112,10 @@ export default function App() {
       culto: 'PSH',
       data: proximo(6),
       louvores: [
-        buscaLouvores('preludio', musicos.instrumentistas.psh[0], numDaSemanaNoAno),
-        buscaLouvores('primeiromomento', musicos.instrumentistas.psh[0], numDaSemanaNoAno + 1),
-        buscaLouvores('primeiromomento', musicos.instrumentistas.psh[0], numDaSemanaNoAno + 2),
-        buscaLouvores('comunhao', musicos.instrumentistas.psh[0], numDaSemanaNoAno + 2)
+        buscaLouvores('preludio', musicos.instrumentistas.psh[0], contSemana),
+        buscaLouvores('primeiromomento', musicos.instrumentistas.psh[0], contSemana + 1),
+        buscaLouvores('primeiromomento', musicos.instrumentistas.psh[0], contSemana + 2),
+        buscaLouvores('comunhao', musicos.instrumentistas.psh[0], contSemana + 2)
       ],
       vocalistas: musicos.vocalistas.psh[numeroDaSemana() - 1],
       instrumentistas: [musicos.instrumentistas.psh[numeroDaSemana() - 1], 'Annes'],
@@ -126,18 +124,18 @@ export default function App() {
     // ________________________________________
 
     {
-      data: converteData('29/12/2023'),
-      culto: 'Culto Oração Especial',
+      data: converteData('20/1/2024'),
+      culto: 'Culto Todos os Santos',
       louvores: [''],
-      vocalistas: ['Edvan', 'Laís', 'Lidiane'],
-      instrumentistas: ['Wesley', 'Warley']
+      vocalistas: ['Wilson', 'Laís', 'Paulinha'],
+      instrumentistas: ['Annes']
     }
   ];
 
   // Busca o Tocador com base no tipo de louvor
   function buscaTocador(tocador, tipo) {
     const louvorEncontrado = listaLouvores.filter((louvor) => louvor.tocadores?.includes(tocador) && louvor.tipo === tipo);
-    setLouvoresTocador(louvorEncontrado);
+    setLouvoresPorTocador(louvorEncontrado);
   }
 
   // Coloca as datas em ordem cronologica
@@ -150,9 +148,10 @@ export default function App() {
     const voz1 = ['Lais', 'Paulinha', 'Kelviane', 'Fernanda', 'Lidiane'];
     const voz2 = ['Lais', 'Kelviane', 'Lidiane'];
 
-    let i1 = (numDaSemanaNoAno - 1) % voz1.length;
-    let i2 = (numDaSemanaNoAno - 1) % voz2.length;
+    let i1 = (contSemana - 1) % voz1.length;
+    let i2 = (contSemana - 1) % voz2.length;
 
+    // Impede repetição de vozes
     if (voz1[i1] === voz2[i2]) {
       i1++;
     }
@@ -171,9 +170,9 @@ export default function App() {
       <div style={{ padding: 18, background: '#58731e' }}>
         <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center' }}>
           <FiBookOpen size={16} color="#FFF" />
-          <label style={{ fontSize: 20, fontWeight: 600, color: '#FFF', marginLeft: 12 }}>{versiculos[sortVerso].ref}</label>
+          <label style={{ fontSize: 20, fontWeight: 600, color: '#FFF', marginLeft: 12 }}>{versiculos[sorteioVersiculo].ref}</label>
         </div>
-        <label style={{ fontSize: 16, fontStyle: 'italic', fontWeight: 300, color: '#FFF' }}>{versiculos[sortVerso].texto}</label>
+        <label style={{ fontSize: 16, fontStyle: 'italic', fontWeight: 300, color: '#FFF' }}>{versiculos[sorteioVersiculo].texto}</label>
       </div>
     );
   }
@@ -227,7 +226,7 @@ export default function App() {
       >
         <div style={{ width: '100vw', height: 75, background: '#fff', opacity: 0.7 }} />
         <div style={{ position: 'absolute' }}>
-          <h1 style={{ fontSize: 20, fontWeight: 900, color: '#000', margin: 0 }}>ESCALA DE LOUVOR #{numDaSemanaNoAno}</h1>
+          <h1 style={{ fontSize: 20, fontWeight: 900, color: '#000', margin: 0 }}>ESCALA DE LOUVOR #{contSemana}</h1>
           <span style={{ fontWeight: 300, fontSize: 12, marginTop: 3 }}>IGREJA BATISTA ÁRVORE DA VIDA</span>
         </div>
       </div>
@@ -240,7 +239,7 @@ export default function App() {
           <div style={{ display: 'flex', gap: 6 }}>
             <select
               style={{ fontWeight: 300, fontSize: 15, width: '45%', background: '#fff', height: 40, padding: '0 12px', borderRadius: 6, outline: 'none' }}
-              onChange={(e) => setTocador(e.target.value)}
+              onChange={(e) => setSelecaoTocador(e.target.value)}
             >
               <option>Quem tocará?</option>
               {tocadores.map((tocador, index) => (
@@ -248,10 +247,10 @@ export default function App() {
               ))}
             </select>
 
-            {tocador ? (
+            {selecaoTocador ? (
               <select
                 style={{ fontWeight: 300, fontSize: 15, width: '55%', background: '#fff', padding: '0 12px', height: 40, borderRadius: 6, outline: 'none' }}
-                onChange={(e) => setTipoLouvor(e.target.value)}
+                onChange={(e) => setSelecaoTipo(e.target.value)}
               >
                 <option>Qual momento?</option>
                 <option value={'preludio'}>Prelúdio</option>
@@ -263,7 +262,7 @@ export default function App() {
           </div>
 
           <div style={{ margin: 18 }}>
-            {louvoresTocador.map((louvor, index) => {
+            {louvoresPorTocador.map((louvor, index) => {
               return (
                 <div key={index} style={{ fontWeight: 300, alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
                   - {louvor?.louvor}

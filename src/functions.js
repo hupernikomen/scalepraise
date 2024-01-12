@@ -1,12 +1,12 @@
 // Encontre o próximo dia que seja sexta-feira
 export function proximo(num) {
   let now = new Date();
-  let nextSaturday = new Date(now.getTime());
-  while (nextSaturday.getDay() !== num) {
-    nextSaturday.setDate(nextSaturday.getDate() + 1);
+  let nextDay = new Date(now.getTime());
+  while (nextDay.getDay() !== num) {
+    nextDay.setDate(nextDay.getDate() + 1);
   }
 
-  return nextSaturday;
+  return nextDay;
 }
 
 export function numeroDaSemana() {
