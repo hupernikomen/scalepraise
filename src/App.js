@@ -46,7 +46,7 @@ export default function App() {
       ebd: ['Annes']
     },
     vocalistas: {
-      oracaoedoutrina: ['Lidiane', 'Laís', 'Edvan'],
+      oracaoedoutrina: ['Lidiane', 'Laís', 'Duda', 'Edvan'],
       psh: [
         ['Wilson', 'Paulinha'],
         ['Kelviane', 'Fernanda'],
@@ -71,11 +71,13 @@ export default function App() {
     return listatocador[posicao] || '[ Livre Escolha ]';
   };
 
+  const tocadorPSH = 'Andre';
   const escalas = [
     {
       culto: 'Doutrina / Oração',
       data: proximo(5),
-      louvores: [buscaLouvores('sexta', 'Warley', contSemana), buscaLouvores('sexta', 'Warley', contSemana + 1)],
+      // louvores: [buscaLouvores('sexta', 'Warley', contSemana), buscaLouvores('sexta', 'Warley', contSemana + 1)],
+      louvores: ['LIVRE ESCOLHA'],
       vocalistas: musicos.vocalistas.oracaoedoutrina,
       instrumentistas: musicos.instrumentistas.sexta,
       status: moment(proximo(5)).startOf('isoWeek').format('ww') === contSemana
@@ -100,14 +102,9 @@ export default function App() {
     {
       culto: 'PSH',
       data: proximo(6),
-      louvores: [
-        buscaLouvores('preludio', musicos.instrumentistas.psh[0], contSemana),
-        buscaLouvores('primeiromomento', musicos.instrumentistas.psh[0], contSemana + 1),
-        buscaLouvores('primeiromomento', musicos.instrumentistas.psh[0], contSemana + 2),
-        buscaLouvores('comunhao', musicos.instrumentistas.psh[0], contSemana + 2)
-      ],
-      vocalistas: musicos.vocalistas.psh[numeroDaSemana() - 1],
-      instrumentistas: [musicos.instrumentistas.psh[numeroDaSemana() - 1], 'Annes'],
+      louvores: ['LIVRE ESCOLHA'],
+      vocalistas: musicos.vocalistas.psh[1], // ALTERAR INDICE
+      instrumentistas: ['Andre', 'Annes'], // ALTERAR NOMES
       status: moment(proximo(6)).startOf('isoWeek').format('ww') === contSemana
     }
     // ________________________________________
