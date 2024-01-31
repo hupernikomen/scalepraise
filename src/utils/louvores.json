@@ -57,7 +57,6 @@
   { "tipo": "comunhao", "tom": "", "louvor": "Galileu", "tocadores": ["Warley"] },
   { "tipo": "comunhao", "tom": "", "louvor": "Filho do Deus vivo", "tocadores": ["Warley", "Rhuan"] },
   { "tipo": "comunhao", "tom": "D", "louvor": "Celebrai a Cristo", "tocadores": ["Andre", "Warley", "Thiago"] },
-  { "tipo": "comunhao", "tom": "Ab", "louvor": "Foi por amor", "tocadores": ["Andre", "Warley"] },
   { "tipo": "comunhao", "tom": "", "louvor": "Meu Alvo é Cristo", "tocadores": ["Andre"] },
   { "tipo": "comunhao", "tom": "", "louvor": "Celebrai com jubilo", "tocadores": ["Rhuan", "Andre", "Warley"] },
   { "tipo": "comunhao", "tom": "", "louvor": "A alegria está no coração", "tocadores": ["Thiago"] },

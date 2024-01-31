@@ -1,3 +1,4 @@
+import { startOfISOWeek, format } from 'date-fns';
 import CalendarItem from './CalendarItem';
 import { useEffect, useState } from 'react';
 import { FiBookOpen } from 'react-icons/fi';
@@ -18,8 +19,9 @@ export default function App() {
 
   const moment = require('moment');
   const hoje = new Date();
+  const contSemana = format(startOfISOWeek(hoje), 'ww');
+  const contSemana2 = moment(proximo(5)).startOf('isoWeek').format('ww');
 
-  const contSemana = moment(hoje).startOf('isoWeek').format('ww');
   let tocadorIbav = null;
 
   useEffect(() => {
@@ -27,16 +29,6 @@ export default function App() {
   }, [selecaoTocador, selecaoTipo]);
 
   useEffect(() => {
-    // setTimeout(() => {
-    //   setObs([
-    //     {
-    //       data: new Date(2024, 1, 7),
-    //       titulo: 'Reunião',
-    //       mensagem: 'No domingo do dia 07/01, após o culto, teremos uma reunião para tratarmos do ano de 2024 '
-    //     }
-    //   ]);
-    // }, 7000);
-
     const interval = setInterval(() => {
       const index = Math.floor(Math.random() * versiculos.length);
       setSorteioVersiculo(index);
@@ -49,8 +41,8 @@ export default function App() {
   // Musicos
   const musicos = {
     instrumentistas: {
-      sexta: ['Wesley', 'Warley'],
-      psh: ['Thiago', 'Andre', 'Warley', 'Rhuan', 'Thiago'],
+      sexta: ['Wesley', 'Andre'],
+      psh: ['Thiago', 'Andre', 'Rhuan', 'Thiago'],
       ebd: ['Annes']
     },
     vocalistas: {
@@ -65,13 +57,10 @@ export default function App() {
       ebd: ['Wilson', 'Paulinha']
     }
   };
-
-  if (numeroDaSemana() === numeroDeDomingosMes()) {
-    tocadorIbav = 'Warley';
-  } else if (numeroDaSemana() % 2) {
-    tocadorIbav = 'Andre';
-  } else {
+  if (contSemana % 2) {
     tocadorIbav = 'Thiago';
+  } else {
+    tocadorIbav = 'Andre';
   }
 
   const buscaLouvores = (tipo, tocador, numDaSemanaNoAno) => {
@@ -89,7 +78,7 @@ export default function App() {
       louvores: [buscaLouvores('sexta', 'Warley', contSemana), buscaLouvores('sexta', 'Warley', contSemana + 1)],
       vocalistas: musicos.vocalistas.oracaoedoutrina,
       instrumentistas: musicos.instrumentistas.sexta,
-      status: true
+      status: moment(proximo(5)).startOf('isoWeek').format('ww') === contSemana
     },
     {
       data: proximo(0),
@@ -97,7 +86,7 @@ export default function App() {
       louvores: [],
       vocalistas: musicos.vocalistas.ebd,
       instrumentistas: musicos.instrumentistas.ebd,
-      status: true
+      status: moment(proximo(0)).startOf('isoWeek').format('ww') === contSemana
     },
     {
       culto: 'Louvor e Pregação',
@@ -106,7 +95,7 @@ export default function App() {
       hcc: hinos[parseInt(contSemana)],
       vocalistas: ['Edmilson', 'Edvan', ...VozesFemininas()],
       instrumentistas: ['Wesley', 'Annes', tocadorIbav],
-      status: true
+      status: moment(proximo(0)).startOf('isoWeek').format('ww') === contSemana
     },
     {
       culto: 'PSH',
@@ -119,30 +108,30 @@ export default function App() {
       ],
       vocalistas: musicos.vocalistas.psh[numeroDaSemana() - 1],
       instrumentistas: [musicos.instrumentistas.psh[numeroDaSemana() - 1], 'Annes'],
-      status: false
-    },
+      status: moment(proximo(6)).startOf('isoWeek').format('ww') === contSemana
+    }
     // ________________________________________
 
-    {
-      data: converteData('20/1/2024'),
-      culto: 'Culto Todos os Santos',
-      louvores: [buscaLouvores('preludio', 'Thiago', contSemana), buscaLouvores('primeiromomento', 'Thiago', contSemana + 1), buscaLouvores('comunhao', 'Thiago', contSemana + 3)],
-      vocalistas: ['Edmilson', 'Laís', 'Lidiane'],
-      instrumentistas: ['Annes', 'Thiago']
-    },
-    {
-      data: converteData('20/1/2024'),
-      culto: 'PSH',
-      louvores: [buscaLouvores('preludio', 'Andre', contSemana + 1), buscaLouvores('primeiromomento', 'Andre', contSemana + 1), buscaLouvores('comunhao', 'Andre', contSemana + 12)],
-      vocalistas: ['Fernanda', 'Kelviane'],
-      instrumentistas: ['Andre']
-    }
+    // {
+    //   data: converteData('20/1/2024'),
+    //   culto: 'Culto Todos os Santos',
+    //   louvores: [buscaLouvores('preludio', 'Thiago', contSemana), buscaLouvores('primeiromomento', 'Thiago', contSemana + 1), buscaLouvores('comunhao', 'Thiago', contSemana + 3)],
+    //   vocalistas: ['Edmilson', 'Laís', 'Lidiane'],
+    //   instrumentistas: ['Annes', 'Thiago']
+    // },
+    // {
+    //   data: converteData('20/1/2024'),
+    //   culto: 'PSH',
+    //   louvores: [buscaLouvores('preludio', 'Andre', contSemana + 1), buscaLouvores('primeiromomento', 'Andre', contSemana + 1), buscaLouvores('comunhao', 'Andre', contSemana + 12)],
+    //   vocalistas: ['Fernanda', 'Kelviane'],
+    //   instrumentistas: ['Andre']
+    // }
   ];
 
   // Busca o Tocador com base no tipo de louvor
   function buscaTocador(tocador, tipo) {
-    const louvorEncontrado = listaLouvores.filter((louvor) => louvor.tocadores?.includes(tocador) && louvor.tipo === tipo);
-    setLouvoresPorTocador(louvorEncontrado);
+    const louvores = listaLouvores.filter((louvor) => louvor.tocadores?.includes(tocador) && louvor.tipo === tipo);
+    setLouvoresPorTocador(louvores);
   }
 
   // Coloca as datas em ordem cronologica
@@ -280,9 +269,9 @@ export default function App() {
           </div>
         </div>
 
-        {ordenaEscala.map((scale, index) => (
-          <CalendarItem key={index} data={scale} />
-        ))}
+        {ordenaEscala.map((scale, index) => {
+          return <CalendarItem key={index} data={scale} />;
+        })}
 
         <p style={{ textAlign: 'center', marginTop: 50, fontWeight: 300 }}>Ministério de Louvor Adonai</p>
       </div>

@@ -2,6 +2,7 @@
 export function proximo(num) {
   let now = new Date();
   let nextDay = new Date(now.getTime());
+
   while (nextDay.getDay() !== num) {
     nextDay.setDate(nextDay.getDate() + 1);
   }
