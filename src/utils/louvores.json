@@ -3,8 +3,8 @@
   { "tipo": "preludio", "tom": "F#m", "louvor": "Em Espírito em verdade", "tocadores": ["Andre", "Thiago"] },
   { "tipo": "preludio", "tom": "C", "louvor": "Renova-me", "tocadores": ["Andre", "Warley", "Thiago"] },
   { "tipo": "preludio", "tom": "E", "louvor": "Jesus em Tua presença", "tocadores": ["Andre", "Thiago", "Warley"] },
-  { "tipo": "preludio", "tom": "D", "louvor": "Vem, esta é a hora", "tocadores": ["Andre", "Thiago"] },
   { "tipo": "preludio", "tom": "F", "louvor": "Não ha Deus maior", "tocadores": ["Andre"] },
+  { "tipo": "preludio", "tom": "D", "louvor": "Vem, esta é a hora (Nova)", "tocadores": ["Andre", "Thiago"] },
   { "tipo": "preludio", "tom": "", "louvor": "Vim para adorar-Te", "tocadores": ["Andre", "Warley", "Thiago"] },
   { "tipo": "preludio", "tom": "", "louvor": "Me derramar", "tocadores": ["Thiago"] },
   { "tipo": "preludio", "tom": "", "louvor": "Digno de Glória", "tocadores": ["Warley"] },
@@ -53,6 +53,7 @@
   { "tipo": "primeiromomento", "tom": "", "louvor": "Deus Proverá", "tocadores": ["Warley"] },
   { "tipo": "primeiromomento", "tom": "", "louvor": "Canção do Apocalipse", "tocadores": ["Warley", "Andre", "Thiago"] },
   { "tipo": "primeiromomento", "tom": "", "louvor": "Autoridade e Poder", "tocadores": ["Thiago", "Andre"] },
+  { "tipo": "primeiromomento", "tom": "", "louvor": "Tu és Santo", "tocadores": ["Andre"] },
 
   { "tipo": "comunhao", "tom": "", "louvor": "Galileu", "tocadores": ["Warley"] },
   { "tipo": "comunhao", "tom": "", "louvor": "Filho do Deus vivo", "tocadores": ["Warley", "Rhuan"] },

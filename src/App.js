@@ -71,7 +71,7 @@ export default function App() {
     return listatocador[posicao] || '[ Livre Escolha ]';
   };
 
-  const tocadorPSH = 'Andre';
+  const tocadorPSH = 'Thiago';
   const escalas = [
     {
       culto: 'Doutrina / Oração',
@@ -102,9 +102,14 @@ export default function App() {
     {
       culto: 'PSH',
       data: proximo(6),
-      louvores: ['LIVRE ESCOLHA'],
-      vocalistas: musicos.vocalistas.psh[1], // ALTERAR INDICE
-      instrumentistas: ['Andre', 'Annes'], // ALTERAR NOMES
+      louvores: [
+        buscaLouvores('preludio', tocadorPSH, contSemana),
+        buscaLouvores('primeiromomento', tocadorPSH, contSemana + 1),
+        buscaLouvores('comunhao', tocadorPSH, contSemana + 2),
+        buscaLouvores('comunhao', tocadorPSH, contSemana + 3)
+      ],
+      vocalistas: musicos.vocalistas.psh[0], // ALTERAR INDICE
+      instrumentistas: ['Thiago', 'Annes'], // ALTERAR NOMES
       status: moment(proximo(6)).startOf('isoWeek').format('ww') === contSemana
     }
     // ________________________________________
@@ -139,7 +144,7 @@ export default function App() {
   // Seleção de vozes femininas para louvor e pregação
   function VozesFemininas() {
     const voz1 = ['Lais', 'Paulinha', 'Kelviane', 'Fernanda', 'Lidiane'];
-    const voz2 = ['Lais', 'Kelviane', 'Lidiane'];
+    const voz2 = ['Lais', 'Lidiane', 'Kelviane'];
 
     let i1 = (contSemana - 1) % voz1.length;
     let i2 = (contSemana - 1) % voz2.length;
