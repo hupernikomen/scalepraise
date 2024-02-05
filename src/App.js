@@ -86,7 +86,7 @@ export default function App() {
     {
       culto: 'Doutrina / Oração',
       data: proximo(5),
-      louvores: [buscaLouvores('sexta', 'Warley', contSemana - 1), buscaLouvores('sexta', 'Warley', contSemana)],
+      louvores: [buscaLouvores('sexta', 'Warley', contSemana), buscaLouvores('sexta', 'Warley', contSemana + 1)],
       vocalistas: musicos.vocalistas.oracaoedoutrina,
       instrumentistas: musicos.instrumentistas.sexta,
       status: true
@@ -102,7 +102,7 @@ export default function App() {
     {
       culto: 'Louvor e Pregação',
       data: proximo(0),
-      louvores: [buscaLouvores('preludio', tocadorIbav, contSemana), buscaLouvores('primeiromomento', tocadorIbav, contSemana), buscaLouvores('comunhao', tocadorIbav, contSemana)],
+      louvores: [buscaLouvores('preludio', tocadorIbav, contSemana + 2), buscaLouvores('primeiromomento', tocadorIbav, contSemana + 3), buscaLouvores('comunhao', tocadorIbav, contSemana + 4)],
       hcc: hinos[parseInt(contSemana)],
       vocalistas: ['Edmilson', 'Edvan', ...VozesFemininas()],
       instrumentistas: ['Wesley', 'Annes', tocadorIbav],
@@ -119,16 +119,23 @@ export default function App() {
       ],
       vocalistas: musicos.vocalistas.psh[numeroDaSemana() - 1],
       instrumentistas: [musicos.instrumentistas.psh[numeroDaSemana() - 1], 'Annes'],
-      status: true
+      status: false
     },
     // ________________________________________
 
     {
       data: converteData('20/1/2024'),
       culto: 'Culto Todos os Santos',
-      louvores: [''],
-      vocalistas: ['Wilson', 'Laís', 'Paulinha'],
-      instrumentistas: ['Annes']
+      louvores: [buscaLouvores('preludio', 'Thiago', contSemana), buscaLouvores('primeiromomento', 'Thiago', contSemana + 1), buscaLouvores('comunhao', 'Thiago', contSemana + 3)],
+      vocalistas: ['Edmilson', 'Laís', 'Lidiane'],
+      instrumentistas: ['Annes', 'Thiago']
+    },
+    {
+      data: converteData('20/1/2024'),
+      culto: 'PSH',
+      louvores: [buscaLouvores('preludio', 'Andre', contSemana + 1), buscaLouvores('primeiromomento', 'Andre', contSemana + 1), buscaLouvores('comunhao', 'Andre', contSemana + 12)],
+      vocalistas: ['Fernanda', 'Kelviane'],
+      instrumentistas: ['Andre']
     }
   ];
 
