@@ -63,8 +63,6 @@ export default function App() {
     }
   };
 
-  // Revesamento do guitarrista com base no numero da semana
-  // Revesamento de guitarrista para o domingo a noite
   let tocadorIbav = null;
   if (numeroDaSemana() === numeroDeDomingosMes()) {
     tocadorIbav = 'Warley';
@@ -73,7 +71,6 @@ export default function App() {
   } else {
     tocadorIbav = 'Thiago';
   }
-  // const tocadorIbav = numeroDaSemana() - 1 === numeroDeDomingosMes() ? 'Warley' : numeroDaSemana() % 2 === 0 ? 'Andre' : 'Thiago';
 
   const buscaLouvores = (tipo, tocador, numDaSemanaNoAno) => {
     const listaTipo = listaLouvores.filter((item) => item.tipo === tipo);
@@ -85,42 +82,34 @@ export default function App() {
   };
 
   const escalas = [
-    // Doutrina / Oração
     {
-      status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
-      data: proximo(5),
       culto: 'Doutrina / Oração',
+      data: proximo(5),
       louvores: [buscaLouvores('sexta', 'Warley', numDaSemanaNoAno - 1), buscaLouvores('sexta', 'Warley', numDaSemanaNoAno)],
       vocalistas: musicos.vocalistas.oracaoedoutrina,
-      instrumentistas: musicos.instrumentistas.sexta
+      instrumentistas: musicos.instrumentistas.sexta,
+      status: true
     },
-
-    // EBD
     {
-      status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
       data: proximo(0),
       culto: numeroDeDomingosMes() === numeroDaSemana() ? 'EBD com Ceia' : 'EBD',
       louvores: [],
       vocalistas: musicos.vocalistas.ebd,
-      instrumentistas: musicos.instrumentistas.ebd
+      instrumentistas: musicos.instrumentistas.ebd,
+      status: true
     },
-
-    // Culto de Louvor e Pregação
     {
-      status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
-      data: proximo(0),
       culto: 'Louvor e Pregação',
+      data: proximo(0),
       louvores: [buscaLouvores('preludio', tocadorIbav, numDaSemanaNoAno), buscaLouvores('primeiromomento', tocadorIbav, numDaSemanaNoAno), buscaLouvores('comunhao', tocadorIbav, numDaSemanaNoAno)],
       hcc: hinos[parseInt(numDaSemanaNoAno)],
       vocalistas: ['Edmilson', 'Edvan', ...VozesFemininas()],
-      instrumentistas: ['Wesley', 'Annes', tocadorIbav]
+      instrumentistas: ['Wesley', 'Annes', tocadorIbav],
+      status: true
     },
-
-    // Culto PSH
     {
-      status: true, // Defina false para ocultar caso tenha outro culto substituindo esse
-      data: proximo(6),
       culto: 'PSH',
+      data: proximo(6),
       louvores: [
         buscaLouvores('preludio', musicos.instrumentistas.psh[0], numDaSemanaNoAno),
         buscaLouvores('primeiromomento', musicos.instrumentistas.psh[0], numDaSemanaNoAno + 1),
@@ -128,7 +117,8 @@ export default function App() {
         buscaLouvores('comunhao', musicos.instrumentistas.psh[0], numDaSemanaNoAno + 2)
       ],
       vocalistas: musicos.vocalistas.psh[numeroDaSemana() - 1],
-      instrumentistas: [musicos.instrumentistas.psh[numeroDaSemana() - 1], 'Annes']
+      instrumentistas: [musicos.instrumentistas.psh[numeroDaSemana() - 1], 'Annes'],
+      status: true
     },
     // ________________________________________
 
@@ -154,19 +144,23 @@ export default function App() {
 
   // Seleção de vozes femininas para louvor e pregação
   function VozesFemininas() {
-    const voz1 = ['Paulinha', 'Lais', 'Kelviane', 'Fernanda', 'Lidiane'];
+    const voz1 = ['Lais', 'Paulinha', 'Kelviane', 'Fernanda', 'Lidiane'];
     const voz2 = ['Lais', 'Kelviane', 'Lidiane'];
 
     let i1 = (numDaSemanaNoAno - 1) % voz1.length;
+    let i2 = (numDaSemanaNoAno - 1) % voz2.length;
 
-    let novalista2 = voz2.filter((voz) => voz1[i1] !== voz);
-    let i2 = (numDaSemanaNoAno - 1) % novalista2.length;
-
-    if (voz1[i1] !== 'Paulinha' && novalista2[i2] !== 'Paulinha') {
-      return [voz1[i1], novalista2[i2], 'Paulinha'];
-    } else {
-      return [voz1[i1], novalista2[i2]];
+    if (voz1[i1] === voz2[i2]) {
+      i1++;
     }
+
+    let vozList = [voz1[i1], voz2[i2]];
+
+    if (vozList.indexOf('Paulinha') === -1) {
+      vozList.push('Paulinha');
+    }
+
+    return vozList;
   }
 
   function SorteiaVersiculo() {
