@@ -42,7 +42,7 @@
   { "tipo": "primeiromomento", "tom": "", "louvor": "Te agradeço - Kleber Lucas", "tocadores": ["Thiago", "Rhuan", "Warley", "Andre"] },
   { "tipo": "primeiromomento", "tom": "", "louvor": "Jó", "tocadores": ["Andre", "Thiago"] },
   { "tipo": "primeiromomento", "tom": "", "louvor": "Meu Mestre", "tocadores": ["Andre", "Warley", "Thiago"] },
-  { "tipo": "primeiromomento", "tom": "", "louvor": "Venha o teu Reino", "tocadores": ["Andre", "Thiago", "Warley"] },
+  { "tipo": "primeiromomento", "tom": "", "louvor": "Venha o teu Reino", "tocadores": ["Andre", "Thiago", "Warley", "Rhuan"] },
   { "tipo": "primeiromomento", "tom": "", "louvor": "Precioso", "tocadores": ["Andre", "Thiago", "Warley"] },
   { "tipo": "primeiromomento", "tom": "", "louvor": "Todavia me alegrarei", "tocadores": ["Warley"] },
   { "tipo": "primeiromomento", "tom": "", "louvor": "Ele não desiste de você", "tocadores": ["Warley", "Thiago", "Andre"] },
@@ -55,7 +55,7 @@
   { "tipo": "primeiromomento", "tom": "", "louvor": "Autoridade e Poder", "tocadores": ["Thiago", "Andre"] },
   { "tipo": "primeiromomento", "tom": "", "louvor": "Tu és Santo", "tocadores": ["Andre"] },
 
-  { "tipo": "comunhao", "tom": "", "louvor": "Galileu", "tocadores": ["Warley"] },
+  { "tipo": "comunhao", "tom": "", "louvor": "Galileu", "tocadores": ["Warley", "Rhuan"] },
   { "tipo": "comunhao", "tom": "", "louvor": "Filho do Deus vivo", "tocadores": ["Warley", "Rhuan"] },
   { "tipo": "comunhao", "tom": "", "louvor": "Meu Alvo é Cristo", "tocadores": ["Andre"] },
   { "tipo": "comunhao", "tom": "", "louvor": "Celebrai com jubilo", "tocadores": ["Rhuan", "Andre", "Warley"] },
