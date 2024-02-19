@@ -42,10 +42,10 @@ export default function App() {
   const musicos = {
     instrumentistas: {
       sexta: ['Wesley', 'Andre'],
-      ebd: ['Annes']
+      ebd: ['Annes', 'Andre', 'Wesley']
     },
     vocalistas: {
-      oracaoedoutrina: ['Lidiane', 'Laís', 'Duda', 'Edvan'],
+      oracaoedoutrina: ['Lidiane', 'Duda', 'Edvan'],
       psh: [
         ['Edmilson', 'Fernanda'],
         ['Lidiane', 'Laís', 'Edvan'],
@@ -75,8 +75,7 @@ export default function App() {
     {
       culto: 'Doutrina / Oração',
       data: proximo(5),
-      // louvores: [buscaLouvores('sexta', 'Warley', contSemana), buscaLouvores('sexta', 'Warley', contSemana + 1)],
-      louvores: ['LIVRE ESCOLHA'],
+      louvores: [buscaLouvores('preludio', 'Andre', contSemana), buscaLouvores('comunhao', 'Andre', contSemana + 1)],
       vocalistas: musicos.vocalistas.oracaoedoutrina,
       instrumentistas: musicos.instrumentistas.sexta,
       status: moment(proximo(5)).startOf('isoWeek').format('ww') === contSemana
@@ -84,7 +83,7 @@ export default function App() {
     {
       data: proximo(0),
       culto: numeroDeDomingosMes() === numeroDaSemana() ? 'EBD com Ceia' : 'EBD',
-      louvores: [],
+      louvores: ['CC 132 - Rude Cruz', 'Corpo e Familia', 'Porque Ele Vive'],
       vocalistas: musicos.vocalistas.ebd,
       instrumentistas: musicos.instrumentistas.ebd,
       status: moment(proximo(0)).startOf('isoWeek').format('ww') === contSemana
@@ -108,18 +107,18 @@ export default function App() {
         buscaLouvores('comunhao', tocadorPSH, contSemana + 3)
       ],
       vocalistas: musicos.vocalistas.psh[0], // ALTERAR INDICE
-      instrumentistas: ['Thiago', 'Annes'], // ALTERAR NOMES
+      instrumentistas: [tocadorPSH, 'Annes'], // ALTERAR NOMES
       status: moment(proximo(6)).startOf('isoWeek').format('ww') === contSemana
-    }
+    },
     // ________________________________________
 
-    // {
-    //   data: converteData('20/1/2024'),
-    //   culto: 'Culto Todos os Santos',
-    //   louvores: [buscaLouvores('preludio', 'Thiago', contSemana), buscaLouvores('primeiromomento', 'Thiago', contSemana + 1), buscaLouvores('comunhao', 'Thiago', contSemana + 3)],
-    //   vocalistas: ['Edmilson', 'Laís', 'Lidiane'],
-    //   instrumentistas: ['Annes', 'Thiago']
-    // },
+    {
+      data: converteData('10/3/2024'),
+      culto: 'Culto das Mulheres - EBD',
+      louvores: ['Te agradeço - (Diante do Trono)', 'Poder Pra Salvar'],
+      vocalistas: ['Fernanda', 'Kelviane'],
+      instrumentistas: ['Annes', 'André', 'Wesley']
+    }
     // {
     //   data: converteData('20/1/2024'),
     //   culto: 'PSH',
