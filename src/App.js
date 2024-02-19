@@ -67,7 +67,7 @@ export default function App() {
     const listatocador = listaTipo.filter((item) => item.tocadores?.indexOf(tocador) > -1);
     const posicao = (numDaSemanaNoAno - 1) % listatocador.length;
 
-    return listatocador[posicao] || '[ Maranata ]';
+    return listatocador[posicao] || 'Maranata';
   };
 
   const tocadorPSH = 'Rhuan';
