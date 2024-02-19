@@ -42,7 +42,6 @@ export default function App() {
   const musicos = {
     instrumentistas: {
       sexta: ['Wesley', 'Andre'],
-      psh: ['Rhuan', 'Thiago', 'Andre', 'Thiago'],
       ebd: ['Annes']
     },
     vocalistas: {
