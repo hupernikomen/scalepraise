@@ -71,7 +71,7 @@ export default function App() {
     return listatocador[posicao] || '[ Livre Escolha ]';
   };
 
-  const tocadorPSH = 'Thiago';
+  const tocadorPSH = 'Rhuan';
   const escalas = [
     {
       culto: 'Doutrina / Oração',
