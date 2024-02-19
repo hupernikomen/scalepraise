@@ -53,7 +53,7 @@ export default function App() {
         ['Wilson', 'Paulinha'],
         ['Convite', 'Convite']
       ],
-      ebd: ['Wilson', 'Paulinha']
+      ebd: ['Fernanda', 'Paulinha']
     }
   };
   if (contSemana % 2) {
