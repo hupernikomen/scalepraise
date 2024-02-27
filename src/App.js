@@ -47,10 +47,10 @@ export default function App() {
     vocalistas: {
       oracaoedoutrina: ['Lidiane', 'Duda', 'Edvan'],
       psh: [
-        ['Edmilson', 'Fernanda'],
-        ['Lidiane', 'Laís', 'Edvan'],
         ['Kelviane', 'Fernanda'],
         ['Wilson', 'Paulinha'],
+        ['Lidiane', 'Laís', 'Edvan'],
+        ['Edmilson', 'Fernanda'],
         ['Convite', 'Convite']
       ],
       ebd: ['Fernanda', 'Paulinha']
@@ -70,7 +70,7 @@ export default function App() {
     return listatocador[posicao] || 'Maranata';
   };
 
-  const tocadorPSH = 'Rhuan';
+  const tocadorPSH = 'Andre';
   const escalas = [
     {
       culto: 'Doutrina / Oração',
